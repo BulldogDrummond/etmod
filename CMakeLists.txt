@@ -417,16 +417,8 @@ if(BUILD_MOD)
 endif(BUILD_MOD)
 
 #-----------------------------------------------------------------
-# Server/Common features
+# Common features
 #-----------------------------------------------------------------
-if(FEATURE_TRACKBASE)
-	add_definitions(-DFEATURE_TRACKBASE)
-endif(FEATURE_TRACKBASE)
-
-if(FEATURE_ANTICHEAT)
-	add_definitions(-DFEATURE_ANTICHEAT)
-endif(FEATURE_ANTICHEAT)
-
 if(FEATURE_MYSQL)
 	find_package(Mysql REQUIRED)
 	list(APPEND SERVER_LIBRARIES ${MYSQL_LIBRARY})
@@ -435,16 +427,6 @@ if(FEATURE_MYSQL)
 	add_definitions(-DFEATURE_MYSQL)
 	message("-- Added MySQL Includes and Client Lib to Server.")
 endif(FEATURE_MYSQL)
-
-if(FEATURE_CURSES)
-	find_package(Curses REQUIRED)
-	set(CURSES_NEED_NCURSES 1) # Tells FindCurses that ncurses is required
-	list(APPEND CLIENT_LIBRARIES ${CURSES_LIBRARIES})
-	list(APPEND SERVER_LIBRARIES ${CURSES_LIBRARIES})
-	list(APPEND CLIENT_INCLUDE_DIRS ${CURSES_INCLUDE_DIR})
-	list(APPEND COMMON_SRC "src/sys/con_curses.c")
-	add_definitions(-DFEATURE_CURSES)
-endif(FEATURE_CURSES)
 
 #-----------------------------------------------------------------
 # Build
