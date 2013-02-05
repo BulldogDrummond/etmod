@@ -12,4 +12,6 @@ rm -rf src/build src/qagame.mp.i386.so src/scons.signatures.dblite src/scons_uti
 
 cp -av resource-config/* etmod/
 
+cp -av resource-omnibot etmod/omnibot
+
 # EOF
