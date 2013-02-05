@@ -74,17 +74,15 @@ cgame_list = scons_utils.BuildList( 'cgame', cgame_string )
 
 local_env = g_env.Copy()
 
-local_env.Append( CPPDEFINES = ['CGAMEDLL', 'USE_MDXFILE', 'CURL_STATICLIB'] )
+local_env.Append( CPPDEFINES = ['CGAMEDLL', 'USE_MDXFILE'] )
 
 source_list = cgame_list
 
 local_env['LINK'] = local_env['CC']
 
-local_env.Append( CPPPATH = ['../../../curl-7.28.1/include', '../../../md5'] )
-local_env.Append( LIBPATH = ['%s/curl-7.28.1/lib/.libs' % GetLaunchDir()] )
-local_env.Append( LIBS = ['curl-%s' % BUILD] )
+local_env.Append( CPPPATH = ['../../../md5'] )
 
-local_env.Append( LIBS = ['rt'] )
+local_env.Append( LIBS = ['curl','rt'] )
 
 # GAMERANGER isn't exported in all usage paths
 try:
