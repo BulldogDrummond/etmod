@@ -3,10 +3,6 @@
 #include "../ui/menudef.h"
 #include "g_etbot_interface.h"
 
-#ifdef LUA_SUPPORT
-#include "g_lua.h"
-#endif // LUA_SUPPORT
-
 void BotDebug(int clientNum);
 void GetBotAutonomies(int clientNum, int *weapAutonomy, int *moveAutonomy);	
 qboolean G_IsOnFireteam(int entityNum, fireteamData_t** teamNum);
@@ -5663,18 +5659,6 @@ void ClientCommand( int clientNum ) {
 	}
 
 	trap_Argv( 0, cmd, sizeof( cmd ) );
-
-#ifdef LUA_SUPPORT
-	if( Q_stricmp( cmd, "lua_status" ) == 0 ) {
-		G_LuaStatus( ent );
-		return;
-	}
-
-	// Lua API callbacks
-	if( G_LuaHook_ClientCommand( clientNum, cmd ) ) {
-		return;
-	}
-#endif // LUA_SUPPORT
 
 	if (Q_stricmp (cmd, "say") == 0) {
 		// forty - in mod flood protection

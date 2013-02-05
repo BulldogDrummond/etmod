@@ -11,7 +11,7 @@ import scons_utils
 conf_filename='site.conf'
 # choose configuration variables which should be saved between runs
 # ( we handle all those as strings )
-serialized=[ 'CC', 'CXX', 'JOBS', 'BUILD', 'BUILD_ROOT', 'TARGET_CGAME', 'TARGET_GAME', 'TARGET_UI', 'GAMERANGER', 'WITH_LUA_SUPPORT', 'X64_OBJECTS' ]
+serialized=[ 'CC', 'CXX', 'JOBS', 'BUILD', 'BUILD_ROOT', 'TARGET_CGAME', 'TARGET_GAME', 'TARGET_UI', 'GAMERANGER', 'X64_OBJECTS' ]
 
 # help -------------------------------------------
 
@@ -55,9 +55,6 @@ TARGET_CGAME (default 1)
 
 TARGET_UI (default 1)
 	Build ui module
-
-WITH_LUA_SUPPORT (default 1)
-	Build with Lua API support
 
 X64_OBJECTS (default 0)
 	Build target(s) as x86_64 object(s)
@@ -134,7 +131,6 @@ TARGET_GAME = '1'
 TARGET_CGAME = '1'
 TARGET_UI = '1'
 GAMERANGER = '0'
-WITH_LUA_SUPPORT = '1'
 X64_OBJECTS = '0'
 BUILD_ROOT = 'build'
 NOCONF = '0'
@@ -311,7 +307,7 @@ if ( int(JOBS) > 1 ):
 local_curl = 0	# config selection
 curl_lib = []
 
-GLOBALS = 'g_env OS g_os win32_build BUILD curl_lib local_curl gcc3 gcc_major_ver cpu GAMERANGER WITH_LUA_SUPPORT'
+GLOBALS = 'g_env OS g_os win32_build BUILD curl_lib local_curl gcc3 gcc_major_ver cpu GAMERANGER'
 
 # end general configuration ----------------------
 

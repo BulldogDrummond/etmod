@@ -1531,7 +1531,6 @@ void CG_InitConsoleCommands( void ) {
 	trap_AddCommand("sclogout");
 	trap_AddCommand("shoutcastlogin");
 	trap_AddCommand("shoutcastlogout");
-	trap_AddCommand("lua_status");
 	trap_AddCommand("etmod_version");
 
 	// tjw: remove engine commands

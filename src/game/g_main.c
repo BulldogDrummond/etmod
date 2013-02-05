@@ -3,10 +3,6 @@
 #include "g_http_client.h"
 #include "../ui/menudef.h" // Dens: needed for the ref level
 
-#ifdef LUA_SUPPORT
-#include "g_lua.h"
-#endif  // LUA_SUPPORT
-
 // Include the "External"/"Public" components of AI_Team
 #include "../botai/ai_teamX.h"
 
@@ -564,12 +560,6 @@ vmCvar_t g_firstBloodMsg;
 vmCvar_t g_firstBloodMsgPos;
 vmCvar_t g_lastBloodMsg;
 vmCvar_t g_unlockWeapons;
-
-#ifdef LUA_SUPPORT
-// Lua API
-vmCvar_t lua_modules;
-vmCvar_t lua_allowedModules;
-#endif // LUA_SUPPORT
 
 // flms
 vmCvar_t g_flushItems;
@@ -1140,12 +1130,6 @@ cvarTable_t		gameCvarTable[] = {
 	{ &g_lastBloodMsg, "g_lastBloodMsg", "^8And the final kill of this round goes to [a]^8!", 0 },
 	{ &g_unlockWeapons, "g_unlockWeapons", "0", CVAR_LATCH },
 
-#ifdef LUA_SUPPORT
-	// Lua API
-	{ &lua_modules, "lua_modules", "", 0},
-	{ &lua_allowedModules, "lua_allowedModules", "", 0 },
-#endif // LUA_SUPPORT
-
 	//flms
 	{ &g_flushItems, "g_flushItems", "1", 0},
 	{ &g_mg42, "g_mg42", "0", 0},
@@ -1269,11 +1253,6 @@ void QDECL G_Printf( const char *fmt, ... ) {
 	va_start (argptr, fmt);
 	Q_vsnprintf (text, sizeof(text), fmt, argptr);
 	va_end (argptr);
-
-#ifdef LUA_SUPPORT
-	// Lua API callbacks
-	G_LuaHook_Print( text );
-#endif // LUA_SUPPORT
 
 	trap_Printf( text );
 }
@@ -2539,13 +2518,6 @@ void G_UpdateCvars( void )
 						G_RemoveAllShoutcasters();
 					}
 				}
-#ifdef LUA_SUPPORT
-				// quad - Lua API cvars
-				else if( cv->vmCvar == &lua_modules ||
-					cv->vmCvar == &lua_allowedModules ) {
-					G_LuaShutdown();
-				}
-#endif // LUA_SUPPORT
 				// OSP - Update vote info for clients, if necessary
 				else if(!G_IsSinglePlayerGame()) {
 
@@ -3177,11 +3149,6 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 		//FIXME - turn off pmove_fixed
 	}*/
 
-#ifdef LUA_SUPPORT
-	// quad - Lua API
-	G_LuaInit();
-	G_LuaHook_InitGame( levelTime, randomSeed, restart );
-#endif // LUA_SUPPORT
 }
 
 
@@ -3193,12 +3160,6 @@ G_ShutdownGame
 */
 void G_ShutdownGame( int restart )
 {
-#ifdef LUA_SUPPORT
-	// quad - Lua API
-	G_LuaHook_ShutdownGame( restart );
-	G_LuaShutdown();
-#endif // LUA_SUPPORT
-
 	// Arnout: gametype latching
 	if	(
 		( ( g_gametype.integer == GT_WOLF || g_gametype.integer == GT_WOLF_CAMPAIGN || g_gametype.integer == GT_WOLF_MAPVOTE)
@@ -5640,10 +5601,6 @@ uebrgpiebrpgibqeripgubeqrpigubqifejbgipegbrtibgurepqgbn%i", level.time )
 		level.gameManager->s.otherEntityNum2 = g_maxTeamLandmines.integer - G_CountTeamLandmines(TEAM_ALLIES);
 	}
 
-#ifdef LUA_SUPPORT
-	// quad - Lua API callback
-	G_LuaHook_RunFrame( levelTime );
-#endif // LUA_SUPPORT
 }
 
 // Is this a single player type game - sp or coop?

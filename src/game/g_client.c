@@ -2,10 +2,6 @@
 #include "../ui/menudef.h"
 #include "g_etbot_interface.h"
 
-#ifdef LUA_SUPPORT
-#include "g_lua.h"
-#endif // LUA_SUPPORT
-
 // g_client.c -- client functions that don't happen every frame
 
 extern vmCvar_t g_panzerwar, g_sniperwar, g_riflewar;
@@ -1861,9 +1857,8 @@ char *CheckUserinfo( int clientNum )
 		return "Userinfo too short";
 	}
 
-	// Dens: 44 is a bit random now: MAX_INFO_STRING - 44 = 980. The LUA script
-	// uses 980, but I don't know if there is a specific reason for that
-	// number. Userinfo should never get this big anyway, unless someone is
+	// Dens: 44 is a bit random now: MAX_INFO_STRING - 44 = 980.
+	// Userinfo should never get this big anyway, unless someone is
 	// trying to force the engine to truncate it, so that the real IP is lost
 	if(length > MAX_INFO_STRING - 44){
 		return "Userinfo too long";
@@ -2307,13 +2302,6 @@ void ClientUserinfoChanged( int clientNum ) {
 		return;
 	}
 
-#ifdef LUA_SUPPORT
-	// Lua API callbacks
-	// This only gets called when the ClientUserinfo is changed, replicating
-	// ETPro's behaviour.
-	G_LuaHook_ClientUserinfoChanged( clientNum );
-#endif // LUA_SUPPORT
-
 	if (g_logOptions.integer & LOGOPTS_GUID) // Log the GUIDs?
 	{
 		G_LogPrintf( "ClientUserinfoChangedGUID: %i %s %s\n",
@@ -2682,15 +2670,6 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 		// unlink the entity - just in case they were already connected
 		trap_UnlinkEntity( ent );
 	}
-
-#ifdef LUA_SUPPORT
-	// Lua API callbacks
-	// pheno: moved down to make gclient entity fields available
-	if( G_LuaHook_ClientConnect( clientNum, firstTime, isBot, reason ) ) {
-		if ( !isBot && !(ent->r.svFlags & SVF_BOT) )
-			return va( "%s\n", reason );
-	}
-#endif // LUA_SUPPORT
 
 	// get and distribute relevent paramters
 	G_LogPrintf( "ClientConnect: %i\n", clientNum );
@@ -3065,14 +3044,6 @@ void ClientBegin( int clientNum )
 		trap_DropClient( clientNum, dropReason, 0 );
 	}
 
-#ifdef LUA_SUPPORT
-	// Lua API callbacks
-	// pheno: call the hook only once at the first ClientBegin() call
-	//        for the client (ETPro behavior)
-	if( callLuaHook && dropReason == NULL ) {
-		G_LuaHook_ClientBegin( clientNum );
-	}
-#endif // LUA_SUPPORT
 }
 
 gentity_t *SelectSpawnPointFromList( char *list, vec3_t spawn_origin, vec3_t spawn_angles )
@@ -3555,12 +3526,6 @@ void ClientSpawn(
 			G_UseTargets( spawnPoint, ent );
 	}
 
-#ifdef LUA_SUPPORT
-	// Lua API callbacks
-	G_LuaHook_ClientSpawn( ent - g_entities, revived,
-		teamChange, restoreHealth );
-#endif // LUA_SUPPORT
-
 	// run a client frame to drop exactly to the floor,
 	// initialize animations and other things
 	client->ps.commandTime = level.time - 100;
@@ -3622,11 +3587,6 @@ void ClientDisconnect( int clientNum ) {
 	if ( !ent->client ) {
 		return;
 	}
-
-#ifdef LUA_SUPPORT
-	// Lua API callbacks
-	G_LuaHook_ClientDisconnect( clientNum );
-#endif // LUA_SUPPORT
 
 	//////////////////////////////////////////////////////////////////////////
 	Bot_Event_ClientDisConnected(clientNum);

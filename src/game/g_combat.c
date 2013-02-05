@@ -10,10 +10,6 @@
 #include "etpro_mdx.h"
 #include "g_etbot_interface.h"
 
-#ifdef LUA_SUPPORT
-#include "g_lua.h"
-#endif // LUA_SUPPORT
-
 static void G_Obituary(int mod, int target, int attacker);
 
 extern vec3_t muzzleTrace;
@@ -397,10 +393,6 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	qboolean	killedintank = qfalse;
 	//float			timeLived;
 	weapon_t	weap;
-#ifdef LUA_SUPPORT
-	// pheno: G_LuaHook_Obituary()'s custom obituary
-	char		customObit[MAX_STRING_CHARS] = "";
-#endif // LUA_SUPPORT
 
 	// tjw: for g_shortcuts
 	if(attacker && attacker->client) {
@@ -625,21 +617,6 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		G_ReportGib( self, attacker );
 	}
 
-#ifdef LUA_SUPPORT
-	// pheno: Lua API callbacks
-	if( G_LuaHook_Obituary( self->s.number, killer, meansOfDeath, customObit ) &&
-		 g_obituary.integer ) {
-		if( self->s.number < 0 || self->s.number >= MAX_CLIENTS ) {
-			G_Error( "G_LuaHook_Obituary: target out of range" );
-		}
-		// broadcast the custom obituary to everyone
-		if( g_logOptions.integer & LOGOPTS_OBIT_CHAT ) {
-			AP( va( "chat \"%s\" -1", customObit ) );
-		} else {
-			trap_SendServerCommand( -1, va( "cpm \"%s\n\"", customObit ) );
-		}
-	} else
-#endif  // LUA_SUPPORT
 	// broadcast the death event to everyone
 	if (g_obituary.integer == OBIT_SERVER_ONLY ||
 		(g_obituary.integer == OBIT_CLIENT_PREF &&

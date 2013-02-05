@@ -2342,12 +2342,6 @@ extern vmCvar_t g_firstBloodMsgPos;
 extern vmCvar_t g_lastBloodMsg;
 extern vmCvar_t g_unlockWeapons;
 
-#ifdef LUA_SUPPORT
-// Lua API
-extern vmCvar_t lua_modules;
-extern vmCvar_t lua_allowedModules;
-#endif // LUA_SUPPORT
-
 // flms
 extern vmCvar_t g_flushItems;
 extern vmCvar_t g_mg42;
