@@ -54,6 +54,7 @@ cg_uid.c
 cg_view.c
 cg_weapons.c
 cg_window.c
+md5.c
 ../game/bg_animation.c
 ../game/bg_animgroup.c
 ../game/bg_character.c
@@ -66,7 +67,6 @@ cg_window.c
 ../game/bg_tracemap.c
 ../game/q_math.c
 ../game/q_shared.c
-md5.c
 ../ui/ui_shared.c
 """
 

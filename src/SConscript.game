@@ -81,14 +81,14 @@ local_env.Append( CPPDEFINES = ['GAMEDLL'] )
 local_env.Append( CPPDEFINES = ['USE_MDXFILE'] )
 local_env.Append( CPPDEFINES = ['NO_BOT_SUPPORT'] )
 
-local_env.Append( CPPPATH = ['../../../../Omnibot/Common', '../../../../Omnibot/ET', '../../../sha-1'] )
+local_env.Append( CPPPATH = ['../../../../Omnibot/Common', '../../../../Omnibot/ET'] )
 
 # Omnibot
 local_env.Append( CXXFLAGS = ['-fpermissive'] )
 
 # Jaybird - these lines are used to statically link c++'s dependencies
 # redeye - but only if we are not using gcc4
-if( g_os == 'Linux' and gcc_major_ver != '4' ):
+if( gcc_major_ver != '4' ):
 	local_env.Append( LINKFLAGS = ['misc/libstdc++.a', '-static-libgcc', '-L./misc/'] )
 
 local_env['LINK'] = local_env['CXX']
