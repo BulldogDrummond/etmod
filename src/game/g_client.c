@@ -1,5 +1,5 @@
 #include "g_local.h"
-#include "../ui/menudef.h"
+#include "menudef.h"
 #include "g_etbot_interface.h"
 
 // g_client.c -- client functions that don't happen every frame

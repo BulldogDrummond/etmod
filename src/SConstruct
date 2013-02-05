@@ -11,7 +11,7 @@ import scons_utils
 conf_filename='site.conf'
 # choose configuration variables which should be saved between runs
 # ( we handle all those as strings )
-serialized=[ 'CC', 'CXX', 'JOBS', 'BUILD', 'BUILD_ROOT', 'TARGET_CGAME', 'TARGET_GAME', 'TARGET_UI', 'GAMERANGER', 'X64_OBJECTS' ]
+serialized=[ 'CC', 'CXX', 'JOBS', 'BUILD', 'BUILD_ROOT', 'GAMERANGER', 'X64_OBJECTS' ]
 
 # help -------------------------------------------
 
@@ -46,15 +46,6 @@ DEDICATED (default 1)
 	0 - client
 	1 - dedicated server
 	2 - both
-
-TARGET_GAME (default 1)
-	Build game module
-
-TARGET_CGAME (default 0)
-	Build cgame module
-
-TARGET_UI (default 0)
-	Build ui module
 
 X64_OBJECTS (default 0)
 	Build target(s) as x86_64 object(s)
@@ -111,11 +102,8 @@ print 'cpu: ' + cpu
 CC = 'gcc'
 CXX = 'g++'
 JOBS = '1'
-BUILD = 'debug'
+BUILD = 'release'
 DEDICATED = '1'
-TARGET_GAME = '1'
-TARGET_CGAME = '0'
-TARGET_UI = '0'
 GAMERANGER = '0'
 X64_OBJECTS = '0'
 BUILD_ROOT = 'build'
@@ -192,10 +180,7 @@ SConsignFile( 'scons.signatures' )
 
 SetOption('num_jobs', JOBS)
 
-if ( OS == 'Linux' ):
-	LINK = CC
-else:
-	LINK = CXX
+LINK = CC
 
 # common flags
 # BASE + GAME + OPT for game
@@ -270,23 +255,10 @@ GLOBALS = 'g_env OS g_os BUILD gcc3 gcc_major_ver cpu GAMERANGER'
 
 toplevel_targets = []
 
-if ( TARGET_GAME == '1' ):
-	Export( 'GLOBALS ' + GLOBALS )
-	BuildDir( g_build + '/game', '.', duplicate = 0 )
-	game = SConscript( g_build + '/game/SConscript.game' )
-	toplevel_targets.append( InstallAs( '#qagame.mp.%s.so' % dll_cpu, game ) )
-
-if ( TARGET_CGAME == '1' ):
-	Export( 'GLOBALS ' + GLOBALS )
-	BuildDir( g_build + '/cgame', '.', duplicate = 0 )
-	cgame = SConscript( g_build + '/cgame/SConscript.cgame' )
-	toplevel_targets.append( InstallAs( '#cgame.mp.%s.so' % dll_cpu, cgame ) )
-
-if ( TARGET_UI == '1' ):
-	Export( 'GLOBALS ' + GLOBALS )
-	BuildDir( g_build + '/ui', '.', duplicate = 0 )
-	ui = SConscript( g_build + '/ui/SConscript.ui' )
-	toplevel_targets.append( InstallAs( '#ui.mp.%s.so' % dll_cpu, ui ) )
+Export( 'GLOBALS ' + GLOBALS )
+BuildDir( g_build + '/game', '.', duplicate = 0 )
+game = SConscript( g_build + '/game/SConscript.game' )
+toplevel_targets.append( InstallAs( '#qagame.mp.%s.so' % dll_cpu, game ) )
 
 class CopyBins(scons_utils.idSetupBase):
 	def copy_bins( self, target, source, env ):
@@ -303,17 +275,5 @@ copybins_target = []
 if ( COPYBINS != '0' ):
 	copy = CopyBins()
 	copybins_target.append( Command( 'copybins', toplevel_targets, Action( copy.copy_bins ) ) )
-
-class MpBin(scons_utils.idSetupBase):
-	def mp_bin( self, target, source, env ):
-		temp_dir = tempfile.mkdtemp( prefix = 'mp_bin' )
-		self.SimpleCommand( 'cp ../bin/ui* ' + temp_dir )
-		self.SimpleCommand( 'cp ../bin/cgame* ' + temp_dir )
-		mp_bin_path = os.path.abspath( os.path.join ( os.getcwd(), '../etmain/mp_bin.pk3' ) )
-		self.SimpleCommand( 'cd %s ; zip -r -D %s *' % ( temp_dir, mp_bin_path ) )
-
-if ( BUILDMPBIN != '0' ):
-	mp_bin = MpBin()
-	mpbin_target = Command( 'mp_bin', toplevel_targets + copybins_target, Action( mp_bin.mp_bin ) )
 
 # end targets ------------------------------------

@@ -2,7 +2,7 @@
 // -------------------------
 //
 #include "g_local.h"
-#include "../ui/menudef.h"
+#include "menudef.h"
 
 // josh: prints out top match and overall killers at end of game
 void G_TopKillersMessage(gentity_t *ent) {

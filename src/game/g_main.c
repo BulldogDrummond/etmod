@@ -1,7 +1,7 @@
 #include "g_local.h"
 #include "etpro_mdx.h"
 #include "g_http_client.h"
-#include "../ui/menudef.h" // Dens: needed for the ref level
+#include "menudef.h" // Dens: needed for the ref level
 
 // Include the "External"/"Public" components of AI_Team
 #include "../botai/ai_teamX.h"

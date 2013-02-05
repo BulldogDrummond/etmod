@@ -1,6 +1,6 @@
 #include "g_local.h"
 #include "g_http_client.h"
-#include "../ui/menudef.h"
+#include "menudef.h"
 #include "g_etbot_interface.h"
 
 void BotDebug(int clientNum);

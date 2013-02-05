@@ -15,7 +15,7 @@
 
 #include "g_local.h"
 #include "g_etbot_interface.h"
-#include "../ui/menudef.h"
+#include "menudef.h"
 
 extern char bigTextBuffer[100000];
 

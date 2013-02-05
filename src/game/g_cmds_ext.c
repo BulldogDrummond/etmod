@@ -2,7 +2,7 @@
 // -------------------------------------------
 //
 #include "g_local.h"
-#include "../ui/menudef.h"
+#include "menudef.h"
 
 int iWeap = WS_MAX;
 

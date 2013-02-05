@@ -8,7 +8,7 @@
 
 #include "q_shared.h"
 #include "bg_public.h"
-#include "../ui/menudef.h"
+#include "menudef.h"
 
 
 #ifdef CGAMEDLL
