@@ -179,20 +179,9 @@ def gcc_major():
 gcc_major_ver = gcc_major()
 gcc3 = (gcc_major_ver != '2')
 
-def gcc_is_mingw():
-	mingw = os.popen( CC + ' -dumpmachine' ).read()
-	return re.search('mingw', mingw) != None
-
-if gcc_is_mingw():
-	g_os = 'win32'
-elif cpu == 'ppc':
-	g_os = 'Darwin'
-else:
-	g_os = 'Linux'
+g_os = 'Linux'
 
 print 'os: %s' % g_os
-
-win32_build = ( g_os == 'win32' )
 
 # end arch detection -----------------------------
 
@@ -212,10 +201,7 @@ if ( not ARGUMENTS.has_key( 'NOCONF' ) or ARGUMENTS['NOCONF'] != '1' ):
 
 # general configuration, target selection --------
 
-if( win32_build ):
-	g_build = BUILD_ROOT + '-mingw/' + BUILD
-else:
-	g_build = BUILD_ROOT + '/' + BUILD
+g_build = BUILD_ROOT + '/' + BUILD
 
 SConsignFile( 'scons.signatures' )
 
@@ -307,24 +293,9 @@ if ( int(JOBS) > 1 ):
 local_curl = 0	# config selection
 curl_lib = []
 
-GLOBALS = 'g_env OS g_os win32_build BUILD curl_lib local_curl gcc3 gcc_major_ver cpu GAMERANGER'
+GLOBALS = 'g_env OS g_os BUILD curl_lib local_curl gcc3 gcc_major_ver cpu GAMERANGER'
 
 # end general configuration ----------------------
-
-# win32 cross compilation ----------------------
-
-if g_os == 'win32' and os.name != 'nt':
-	# mingw doesn't define the cpu type, but our only target is x86
-	g_env.Append( CPPDEFINES = '_M_IX86=400' )
-	g_env.Append( LINKFLAGS = '-static-libgcc' )
-	# scons doesn't support cross-compiling, so set these up manually
-	g_env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']	= 1
-	g_env['WIN32DEFSUFFIX'] = '.def'
-	g_env['PROGSUFFIX'] = '.exe'
-	g_env['SHLIBSUFFIX'] = '.dll'
-	g_env['SHCCFLAGS'] = '$CCFLAGS'
-
-# end win32 cross compilation ------------------
 
 # targets ----------------------------------------
 
@@ -344,28 +315,19 @@ if ( TARGET_GAME == '1' ):
 	Export( 'GLOBALS ' + GLOBALS )
 	BuildDir( g_build + '/game', '.', duplicate = 0 )
 	game = SConscript( g_build + '/game/SConscript.game' )
-	if( win32_build == 1 ):
-		toplevel_targets.append( InstallAs( '#qagame_mp_x86.dll', game ) )
-	else:
-		toplevel_targets.append( InstallAs( '#qagame.mp.%s.so' % dll_cpu, game ) )
+	toplevel_targets.append( InstallAs( '#qagame.mp.%s.so' % dll_cpu, game ) )
 
 if ( TARGET_CGAME == '1' ):
 	Export( 'GLOBALS ' + GLOBALS )
 	BuildDir( g_build + '/cgame', '.', duplicate = 0 )
 	cgame = SConscript( g_build + '/cgame/SConscript.cgame' )
-	if( win32_build == 1 ):
-		toplevel_targets.append( InstallAs( '#cgame_mp_x86.dll', cgame ) )
-	else:
-		toplevel_targets.append( InstallAs( '#cgame.mp.%s.so' % dll_cpu, cgame ) )
+	toplevel_targets.append( InstallAs( '#cgame.mp.%s.so' % dll_cpu, cgame ) )
 
 if ( TARGET_UI == '1' ):
 	Export( 'GLOBALS ' + GLOBALS )
 	BuildDir( g_build + '/ui', '.', duplicate = 0 )
 	ui = SConscript( g_build + '/ui/SConscript.ui' )
-	if( win32_build == 1 ):
-		toplevel_targets.append( InstallAs( '#ui_mp_x86.dll', ui ) )
-	else:
-		toplevel_targets.append( InstallAs( '#ui.mp.%s.so' % dll_cpu, ui ) )
+	toplevel_targets.append( InstallAs( '#ui.mp.%s.so' % dll_cpu, ui ) )
 
 class CopyBins(scons_utils.idSetupBase):
 	def copy_bins( self, target, source, env ):

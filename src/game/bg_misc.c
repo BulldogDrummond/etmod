@@ -5325,10 +5325,6 @@ C99 standard: vsnprintf returns the number of characters (excluding the trailing
 '\0') which would have been written to the final string if enough space had been available
 snprintf and vsnprintf do not write more than size bytes (including the trailing '\0')
 
-win32: _vsnprintf returns the number of characters written, not including the terminating null character,
-or a negative value if an output error occurs. If the number of characters to write exceeds count,
-then count characters are written and -1 is returned and no trailing '\0' is added.
-
 Q_vsnPrintf: always append a trailing '\0', returns number of characters written or
 returns -1 on failure or if the buffer would be overflowed.
 

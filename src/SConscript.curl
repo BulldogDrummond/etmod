@@ -17,9 +17,6 @@ class idBuildCurl( scons_utils.idSetupBase ):
 		
 		cmd = 'cd ' + self.curl_dir + ' ; ./configure'
 		
-		if( g_os == 'win32' ):
-			cmd += ' --host=i586-mingw32msvc'
-		
 		cmd += ' --enable-shared=no --enable-static=yes --enable-libgcc --enable-http --disable-manual --disable-ipv6 --disable-ares --without-ssl --without-zlib --without-libidn'
 		
 		# disable unneeded protocols

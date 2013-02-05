@@ -84,10 +84,7 @@ local_env.Append( CPPPATH = ['../../../curl-7.28.1/include', '../../../md5'] )
 local_env.Append( LIBPATH = ['%s/curl-7.28.1/lib/.libs' % GetLaunchDir()] )
 local_env.Append( LIBS = ['curl-%s' % BUILD] )
 
-if g_os == 'win32' and os.name != 'nt':
-	local_env.Append( LIBS = ['iphlpapi', 'ws2_32'] )
-elif g_os == 'Linux':
-	local_env.Append( LIBS = ['rt'] )
+local_env.Append( LIBS = ['rt'] )
 
 # GAMERANGER isn't exported in all usage paths
 try:
