@@ -2063,7 +2063,7 @@ void ClientUserinfoChanged( int clientNum ) {
 	char	skillStr[16] = "";
 	char	medalStr[16] = "";
 	int		characterIndex;
-	int		etpubc;
+	int		etmodc;
 	char	*reason, guid[PB_GUID_LENGTH + 1], ip[22], mac[18], name[MAX_NETNAME];
 
 	ent = g_entities + clientNum;
@@ -2130,11 +2130,11 @@ void ClientUserinfoChanged( int clientNum ) {
 	}
 
 	// tjw: better client version detection
-	etpubc = atoi(Info_ValueForKey(userinfo, "cg_etpubc"));
-	if(etpubc > 0 && etpubc != ent->client->pers.etpubc) {
-		ent->client->pers.etpubc = etpubc;
-		CP(va("print \"^3server: detected etpub client %i\n\"",
-			ent->client->pers.etpubc));
+	etmodc = atoi(Info_ValueForKey(userinfo, "cg_etmodc"));
+	if(etmodc > 0 && etmodc != ent->client->pers.etmodc) {
+		ent->client->pers.etmodc = etmodc;
+		CP(va("print \"^3server: detected etmod client %i\n\"",
+			ent->client->pers.etmodc));
 	}
 
 	// OSP - extra client info settings
@@ -2408,7 +2408,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 			}
 		}
 		if (conn_per_ip > g_maxConnsPerIP.integer) {
-			G_LogPrintf("ETPub: Possible DoS attack, rejecting client from %s "
+			G_LogPrintf("ETMod: Possible DoS attack, rejecting client from %s "
 						"(%d connections already)\n", ip, g_maxConnsPerIP.integer);
 			return "Too many connections from your IP.";
 		}
@@ -2855,11 +2855,11 @@ void ClientBegin( int clientNum )
 
 			// if defined, drop clients with client version mismatch
 			if(strcmp(g_clientVersion.string, "")) {
-			char etpubc[10];
-			Q_strncpyz(etpubc, Info_ValueForKey(userinfo, "cg_etpubc"), sizeof(etpubc));
-				if(strcmp(g_clientVersion.string, etpubc)) {
-					G_LogPrintf("Client version mismatch: found: %s, required: %s\n", etpubc, g_clientVersion.string);
-					dropReason = va("Client version mismatch:\nFound: %s\nRequired: %s", etpubc, g_clientVersion.string);
+			char etmodc[10];
+			Q_strncpyz(etmodc, Info_ValueForKey(userinfo, "cg_etmodc"), sizeof(etmodc));
+				if(strcmp(g_clientVersion.string, etmodc)) {
+					G_LogPrintf("Client version mismatch: found: %s, required: %s\n", etmodc, g_clientVersion.string);
+					dropReason = va("Client version mismatch:\nFound: %s\nRequired: %s", etmodc, g_clientVersion.string);
 				}
 			}
 		}
@@ -2897,8 +2897,8 @@ void ClientBegin( int clientNum )
 	// tjw: if playerState is cleared this should be too right?
 	memset( &client->pmext, 0, sizeof( client->pmext ) );
 
-	// tjw: need to keep pmext.etpubc in sync with pers
-	client->pmext.etpubc = client->pers.etpubc;
+	// tjw: need to keep pmext.etmodc in sync with pers
+	client->pmext.etmodc = client->pers.etmodc;
 
 	// tjw: reset all the markers used by g_shortcuts
 	client->pers.lastkilled_client = -1;

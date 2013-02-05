@@ -34,36 +34,6 @@
 #define NEW_ANIMS
 #define	MAX_TEAMNAME	32
 
-#if defined _WIN32 && !defined __GNUC__
-
-#pragma warning(disable : 4018)     // signed/unsigned mismatch
-#pragma warning(disable : 4032)
-#pragma warning(disable : 4051)
-#pragma warning(disable : 4057)		// slightly different base types
-#pragma warning(disable : 4100)		// unreferenced formal parameter
-#pragma warning(disable : 4115)
-#pragma warning(disable : 4125)		// decimal digit terminates octal escape sequence
-#pragma warning(disable : 4127)		// conditional expression is constant
-#pragma warning(disable : 4136)
-#pragma warning(disable	: 4152)		// nonstandard extension, function/data pointer conversion in expression
-#pragma warning(disable : 4201)
-#pragma warning(disable : 4214)
-#pragma warning(disable : 4244)
-#pragma warning(disable : 4706)		// "=" in conditions
-//#pragma warning(disable	: 4142)		// benign redefinition
-#pragma warning(disable : 4305)		// truncation from const double to float
-//#pragma warning(disable : 4310)		// cast truncates constant value
-//#pragma warning(disable :	4505)		// unreferenced local function has been removed
-#pragma warning(disable : 4514)
-#pragma warning(disable : 4702)		// unreachable code
-#pragma warning(disable : 4711)		// selected for automatic inline expansion
-#pragma warning(disable : 4220)		// varargs matches remaining parameters
-#endif
-
-#if defined(ppc) || defined(__ppc) || defined(__ppc__) || defined(__POWERPC__)
-#define idppc 1 
-#endif 
-
 /**********************************************************************
   VM Considerations
 
@@ -120,105 +90,10 @@
 #define _attribute(x)  
 #endif
 
-//======================= WIN32 DEFINES =================================
-
-#ifdef WIN32
-
-#define	MAC_STATIC
-
-#undef QDECL
-#define	QDECL	__cdecl
-
-// buildstring will be incorporated into the version string
-#ifdef NDEBUG
-#ifdef _M_IX86
-#define	CPUSTRING	"win-x86"
-#elif defined _M_ALPHA
-#define	CPUSTRING	"win-AXP"
-#endif
-#else
-#ifdef _M_IX86
-#define	CPUSTRING	"win-x86-debug"
-#elif defined _M_ALPHA
-#define	CPUSTRING	"win-AXP-debug"
-#endif
-#endif
-
-
-#define	PATH_SEP '\\'
-
-#endif
-
-//======================= MAC OS X SERVER DEFINES =====================
-
-#if defined(MACOS_X)
-
-#error WTF
-
-#define MAC_STATIC
-
-#define CPUSTRING	"MacOS_X"
-
-#define	PATH_SEP	'/'
-
-// Vanilla PPC code, but since PPC has a reciprocal square root estimate instruction, 
-// runs *much* faster than calling sqrt(). We'll use two Newton-Raphson 
-// refinement steps to get bunch more precision in the 1/sqrt() value for very little cost. 
-// We'll then multiply 1/sqrt times the original value to get the sqrt. 
-// This is about 12.4 times faster than sqrt() and according to my testing (not exhaustive) 
-// it returns fairly accurate results (error below 1.0e-5 up to 100000.0 in 0.1 increments). 
-
-static inline float idSqrt(float x) {
-    const float half = 0.5;
-    const float one = 1.0;
-    float B, y0, y1;
-
-    // This'll NaN if it hits frsqrte. Handle both +0.0 and -0.0
-    if (Q_fabs(x) == 0.0)
-        return x;
-    B = x;
-    
-#ifdef __GNUC__
-    asm("frsqrte %0,%1" : "=f" (y0) : "f" (B));
-#else
-    y0 = __frsqrte(B);
-#endif
-    /* First refinement step */
-    
-    y1 = y0 + half*y0*(one - B*y0*y0);
-    
-    /* Second refinement step -- copy the output of the last step to the input of this step */
-    
-    y0 = y1;
-    y1 = y0 + half*y0*(one - B*y0*y0);
-    
-    /* Get sqrt(x) from x * 1/sqrt(x) */
-    return x * y1;
-}
-#define sqrt idSqrt
-
-
-#endif
-
-//======================= MAC DEFINES =================================
-
-#ifdef __MACOS__
-
-#define	MAC_STATIC
-
-#define	CPUSTRING	"OSX-universal"
-
-#define	PATH_SEP '/'
-
-void Sys_PumpEvents( void );
-
-#endif
-
 //======================= LINUX DEFINES =================================
 
 // the mac compiler can't handle >32k of locals, so we
 // just waste space and make big arrays static...
-#ifdef __linux__
 
 #define	MAC_STATIC
 
@@ -231,8 +106,6 @@ void Sys_PumpEvents( void );
 #endif
 
 #define	PATH_SEP '/'
-
-#endif
 
 //=============================================================
 

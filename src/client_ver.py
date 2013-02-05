@@ -1,7 +1,7 @@
 #!/usr/bin/python
-f = open('./cgame/etpubc.h')
+f = open('./cgame/etmodc.h')
 for l in f:
-	if 'ETPUBC_VERSION' in l:
+	if 'ETMODC_VERSION' in l:
 		v = l.split('\"')[1]
 		print v
 		break

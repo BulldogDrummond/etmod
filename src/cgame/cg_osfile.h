@@ -23,44 +23,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#if defined WIN32
-	
-	#define Rectangle LCC_Rectangle
-	#include <windows.h>
-	#undef Rectangle
-	#include <io.h>
-	#define open _open
-	#define close _close
-	#define read _read
-	#define write _write
-	#define stat _stat
-	#ifndef S_IRUSR
-		#define S_IRUSR _S_IREAD
-	#endif
-	#ifndef S_IWUSR
-		#define S_IWUSR _S_IWRITE
-	#endif
-	#define S_IFDIR _S_IFDIR
-	#define MAX_PATH 260
-	
-#else
-	
-	#include <unistd.h>
-	#include <dirent.h>
-	#include <stdio.h>
-	
-	#if defined __linux__
-		
-		#define MAX_PATH 4096
-		
-	#elif defined __MACOS__
-		
-		#define MAX_PATH 1024
-		
-	#endif // __linux__
-	
-#endif // WIN32
+#include <unistd.h>
+#include <dirent.h>
+#include <stdio.h>
 
+#define MAX_PATH 4096
+		
 // Fn_IterateDirectory: function pointer used in the G_IterateDirectory function.
 // 	- Return qfalse to terminate processing
 typedef qboolean(*Fn_IterateDirectory) (char const* filename, char const* fullpath, qboolean directory);

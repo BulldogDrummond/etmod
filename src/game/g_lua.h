@@ -29,13 +29,8 @@
 #define FIELD_FLAG_READONLY	8 // read-only access
 
 // define HOSTARCH and EXTENSION depending on host architecture
-#ifdef __linux__
 #define HOSTARCH	"UNIX"
 #define EXTENSION	"so"
-#elif defined WIN32
-#define HOSTARCH	"WIN32"
-#define EXTENSION	"dll"
-#endif
 
 // macros to register predefined constants
 #define lua_registerglobal(L, n, v) (lua_pushstring(L, v), lua_setglobal(L, n))

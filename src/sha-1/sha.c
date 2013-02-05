@@ -19,9 +19,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#ifdef WIN32
-#include <io.h>
-#endif
 #include <fcntl.h>
 #include "sha1.h"
 
@@ -88,9 +85,6 @@ int main(int argc, char *argv[])
 
         if (argc == 1 || !strcmp(argv[i],"-"))
         {
-#ifdef WIN32
-            setmode(fileno(stdin), _O_BINARY);
-#endif
             fp = stdin;
             reading_stdin = 1;
         }

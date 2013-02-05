@@ -748,7 +748,7 @@ static const gentity_field_t gclient_fields[] = {
 	_et_gclient_addfield(		sess.dstreak,												FIELD_INT,			FIELD_FLAG_READONLY						),
 	_et_gclient_addfield(		sess.rstreak,												FIELD_INT,			FIELD_FLAG_READONLY						),
 	_et_gclient_addfield(		sess.shoutcaster,											FIELD_INT,			0										),
-	_et_gclient_addfield(		pers.etpubc,												FIELD_INT,			FIELD_FLAG_READONLY						),
+	_et_gclient_addfield(		pers.etmodc,												FIELD_INT,			FIELD_FLAG_READONLY						),
 	_et_gclient_addfield(		pers.lastkilled_client,										FIELD_INT,			FIELD_FLAG_READONLY						),
 	_et_gclient_addfield(		pers.lastrevive_client,										FIELD_INT,			FIELD_FLAG_READONLY						),
 	_et_gclient_addfield(		pers.lastkiller_client,										FIELD_INT,			FIELD_FLAG_READONLY						),

@@ -367,7 +367,7 @@ extern const unsigned int aReinfSeeds[MAX_REINFSEEDS];
 #define CS_ENDGAME_STATS				37
 #define CS_CHARGETIMES					38
 #define CS_FILTERCAMS					39
-#define CS_ETPUBINFO					40
+#define CS_ETMODINFO					40
 
 #define	CS_MODELS						64
 #define	CS_SOUNDS						( CS_MODELS +				MAX_MODELS					)
@@ -532,7 +532,7 @@ typedef struct {
 	qboolean wasDisoriented;
 	int knifeThrownTime;
 
-	int etpubc;
+	int etmodc;
 
 } pmoveExt_t;	// data used both in client and server - store it here
 				// instead of playerstate to prevent different engine versions of playerstate between XP and MP

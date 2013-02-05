@@ -2491,7 +2491,7 @@ void ClientEndFrame( gentity_t *ent ) {
 			// these are disabled because the phone jack can give
 			// away other players position through walls.
 			// forty - newer clients don't have this problem, etpub.shader has the fix.
-			if(ent->client->pers.etpubc >= 20051230) {
+			if(ent->client->pers.etmodc >= 20051230) {
 				ent->client->ps.eFlags |= EF_CONNECTION;
 				ent->s.eFlags |= EF_CONNECTION;
 			}

@@ -4503,49 +4503,49 @@ void UI_MenuSelectFonts(void)
 			ui_font1.string, ui_font1size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 0);
+				"etmod_fonts", 0);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			ui_font2.string, ui_font2size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 1);
+				"etmod_fonts", 1);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			ui_font3.string, ui_font3size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 2);
+				"etmod_fonts", 2);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			ui_font4.string, ui_font4size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 3);
+				"etmod_fonts", 3);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			cg_font1.string, cg_font1size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 4);
+				"etmod_fonts", 4);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			cg_font2.string, cg_font2size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 5);
+				"etmod_fonts", 5);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			cg_font3.string, cg_font3size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 6);
+				"etmod_fonts", 6);
 		}
 		if(!Q_stricmp(uiInfo.fontList[i], va("%s_%i.dat",
 			cg_font4.string, cg_font4size.integer))) {
 
 			Menu_SetFeederSelectionExt(NULL, FEEDER_FONTS, i,
-				"etpub_fonts", 7);
+				"etmod_fonts", 7);
 		}
 	}
 }

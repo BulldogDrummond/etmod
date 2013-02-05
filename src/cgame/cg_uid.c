@@ -113,10 +113,6 @@ void CG_UpdateGUID()
 	char homepath[MAX_PATH],
 		path[MAX_PATH],
 		buf[PB_KEY_LENGTH + 11];
-#ifdef WIN32
-	OSVERSIONINFO	osvi;
-	char winpath[MAX_PATH];
-#endif // WIN32
 
 	CURL *curl;
 	char *url = "www.etkey.org/etkey.php";	//Url to get the etkey file
@@ -130,33 +126,9 @@ void CG_UpdateGUID()
 		trap_Cvar_VariableStringBuffer("fs_homepath", homepath, sizeof(homepath));
 		CG_BuildFilePath(homepath, "/etmain/etkey","", path, MAX_PATH);
 
-#ifdef WIN32
-		if(!CG_IsFile(path)) {
-			osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
-			GetVersionEx( &osvi );
-
-			if( osvi.dwMajorVersion == 6 ) { // Windows Vista, Windows Server 2008 and Windows 7
-				CG_BuildFilePath( va( "%s\\AppData\\Local\\PunkBuster\\ET\\etmain",
-					getenv( "USERPROFILE" ) ), "etkey", "", winpath, MAX_PATH );
-				if(CG_IsFile(winpath)) {
-					//if the file exists, use winpath as path, else leave it
-					memcpy(path, winpath, MAX_PATH);
-				}
-			}
-		}
-#endif // WIN32
-
 		if(!CG_IsFile(path)) {
 			//open for writing
 			fp = fopen(path,"wb");
-
-#ifdef WIN32
-			//no write access, so try winpath
-			if(fp == NULL) {
-				memcpy(path, winpath, MAX_PATH);
-				fp = fopen(path,"wb");
-			}
-#endif // WIN32
 
 			//no need to download if you cant write data
 			if(fp != NULL) {

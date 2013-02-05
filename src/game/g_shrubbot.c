@@ -4021,8 +4021,8 @@ qboolean G_shrubbot_userinfo(gentity_t *ent, int skiparg)
 	}
 
 	SPC(va("^/Userinfo of user ^7%s", vic->client->pers.netname));
-	SPC(va("^/Slot Number: ^d%i    ^/ETPub Client: ^d%s",vic-g_entities, (vic->r.svFlags & SVF_BOT)?
-		"Bot" : (vic->client->pers.etpubc > 0)? va("%i",vic->client->pers.etpubc):"No"));
+	SPC(va("^/Slot Number: ^d%i    ^/ETMod Client: ^d%s",vic-g_entities, (vic->r.svFlags & SVF_BOT)?
+		"Bot" : (vic->client->pers.etmodc > 0)? va("%i",vic->client->pers.etmodc):"No"));
 
 	trap_GetUserinfo( vic-g_entities, userinfo, sizeof( userinfo ) );
 	temp = Info_ValueForKey(userinfo, "cl_guid");

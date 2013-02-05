@@ -22,15 +22,15 @@
 #define PM_DOUBLE_JUMP_HEIGHT cgs.doubleJumpHeight // josh: added to client
 #define PM_GARAND_RELOADS 0 // tjw: no client mod
 #define PM_STAMINA_RECHARGE \
-	((cgs.etpub >= ETPUB_VERSION(0,6,0)) ? cgs.staminaRecharge : 1.0f)
+	((cgs.etmod >= ETMOD_VERSION(0,6,0)) ? cgs.staminaRecharge : 1.0f)
 #define PM_JUMP_STAMINA (cgs.misc & MISC_JUMP_STAMINA)
 #define PM_TRACEHEAD \
-	(cgs.etpub == ETPUB_VERSION(0,5,0) || (cgs.misc & MISC_TRACEHEAD))
+	(cgs.etmod == ETMOD_VERSION(0,5,0) || (cgs.misc & MISC_TRACEHEAD))
 #define PM_MEDIC_NOSELFADREN 0 // don't know that this matters client side
 #define PM_TRACE_ALL (cgs.misc & MISC_TRACE_ALL)
 #define PM_OLD_PRONE (cgs.misc & MISC_OLD_PRONE)
 #define PM_MG_RELOADS 0
-#define PM_PANZER_LEVEL_UP ((cgs.etpub >= ETPUB_VERSION(1,0,0)) ? cgs.panzerLevelUp : 0)
+#define PM_PANZER_LEVEL_UP ((cgs.etmod >= ETMOD_VERSION(1,0,0)) ? cgs.panzerLevelUp : 0)
 
 #elif GAMEDLL
 #define PM_GameType g_gametype.integer

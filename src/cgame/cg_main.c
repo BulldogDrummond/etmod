@@ -615,10 +615,10 @@ cvarTable_t		cvarTable[] = {
 	{ &cg_specAlpha, "cg_specAlpha", "1.0", CVAR_ARCHIVE},
 
 	// pheno
-	{ NULL,	"cg_etpubcbuild", CPUSTRING " " __DATE__, CVAR_USERINFO | CVAR_ROM },
+	{ NULL,	"cg_etmodcbuild", CPUSTRING " " __DATE__, CVAR_USERINFO | CVAR_ROM },
 
 	// tjw
-	{ NULL,	"cg_etpubc", ETPUBC_VERSION, CVAR_USERINFO | CVAR_ROM },
+	{ NULL,	"cg_etmodc", ETMODC_VERSION, CVAR_USERINFO | CVAR_ROM },
 	{ &cg_font1, "cg_font1", "ariblk", CVAR_ARCHIVE },
 	{ &cg_font2, "cg_font2", "ariblk", CVAR_ARCHIVE },
 	{ &cg_font3, "cg_font3", "courbd", CVAR_ARCHIVE },
@@ -826,7 +826,7 @@ qboolean CG_BackupProfile(void)
 	Com_sprintf(cfgPath, sizeof(cfgPath),
 		"profiles/%s/%s", profile, CONFIG_NAME);
 	Com_sprintf(bakPath, sizeof(bakPath),
-		"profiles/%s/%s.etpub", profile, CONFIG_NAME);
+		"profiles/%s/%s.etmod", profile, CONFIG_NAME);
 
 	len = trap_FS_FOpenFile(bakPath, &bak, FS_READ);
 	trap_FS_FCloseFile(bak);
@@ -868,7 +868,7 @@ void CG_RestoreProfile(void)
 	Com_sprintf(cfgPath, sizeof(cfgPath),
 		"profiles/%s/%s", profile, CONFIG_NAME);
 	Com_sprintf(bakPath, sizeof(bakPath),
-		"profiles/%s/%s.etpub", profile, CONFIG_NAME);
+		"profiles/%s/%s.etmod", profile, CONFIG_NAME);
 
 	// tjw: restore the backup copy	generated from forcecvar
 	len = trap_FS_FOpenFile(bakPath, &bak, FS_READ);
@@ -918,8 +918,6 @@ void CG_setClientFlags(void)
 									   ));
 }
 
-#if defined __linux__
-
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <netinet/in.h>
@@ -965,102 +963,6 @@ void CG_setMacAddress(void) {
 															mac_address[5]));
 	}
 }
-
-#elif defined WIN32
-
-#define Rectangle LCC_Rectangle
-#include <windows.h>
-#undef Rectangle
-
-#include <iphlpapi.h>
-
-void CG_setMacAddress(void) {
-	PIP_ADAPTER_INFO pAdapterInfo;
-	PIP_ADAPTER_INFO pAdapter = NULL;
-	DWORD dwRetVal = 0;
-	int success = 0;
-	unsigned char mac_address[6];
-
-	ULONG ulOutBufLen = sizeof (IP_ADAPTER_INFO);
-	pAdapterInfo = (IP_ADAPTER_INFO *) malloc(sizeof (IP_ADAPTER_INFO));
-
-	// Make an initial call to GetAdaptersInfo to get
-	// the necessary size into the ulOutBufLen variable
-	if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
-		free(pAdapterInfo);
-		pAdapterInfo = (IP_ADAPTER_INFO *) malloc(ulOutBufLen);
-	}
-
-	if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
-		pAdapter = pAdapterInfo;
-		while (pAdapter) {
-			if(pAdapter->Type != MIB_IF_TYPE_LOOPBACK) {
-				success = 1;
-				break;
-			}
-			pAdapter = pAdapter->Next;
-		}
-	}
-
-	if(success) {
-		memcpy(mac_address, pAdapter->Address, 6);
-		trap_Cvar_Set("mac", va("%02X:%02X:%02X:%02X:%02X:%02X",
-															mac_address[0],
-															mac_address[1],
-															mac_address[2],
-															mac_address[3],
-															mac_address[4],
-															mac_address[5]));
-	}
-
-	if (pAdapterInfo) {
-		free(pAdapterInfo);
-	}
-}
-
-#elif defined __MACOS__
-
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <net/if_types.h>
-#include <net/if_dl.h>
-#include <ifaddrs.h>
-
-void CG_setMacAddress( void )
-{
-	struct ifaddrs		*ifa,
-						*ptr;
-	struct sockaddr_dl	*sdl;
-	unsigned char		*addr;
-
-	if( getifaddrs( &ifa ) == -1 ) {
-		return;
-	}
-
-	for( ptr = ifa; ptr; ptr = ptr->ifa_next ) {
-		if( ( sdl = ( struct sockaddr_dl *)ptr->ifa_addr ) ) {
-			if( sdl->sdl_type == IFT_ETHER ) {
-				addr = malloc( sdl->sdl_alen );
-				memcpy( addr, LLADDR( sdl ), sdl->sdl_alen );
-
-				trap_Cvar_Set( "mac",
-					va( "%02X:%02X:%02X:%02X:%02X:%02X",
-						addr[0],
-						addr[1],
-						addr[2],
-						addr[3],
-						addr[4],
-						addr[5] ) );
-
-				break;
-			}
-		}
-	}
-
-	freeifaddrs( ifa );
-}
-
-#endif
 
 int CG_CrosshairPlayer( void ) {
 	if ( cg.time > ( cg.crosshairClientTime + 1000 ) ) {
@@ -3179,8 +3081,8 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum, qb
 	// tjw: not used
 	//trap_Cvar_Set( "cg_etVersion", GAME_VERSION_DATED );	// So server can check
 
-	// pheno: make sure to set the etpubc version
-	trap_Cvar_Set( "cg_etpubc", ETPUBC_VERSION );
+	// pheno: make sure to set the etmodc version
+	trap_Cvar_Set( "cg_etmodc", ETMODC_VERSION );
 
 	s = CG_ConfigString( CS_LEVEL_START_TIME );
 	cgs.levelStartTime = atoi( s );

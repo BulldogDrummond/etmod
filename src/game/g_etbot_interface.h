@@ -15,7 +15,7 @@
 #define OMNIBOT_NAME "Omni-Bot:etmain" //cs: this appears to be unused
 
 #define OMNIBOT_MODNAME GAMEVERSION
-#define OMNIBOT_MODVERSION ETPUB_VERSION
+#define OMNIBOT_MODVERSION ETMOD_VERSION
 
 //////////////////////////////////////////////////////////////////////////
 // g_OmniBotFlags bits

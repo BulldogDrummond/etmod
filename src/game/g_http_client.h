@@ -1,7 +1,6 @@
 #ifndef _G_HTTP_CLIENT_H
 #define _G_HTTP_CLIENT_H
 
-#ifndef WIN32
 #include <netinet/in.h>
 
 struct _http_client_t
@@ -9,14 +8,6 @@ struct _http_client_t
   int                  fd;
   struct sockaddr_in   addr;
 };
-#elif WIN32
-#include <winsock2.h>
-struct _http_client_t
-{
-	SOCKET fd;
-	SOCKADDR_IN addr;
-};
-#endif
 
 enum
 {

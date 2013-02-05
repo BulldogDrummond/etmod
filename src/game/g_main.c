@@ -338,8 +338,8 @@ vmCvar_t g_censorNamesNeil;
 vmCvar_t g_httpPostURL_chat;
 vmCvar_t g_httpPostURL_ratings;
 vmCvar_t g_httpPostURL_log;
-vmCvar_t g_etpub_stats_id;
-vmCvar_t g_etpub_stats_master_url;
+vmCvar_t g_etmod_stats_id;
+vmCvar_t g_etmod_stats_master_url;
 vmCvar_t g_killRating;
 vmCvar_t g_trackBehavior;
 vmCvar_t g_playerRating;
@@ -907,8 +907,8 @@ cvarTable_t		gameCvarTable[] = {
 	{ &g_httpPostURL_chat, "g_httpPostURL_chat", "", 0 },
 	{ &g_httpPostURL_ratings, "g_httpPostURL_ratings", "", 0 },
 	{ &g_httpPostURL_log, "g_httpPostURL_log", "", 0 },
-	{ &g_etpub_stats_id, "g_etpub_stats_id", "-1", 0 },
-	{ &g_etpub_stats_master_url, "g_etpub_stats_master_url", "http://stats.etpub.org/submit_game.php", 0 },
+	{ &g_etmod_stats_id, "g_etmod_stats_id", "-1", 0 },
+	{ &g_etmod_stats_master_url, "g_etmod_stats_master_url", "http://stats.etmod.org/submit_game.php", 0 },
 	{ &g_censor, "g_censor", "", 0 },
 	{ &g_censorNames, "g_censorNames", "", 0 },
 	{ &g_censorPenalty, "g_censorPenalty", "0", 0 },
@@ -1115,8 +1115,8 @@ cvarTable_t		gameCvarTable[] = {
 
 	{ &g_countryFlags, "g_countryFlags", "1", 0}, //mcwf GeoIP
 
-	{ NULL, "mod_version", ETPUB_VERSION, CVAR_SERVERINFO | CVAR_ROM },
-	{ NULL, "mod_url", "http://etpub.org", CVAR_SERVERINFO | CVAR_ROM },
+	{ NULL, "mod_version", ETMOD_VERSION, CVAR_SERVERINFO | CVAR_ROM },
+	{ NULL, "mod_url", "http://etmod.org", CVAR_SERVERINFO | CVAR_ROM },
 	// Omni-bot user defined path to load bot library from.
 	{ &g_OmniBotPath, "omnibot_path", "", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
 	{ &g_OmniBotEnable, "omnibot_enable", "1", CVAR_ARCHIVE | CVAR_SERVERINFO_NOUPDATE | CVAR_NORESTART, 0, qfalse },
@@ -2161,7 +2161,7 @@ void G_UpdateEtpubinfo(void)
 	char cs[MAX_INFO_STRING];
 	cs[0] = '\0';
 
-	Info_SetValueForKey(cs, "etpub", ETPUB_VERSION);
+	Info_SetValueForKey(cs, "etmod", ETMOD_VERSION);
 	Info_SetValueForKey(cs, "g_misc",
 		va("%i", g_misc.integer));
 	Info_SetValueForKey(cs, "g_doubleJumpHeight",
@@ -2201,7 +2201,7 @@ void G_UpdateEtpubinfo(void)
 	// forty - #601 - Merge Jaquboss' client-side hitbox prediction code
 	Info_SetValueForKey(cs, "HB",
 		va("%i", g_hitboxes.integer));
-	// forty - #303 - Make etpub client check the xp needed to level
+	// forty - #303 - Make etmod client check the xp needed to level
 	// FIXME - maybe we could base64/uuencode the whole 35 byte skillLevels structure
 	//		   and send it over in one key.
 	Info_SetValueForKey(cs, "skill_soldier",
@@ -2225,7 +2225,7 @@ void G_UpdateEtpubinfo(void)
 	Info_SetValueForKey( cs, "g_friendlyFire",
 		va( "%i", g_friendlyFire.integer ) );
 
-	trap_SetConfigstring(CS_ETPUBINFO, cs);
+	trap_SetConfigstring(CS_ETMODINFO, cs);
 }
 
 // Panzer War
@@ -2555,7 +2555,7 @@ void G_UpdateCvars( void )
 						fToggles = (G_checkServerToggle(cv->vmCvar) || fToggles);
 					}
 
-					// pheno: fixed - update etpub info string when
+					// pheno: fixed - update etmod info string when
 					//        g_friendlyFire is changed (don't check for
 					//        g_friendlyFire changes in G_IsEtpubinfoCvar()!)
 					if( cv->vmCvar == &g_friendlyFire ) {
@@ -3988,17 +3988,6 @@ void QDECL G_LogPrintf( const char *fmt, ... ) {
 
 	trap_FS_Write( string, strlen( string ), level.logFile );
 
-//#ifndef WIN32
-	// josh: Post log
-	// TODO: Make a function for this
-	// TODO: Queue this when bgr finishes his additions
-	//	if (g_httpPostURL_log.string[0]) {
-	//		g_httpinfo_t *post_info = (g_httpinfo_t *)malloc(sizeof(g_httpinfo_t));
-	//		Q_strncpyz( post_info->url, g_httpPostURL_log.string, sizeof(post_info->url) );
-	//		Q_strncpyz( post_info->message, string, sizeof(post_info->message) );
-	//		create_thread(libhttpc_post,(void*)post_info);
-	//	}
-//#endif
 }
 //bani
 void QDECL G_LogPrintf( const char *fmt, ... )_attribute((format(printf,1,2)));
@@ -4341,38 +4330,6 @@ void LogExit( const char *string ) {
 		//	mapstat->allied_wins++;
 	}*/
 
-//#ifndef WIN32
-	// josh: ratings post
-	// TODO: Make a function for this
-	// TODO: Queue this when bgr finishes his additions
-	// TODO: Probably need to move this up too
-	//if (g_httpPostURL_ratings.string[0]) {
-	//	for(i=0; i<level.numConnectedClients; i++) {
-	//		gclient_t *cl = level.clients + level.sortedClients[ i ];
-	//		g_httpinfo_t *post_info = (g_httpinfo_t *)malloc(sizeof(g_httpinfo_t));
-	//		char *message;
-	//		message = va("RATINGS:"
-	//			" GUID: %s"
-	//			" PR: %f"
-	//			" PRV: %f"
-	//			" KRm: %f"
-	//			" KRo: %f"
-	//			" Name: %s",
-	//			cl->sess.guid,
-	//			cl->sess.rating,
-	//			2.0f*cl->sess.rating_variance,
-	//			cl->sess.overall_killrating,
-	//			cl->sess.overall_killvariance,
-	//			cl->pers.netname
-	//		);
-	//		Q_strncpyz( post_info->url, g_httpPostURL_ratings.string, sizeof(post_info->url) );
-	//		Q_strncpyz( post_info->message, message, sizeof(post_info->message) );
-	//		create_thread(libhttpc_post,(void*)post_info);
-	//	}
-	//}
-//#endif
-
-
 	for( i = 0; i < level.numConnectedClients; i++ ) {
 		G_xpsave_add(&g_entities[level.sortedClients[i]],qfalse);
 	}
@@ -4442,7 +4399,7 @@ void CheckIntermissionExit( void ) {
 		// gabriel: specs do have the "ready" button, so there is an expectation
 		// for it to work.  Also, specs can also vote on maps, so count their
 		// vote here too.  Changing either of these rules should have a
-		// corresponding change on the etpub client behavior, so that visual
+		// corresponding change on the etmod client behavior, so that visual
 		// feedback is given to the user
 
 		cl = level.clients + level.sortedClients[i];
@@ -5928,9 +5885,9 @@ void G_mapvoteinfo_read()
 }
 
 // pheno: tell us more about the running client and/or server version
-void etpub_version( gentity_t *ent )
+void etmod_version( gentity_t *ent )
 {
-	const char *s = ETPUB_VERSION;
+	const char *s = ETMOD_VERSION;
 	char a[4], b[4], c[4];
 	int i = 0;
 
@@ -5957,19 +5914,19 @@ void etpub_version( gentity_t *ent )
 	G_refPrintf( ent, "^1-----------------------------------------------------"
 		"-----------------" );
 
-	if( ent && ent->client->pers.etpubc ) {
+	if( ent && ent->client->pers.etmodc ) {
 		char userinfo[MAX_INFO_STRING];
 		const char *s2;
 
 		trap_GetUserinfo( ent - g_entities, userinfo, sizeof( userinfo ) );
-		s2 = Info_ValueForKey( userinfo, "cg_etpubcbuild" );
+		s2 = Info_ValueForKey( userinfo, "cg_etmodcbuild" );
 
-		G_refPrintf( ent, " ^7etpubc ^1: ^7%-15i %s",
-			ent->client->pers.etpubc, s2 );
+		G_refPrintf( ent, " ^7etmodc ^1: ^7%-15i %s",
+			ent->client->pers.etmodc, s2 );
 	}
 
-	G_refPrintf( ent, " ^7etpub  ^1: ^7%-15s %s %s\n",
-		va( "%s (%i)", ETPUB_VERSION,
+	G_refPrintf( ent, " ^7etmod  ^1: ^7%-15s %s %s\n",
+		va( "%s (%i)", ETMOD_VERSION,
 			( atoi( a ) << 16 ) + ( atoi( b ) << 8 ) + atoi( c ) ),
 		CPUSTRING, __DATE__ );
 }
