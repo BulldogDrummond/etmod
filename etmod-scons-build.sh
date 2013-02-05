@@ -10,4 +10,6 @@ rm -rf src/build src/qagame.mp.i386.so src/scons.signatures.dblite src/scons_uti
 
 ./mkpak2.sh
 
+cp -av resource-config/* etmod/
+
 # EOF
