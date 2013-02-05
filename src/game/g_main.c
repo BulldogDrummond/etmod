@@ -898,7 +898,7 @@ cvarTable_t		gameCvarTable[] = {
 	{ &g_httpPostURL_ratings, "g_httpPostURL_ratings", "", 0 },
 	{ &g_httpPostURL_log, "g_httpPostURL_log", "", 0 },
 	{ &g_etmod_stats_id, "g_etmod_stats_id", "-1", 0 },
-	{ &g_etmod_stats_master_url, "g_etmod_stats_master_url", "http://stats.etmod.org/submit_game.php", 0 },
+	{ &g_etmod_stats_master_url, "g_etmod_stats_master_url", "http://stats.example.lan/submit_game.php", 0 },
 	{ &g_censor, "g_censor", "", 0 },
 	{ &g_censorNames, "g_censorNames", "", 0 },
 	{ &g_censorPenalty, "g_censorPenalty", "0", 0 },
@@ -1106,7 +1106,7 @@ cvarTable_t		gameCvarTable[] = {
 	{ &g_countryFlags, "g_countryFlags", "1", 0}, //mcwf GeoIP
 
 	{ NULL, "mod_version", ETMOD_VERSION, CVAR_SERVERINFO | CVAR_ROM },
-	{ NULL, "mod_url", "http://etmod.org", CVAR_SERVERINFO | CVAR_ROM },
+	{ NULL, "mod_url", "http://github.com/BulldogDrummond/etmod", CVAR_SERVERINFO | CVAR_ROM },
 	// Omni-bot user defined path to load bot library from.
 	{ &g_OmniBotPath, "omnibot_path", "", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
 	{ &g_OmniBotEnable, "omnibot_enable", "1", CVAR_ARCHIVE | CVAR_SERVERINFO_NOUPDATE | CVAR_NORESTART, 0, qfalse },
