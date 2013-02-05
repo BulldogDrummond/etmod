@@ -90,6 +90,5 @@ local_env['LINK'] = local_env['CXX']
 
 source_list = scons_utils.BuildList( 'game', qagame_string )
 
-#ret = local_env.Program( target = 'et', source = source_list )
 ret = local_env.SharedLibrary( target = 'qagame', source = source_list )
 Return( 'ret' )

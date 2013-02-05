@@ -263,7 +263,7 @@ toplevel_targets.append( InstallAs( '#qagame.mp.%s.so' % dll_cpu, game ) )
 class CopyBins(scons_utils.idSetupBase):
 	def copy_bins( self, target, source, env ):
 		for i in source:
-			j = os.path.normpath( os.path.join( os.path.dirname( i.abspath ), '../bin', os.path.basename( i.abspath ) ) )
+			j = os.path.normpath( os.path.join( os.path.dirname( i.abspath ), '../etmod', os.path.basename( i.abspath ) ) )
 			self.SimpleCommand( 'cp ' + i.abspath + ' ' + j )
 			if ( OS == 'Linux' ):
 				self.SimpleCommand( 'strip ' + j )
