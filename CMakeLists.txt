@@ -78,6 +78,7 @@ if(UNIX)
 			set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
 		endif(SUPPORT_VISIBILITY)
 	endif(NOT MSYS)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Winline -ffast-math -finline-functions -fschedule-insns2") 
 endif()
 
 # Get the system architecture
@@ -90,6 +91,8 @@ else()
 	message(STATUS "Warning: processor architecture not recognised (${CMAKE_SYSTEM_PROCESSOR})")
 endif()
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
+
 #-----------------------------------------------------------------
 # Sources
 #-----------------------------------------------------------------
@@ -100,18 +103,81 @@ endif()
 #	LIST(APPEND PLATFORM_SRC "src/sys/con_tty.c")
 #endif()
 
-FILE(GLOB QAGAME_SRC
-	"src/game/*.c"
-	"src/game/*.h"
-	"src/omnibot/*.h"
-	"src/omnibot/*.cpp"
-	"src/omnibot/*.c"
-	"src/botai/*.h"
-	"src/botai/*.c"
+list(APPEND QAGAME_SRC
+  "src/game/bg_animation.c"
+  "src/game/bg_animgroup.c"
+  "src/game/bg_campaign.c"
+  "src/game/bg_character.c"
+  "src/game/bg_classes.c"
+  "src/game/bg_misc.c"
+  "src/game/bg_pmove.c"
+  "src/game/bg_slidemove.c"
+  "src/game/bg_sscript.c"
+  "src/game/bg_stats.c"
+  "src/game/bg_tracemap.c"
+  "src/game/g_active.c"
+  "src/game/g_alarm.c"
+  "src/game/g_antilag.c"
+  "src/game/g_buddy_list.c"
+  "src/game/g_character.c"
+  "src/game/g_client.c"
+  "src/game/g_cmds.c"
+  "src/game/g_cmds_ext.c"
+  "src/game/g_combat.c"
+  "src/game/g_config.c"
+  "src/game/g_fireteams.c"
+  "src/game/g_items.c"
+  "src/game/g_main.c"
+  "src/game/g_match.c"
+  "src/game/g_mem.c"
+  "src/game/g_misc.c"
+  "src/game/g_missile.c"
+  "src/game/g_mover.c"
+  "src/game/g_multiview.c"
+  "src/game/g_props.c"
+  "src/game/g_referee.c"
+  "src/game/g_script.c"
+  "src/game/g_script_actions.c"
+  "src/game/g_session.c"
+  "src/game/g_spawn.c"
+  "src/game/g_stats.c"
+  "src/game/g_svcmds.c"
+  "src/game/g_syscalls.c"
+  "src/game/g_systemmsg.c"
+  "src/game/g_target.c"
+  "src/game/g_team.c"
+  "src/game/g_teammapdata.c"
+  "src/game/g_trigger.c"
+  "src/game/g_utils.c"
+  "src/game/g_vote.c"
+  "src/game/g_weapon.c"
+  "src/game/q_math.c"
+  "src/game/q_shared.c"
+  "src/game/g_shrubbot.c"
+  "src/game/etpro_mdx.c"
+  "src/game/g_xpsave.c"
+  "src/game/g_crash.c"
+  "src/game/g_etbot_interface.cpp"
+  "src/game/g_http_client.c"
+  "src/game/g_matchinfo.c"
+  "src/game/g_censor.c"
+  "src/game/g_player_rating.c"
+  "src/game/g_settings.c"
+  "src/game/et-antiwarp.c"
+  "src/game/geoip.c"
+  "src/omnibot/Common/BotLoadLibrary.cpp"
+  "src/botai/ai_cmd.c"
+  "src/botai/ai_dmgoal_mp.c"
+  "src/botai/ai_dmnet_mp.c"
+  "src/botai/ai_dmq3.c"
+  "src/botai/ai_main.c"
+  "src/botai/ai_script_actions.c"
+  "src/botai/ai_script.c"
+  "src/botai/ai_team.c"
 )
 
 if(MYSQL_FOUND)
-        LIST(APPEND QAGAME_SRC "src/game/q_mysql.c")
+        LIST(APPEND QAGAME_SRC "src/game/g_mysql.c")
 endif(MYSQL_FOUND)
 
 # Version generation
@@ -124,7 +190,7 @@ else() # Not using source from git repo
 	set(ETMOD_CMAKE_VERSION ${ETLEGACY_VERSION})
 	set(ETMOD_CMAKE_VERSION_SHORT ${ETLEGACY_VERSION})
 endif()
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/git_version.h.in" "${CMAKE_CURRENT_BINARY_DIR}/game/git_version.h" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/git_version.h.in" "${CMAKE_CURRENT_BINARY_DIR}/src/game/git_version.h" @ONLY)
 list(APPEND COMMON_SRC "${CMAKE_CURRENT_BINARY_DIR}/src/game/git_version.h")
 
 #-----------------------------------------------------------------
@@ -139,12 +205,21 @@ if(FEATURE_MYSQL)
 	message("-- Added MySQL Includes and Client Lib.")
 endif(FEATURE_MYSQL)
 
+add_definitions(-DUSE_MDXFILE)
+add_definitions(-DNO_BOT_SUPPORT)
+
 #-----------------------------------------------------------------
 # Build
 #-----------------------------------------------------------------
-include_directories(${PROJECT_BINARY_DIR}/src/game) # git_version.h
+include_directories(${PROJECT_BINARY_DIR}/src/game, 
+	${PROJECT_SOURCE_DIR}/src/game,
+	${PROJECT_SOURCE_DIR}/src/omnibot/Common,
+	${PROJECT_SOURCE_DIR}/src/omnibot/ET,
+	${PROJECT_SOURCE_DIR}/src/botai
+)
 
 if(BUILD_MOD)
+message("-- Entered BUILD_MOD")
 	#
 	# qagame
 	#
