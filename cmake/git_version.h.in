@@ -1,5 +1,5 @@
 /**
- * @def ETLEGACY_VERSION
+ * @def ETMOD_VERSION
  * @brief Version in long format.
  *
  * If the current commit is tagged, then it is just the tag.
@@ -8,11 +8,11 @@
  * 2. commits made since last tagging
  * 3. abbreviated SHA1 of the current commit
  */
-#define ETLEGACY_VERSION "@ETL_CMAKE_VERSION@"
+#define ETMOD_VERSION "@ETMOD_CMAKE_VERSION@"
 
 /**
- * @def ETLEGACY_VERSION_SHORT
+ * @def ETMOD_VERSION_SHORT
  * @brief Version in short format. Contains only the most recent tag.
  */
-#define ETLEGACY_VERSION_SHORT "@ETL_CMAKE_VERSION_SHORT@"
+#define ETMOD_VERSION_SHORT "@ETMOD_CMAKE_VERSION_SHORT@"
 
