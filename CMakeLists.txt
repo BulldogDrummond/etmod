@@ -21,7 +21,7 @@ set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 
 # Options
 option(BUILD_MOD	"Build ETMod"					ON)
-option(BUILD_PAK2_PK3	"Pack updated game scripts into pak2.pk3"	OFF)
+option(BUILD_PAK3_PK3	"Pack updated game scripts into pak3.pk3"	OFF)
 
 option(BUILD_WITH_CSTDIO_INCLUDED "Build with cstdio - 32bit systems"	ON)
 option(CROSS_COMPILE32 "Compile 32-bit version (req for 2.60b)" 	ON)
@@ -163,17 +163,17 @@ if(BUILD_MOD)
 	)
 endif(BUILD_MOD)
 
-if(BUILD_PAK2_PK3)
+if(BUILD_PAK3_PK3)
 	add_custom_target(
-		pak2_pk3 ALL
-		COMMAND zip -r ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak2.pk3 *
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resource-pak2/
+		pak3_pk3 ALL
+		COMMAND zip -r ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak3.pk3 *
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resource-pak3/
 	)
 
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak2.pk3
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak3.pk3
 		DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod"
 	)
-endif(BUILD_PAK2_PK3)
+endif(BUILD_PAK3_PK3)
 
 if(INSTALL_OMNIBOT)
 	if(UNIX)
