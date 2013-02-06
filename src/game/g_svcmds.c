@@ -1720,22 +1720,6 @@ qboolean	ConsoleCommand( void ) {
 		return qtrue;
 	}
 
-	// pheno: shoutcaster - console make commands
-	if( !Q_stricmp( cmd, "makeshoutcaster" ) ||
-		!Q_stricmp( cmd, "makeshoutcast" ) ||
-		!Q_stricmp( cmd, "makesc" ) ) {
-		G_makesc_cmd();
-		return qtrue;
-	}
-
-	// pheno: shoutcaster - console remove commands
-	if( !Q_stricmp( cmd, "removeshoutcaster" ) ||
-		!Q_stricmp( cmd, "removeshoutcast" ) ||
-		!Q_stricmp( cmd, "removesc" ) ) {
-		G_removesc_cmd();
-		return qtrue;
-	}
-
 	// pheno: etmod version command
 	if( !Q_stricmp( cmd, "etmod_version" ) ) {
 		etmod_version( NULL );

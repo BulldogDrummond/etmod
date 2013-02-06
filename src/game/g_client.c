@@ -2058,7 +2058,6 @@ void ClientUserinfoChanged( int clientNum ) {
 	char	skillStr[16] = "";
 	char	medalStr[16] = "";
 	int		characterIndex;
-	int		etmodc;
 	char	*reason, guid[PB_GUID_LENGTH + 1], ip[22], mac[18], name[MAX_NETNAME];
 
 	ent = g_entities + clientNum;
@@ -2122,14 +2121,6 @@ void ClientUserinfoChanged( int clientNum ) {
 		client->pers.localClient = qtrue;
 		level.fLocalHost = qtrue;
 		client->sess.referee = RL_REFEREE;
-	}
-
-	// tjw: better client version detection
-	etmodc = atoi(Info_ValueForKey(userinfo, "cg_etmodc"));
-	if(etmodc > 0 && etmodc != ent->client->pers.etmodc) {
-		ent->client->pers.etmodc = etmodc;
-		CP(va("print \"^3server: detected etmod client %i\n\"",
-			ent->client->pers.etmodc));
 	}
 
 	// OSP - extra client info settings
@@ -2832,15 +2823,6 @@ void ClientBegin( int clientNum )
 				dropReason = va("You are banned from this server.\n%s\n%s\n", reason, g_dropMsg.string);
 			}
 
-			// if defined, drop clients with client version mismatch
-			if(strcmp(g_clientVersion.string, "")) {
-			char etmodc[10];
-			Q_strncpyz(etmodc, Info_ValueForKey(userinfo, "cg_etmodc"), sizeof(etmodc));
-				if(strcmp(g_clientVersion.string, etmodc)) {
-					G_LogPrintf("Client version mismatch: found: %s, required: %s\n", etmodc, g_clientVersion.string);
-					dropReason = va("Client version mismatch:\nFound: %s\nRequired: %s", etmodc, g_clientVersion.string);
-				}
-			}
 		}
 
 		// tjw: send forcecvar commands if there are any
@@ -2875,9 +2857,6 @@ void ClientBegin( int clientNum )
 
 	// tjw: if playerState is cleared this should be too right?
 	memset( &client->pmext, 0, sizeof( client->pmext ) );
-
-	// tjw: need to keep pmext.etmodc in sync with pers
-	client->pmext.etmodc = client->pers.etmodc;
 
 	// tjw: reset all the markers used by g_shortcuts
 	client->pers.lastkilled_client = -1;

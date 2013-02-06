@@ -1355,51 +1355,40 @@ void G_doHitSound(gentity_t *attacker, int index)
 {
 	const char *sound = "";
 
-	if (attacker->client->pers.etmodc <= 20100628) {
-		// server
-		switch (index) {
-			case HITSOUND_DEFAULT:
-				sound = g_hitsound_default.string;
-				break;
-			case HITSOUND_HELMET:
-				sound = g_hitsound_helmet.string;
-				break;
-			case HITSOUND_HEAD:
-				sound = g_hitsound_head.string;
-				break;
-			case HITSOUND_TEAM_DEFAULT:
-				sound = g_hitsound_team_default.string;
-				break;
-			case HITSOUND_TEAM_HELMET:
-				sound = g_hitsound_team_helmet.string;
-				break;
-			case HITSOUND_TEAM_HEAD:
-				sound = g_hitsound_team_head.string;
-				break;
-			case HITSOUND_TEAM_WARN_AXIS:
-				sound = g_hitsound_team_warn_axis.string;
-				break;
-			case HITSOUND_TEAM_WARN_ALLIES:
-				sound = g_hitsound_team_warn_allies.string;
-				break;
-		}
-
-		G_ClientSound(attacker, G_SoundIndex(sound));
-	} else {
-		// client
-		attacker->client->ps.persistant[PERS_HITSOUND] = index;
+	// server
+	switch (index) {
+		case HITSOUND_DEFAULT:
+			sound = g_hitsound_default.string;
+			break;
+		case HITSOUND_HELMET:
+			sound = g_hitsound_helmet.string;
+			break;
+		case HITSOUND_HEAD:
+			sound = g_hitsound_head.string;
+			break;
+		case HITSOUND_TEAM_DEFAULT:
+			sound = g_hitsound_team_default.string;
+			break;
+		case HITSOUND_TEAM_HELMET:
+			sound = g_hitsound_team_helmet.string;
+			break;
+		case HITSOUND_TEAM_HEAD:
+			sound = g_hitsound_team_head.string;
+			break;
+		case HITSOUND_TEAM_WARN_AXIS:
+			sound = g_hitsound_team_warn_axis.string;
+			break;
+		case HITSOUND_TEAM_WARN_ALLIES:
+			sound = g_hitsound_team_warn_allies.string;
+			break;
 	}
+
+	G_ClientSound(attacker, G_SoundIndex(sound));
 }
 
 void G_HitSound(gentity_t *targ, gentity_t *attacker, int mod, qboolean gib, qboolean headShot) 
 {
 	gclient_t *client;
-
-	// pheno: make sure to reset PERS_HITSOUND because changing hitsound
-	//        options server and/or client side within a running game
-	if (attacker->client->pers.etmodc > 20100628) {
-		attacker->client->ps.persistant[PERS_HITSOUND] = HITSOUND_NONE;
-	}
 
 	if(!(g_hitsounds.integer & HSF_ENABLE))
 		return;

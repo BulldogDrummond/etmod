@@ -2071,11 +2071,7 @@ evilbanigoto:
 				traceEnt->s.effect1Time = level.time;
 
 				// Dens: Dyna id requires ETPubclient >= 20070719
-				if(g_dyno.integer & DYNO_ID) {
-					traceEnt->s.otherEntityNum = ent->s.number;
-				} else {
-					traceEnt->s.otherEntityNum = MAX_CLIENTS+1;
-				}
+				traceEnt->s.otherEntityNum = MAX_CLIENTS+1;
 
 				// ARM IT!
 				traceEnt->nextthink = level.time + 30000;
@@ -2127,10 +2123,6 @@ evilbanigoto:
 							pm->s.effect2Time = 0;
 							pm->s.effect3Time = hit->s.teamNum;
 							pm->s.teamNum = ent->client->sess.sessionTeam;
-
-							// forty - dyno counter
-							if(g_dyno.integer & DYNO_COUNTER)
-								trap_SendServerCommand(-1, va("dc 0 %d %d %s", traceEnt->s.number, traceEnt->s.teamNum, BG_GetLocationString(traceEnt->r.currentOrigin)));
 
 							G_Script_ScriptEvent( hit, "dynamited", (char *)BG_TeamName(ent->client->sess.sessionTeam) );
 
@@ -2211,10 +2203,6 @@ evilbanigoto:
 							pm->s.effect3Time = hit->parent->s.teamNum;
 							pm->s.teamNum = ent->client->sess.sessionTeam;
 
-							// forty - dyno counter
-							if(g_dyno.integer & DYNO_COUNTER)
-								trap_SendServerCommand(-1, va("dc 0 %d %d %s", traceEnt->s.number, traceEnt->s.teamNum, BG_GetLocationString(traceEnt->r.currentOrigin)));
-
 							G_Script_ScriptEvent( hit, "dynamited", (char *)BG_TeamName(ent->client->sess.sessionTeam) );
 
 							// notify omni-bot framework of planted dynamite
@@ -2290,10 +2278,6 @@ evilbanigoto:
 					// cs: moving team check below so omnibot trigger is always fired.
 					/*if (dynamiteDropTeam == ent->client->sess.sessionTeam) {
 
-						// forty - dyno counter - make sure we get the message if we defused our own for whatever reason.
-						if(g_dyno.integer & DYNO_COUNTER)
-							trap_SendServerCommand(-1, va("dc 1 %d %d %s", traceEnt->s.number, traceEnt->s.teamNum, BG_GetLocationString(traceEnt->r.currentOrigin)));
-						return;
 					}*/
 
 					for ( i=0 ; i<num ; i++ ) {
@@ -2317,10 +2301,6 @@ evilbanigoto:
 							}
 
 							G_Script_ScriptEvent( hit->target_ent, "defused", "" );
-
-							// forty - dyno counter - make sure we get the message if we defused our own for whatever reason.
-							if(g_dyno.integer & DYNO_COUNTER)
-								trap_SendServerCommand(-1, va("dc 1 %d %d %s", traceEnt->s.number, traceEnt->s.teamNum, BG_GetLocationString(traceEnt->r.currentOrigin)));
 
 							if (ent->client->sess.sessionTeam == TEAM_AXIS && dynamiteDropTeam != TEAM_AXIS) {
 								if ((hit->spawnflags & AXIS_OBJECTIVE) && (!scored)) {
@@ -2400,10 +2380,6 @@ evilbanigoto:
 							}
 
 							G_Script_ScriptEvent( hit, "defused", "" );
-
-							// forty - dyno counter - make sure we get the message if we defused our own for whatever reason.
-							if(g_dyno.integer & DYNO_COUNTER)
-								trap_SendServerCommand(-1, va("dc 1 %d %d %s", traceEnt->s.number, traceEnt->s.teamNum, BG_GetLocationString(traceEnt->r.currentOrigin)));
 
 							// we got somthing to destroy
 							if (ent->client->sess.sessionTeam == TEAM_AXIS && dynamiteDropTeam != TEAM_AXIS) {

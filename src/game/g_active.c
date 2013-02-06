@@ -2487,14 +2487,6 @@ void ClientEndFrame( gentity_t *ent ) {
 		if (frames > 3) {
 			// josh: I need frames to be = 2 here
 			frames = 3;
-			
-			// these are disabled because the phone jack can give
-			// away other players position through walls.
-			// forty - newer clients don't have this problem, etpub.shader has the fix.
-			if(ent->client->pers.etmodc >= 20051230) {
-				ent->client->ps.eFlags |= EF_CONNECTION;
-				ent->s.eFlags |= EF_CONNECTION;
-			}
 		}
 		G_PredictPmove(ent, (float)frames / (float)sv_fps.integer);
 	}

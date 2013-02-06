@@ -436,59 +436,6 @@ void G_TeamDamageStats(gentity_t *ent)
 
 
 
-static void G_SendPR(gentity_t *ent)
-{
-	int i;
-	gclient_t *cl;
-	char buff[1021] = {"pr "};
-
-	Q_strcat(buff, sizeof(buff), va("%.1f ", 
-		(level.axisProb * 100.0f)));
-	Q_strcat(buff, sizeof(buff), va("%.1f ", 
-		(level.alliesProb * 100.0f)));
-	for(i=0; i < level.numConnectedClients; i++) {
-		cl = &level.clients[level.sortedClients[i]];
-		Q_strcat(buff, sizeof(buff), va("%.3f ", 
-			1.0 / (1.0 + 
-				exp(-cl->sess.rating
-					/sqrt(1.0+3.0*cl->sess.rating_variance*20.0/(M_PI*M_PI))))
-			));
-	}
-	if(strlen(buff) > 3) {
-		buff[strlen(buff)-1] = '\0';
-	}
-	trap_SendServerCommand(ent-g_entities, va(
-		"%s\n", buff));
-}
-
-static void G_SendKR(gentity_t *ent)
-{
-	int i;
-	float kr_kills_per_death;
-	gclient_t *cl;
-	char buff[1021] = {"kr "};
-
-	for(i=0; i < level.numConnectedClients; i++) {
-		cl = &level.clients[level.sortedClients[i]];
-		if(ent->client->pers.etmodc > 20060606 || ent->client->sess.ettv) {
-			kr_kills_per_death = G_GetAdjKillsPerDeath(
-				cl->sess.overall_killrating
-				,cl->sess.overall_killvariance
-			);
-			Q_strcat(buff, sizeof(buff), va("%.3f ", 
-				kr_kills_per_death));
-		} else {
-			Q_strcat(buff, sizeof(buff), va("%i ", 
-				(int)cl->sess.overall_killrating));
-		}
-	}
-	if(i) {
-		buff[strlen(buff)-1] = '\0';
-	}
-	trap_SendServerCommand(ent-g_entities, va(
-		"%s\n", buff));
-}
-
 // G_SendScore_Add
 // 
 // Add score with clientNum at index i of level.sortedClients[]
@@ -581,11 +528,7 @@ qboolean G_SendScore_Add(gentity_t *ent, int i, char *buf, int bufsize)
 		ping,
 		// CHRUKER: b094 - Playing time shown at debriefing keep increasing
 		(level.time - cl->pers.enterTime - (level.time - level.intermissiontime)) / 60000,
-		g_entities[level.sortedClients[i]].s.powerups,
-		// pheno: send miscScoreFlags instead of playerClass if
-		//        etmodc > 20090112 is installed
-		ent->client->pers.etmodc > 20090112 ?
-			miscScoreFlags : playerClass,
+		g_entities[level.sortedClients[i]].s.powerups, playerClass,
 		respawnsLeft);
 
 	if((strlen(buf) + strlen(entry) + 1) > bufsize) {
@@ -612,13 +555,6 @@ void G_SendScore( gentity_t *ent ) {
 	//      1022 -32 for the startbuffer -3 for the clientNum 
 	char		buffer[987];
 	char		startbuffer[32];
-
-	if((g_playerRating.integer && ent->client->pers.etmodc > 20060205) || ent->client->sess.ettv) {
-		G_SendPR(ent);
-	}
-	if((g_killRating.integer && ent->client->pers.etmodc > 20060205) || ent->client->sess.ettv) {
-		G_SendKR(ent);
-	}
 
 	// send the latest information on all clients
 	numSorted = level.numConnectedClients;
@@ -2510,13 +2446,6 @@ void Cmd_Team_f( gentity_t *ent, unsigned int dwCommand, qboolean fValue ) {
 		&specState, 
 		&specClient);
 		
-	// quad - don't allow shoutcasters to join teams
-	if (ent->client->sess.shoutcaster && (team == TEAM_ALLIES || team == TEAM_AXIS)) {
-		CP("print \"team: shoutcasters may not join a team\n\"");
-		CP("cp \"Shoutcasters may not join a team\n\"");
-		return;
-	}
-
 	playerType = -1;
 	if(*ptype) {
 		// returns -1 if undefined
@@ -2603,13 +2532,6 @@ void Cmd_Class_f( gentity_t* ent, unsigned int dwCommand, qboolean fValue ) {
 		pteam = ci->sessionTeam;
 	}
 	
-	// quad - don't allow shoutcasters to join teams
-	if (ent->client->sess.shoutcaster && (pteam == TEAM_ALLIES || pteam == TEAM_AXIS)) {
-		CP("print \"class: shoutcasters may not join a team.\n\"");
-		CP("cp \"Shoutcasters may not join a team.\n\"");
-		return;
-	}
-
 	trap_Argv( 1, ptype,	sizeof( ptype	));
 	trap_Argv( 2, weap,		sizeof( weap	));
 	trap_Argv( 3, weap2,	sizeof( weap2	));
@@ -3042,8 +2964,7 @@ void G_SayTo( gentity_t *ent, gentity_t *other, int mode, int color, const char 
 
 		trap_SendServerCommand(other-g_entities,
 			va("%s \"%s%c%c%s%s\" %i %i",
-			cmd, name, Q_COLOR_ESCAPE, color,
-			other->client->pers.etmodc >= 20090112 ? escape_string(message) : message, //mcwf
+			cmd, name, Q_COLOR_ESCAPE, color, message,
 			(!Q_stricmp(cmd, "print")) ? "\n" : "",
 			ent-g_entities, localize));
 
@@ -5610,38 +5531,6 @@ char *G_SkillRewardString(int skill, int level){
 	}
 }
 
-void G_SendSkillReward(gentity_t *ent) {
-	char arg1[MAX_STRING_CHARS], arg2[MAX_STRING_CHARS];
-	int skill, level;
-
-	if ( trap_Argc() != 3 ) {
-		return;
-	}
-
-	if(ent->client->pers.etmodc < 20070819){
-		return;
-	}
-
-	skill = level = -1;
-
-	trap_Argv( 1, arg1, sizeof( arg1 ) );
-	skill = atoi( arg1 );
-	trap_Argv( 2, arg2, sizeof( arg2 ) );
-	level = atoi( arg2 );
-
-	if(skill >= SK_NUM_SKILLS || skill < 0 ||
-		level < 1 || level >= NUM_SKILL_LEVELS){
-			return;
-	}
-
-	if( ent->client->sess.skillpoints[skill] < skillLevels[skill][level] ) {
-		return;
-	}
-
-	CPx(ent-g_entities, va("skrwrdtxt \"%s\"", G_SkillRewardString(skill, level)));
-	return;
-}
-
 /*
 =================
 ClientCommand
@@ -5831,12 +5720,6 @@ void ClientCommand( int clientNum ) {
 	} else if (!Q_stricmp(cmd, "mapvote")) {
 		G_IntermissionMapVote(ent);
 		return;
-	} else if (!Q_stricmp(cmd, "immaplist")) {
-		G_IntermissionMapList(ent);
-		return;
-	} else if (!Q_stricmp(cmd, "imvotetally")) {
-		G_IntermissionVoteTally(ent);
-		return;
 	} else if( !Q_stricmp( cmd, "warnings" ) ) {
 		if(g_warningOptions.integer & WARNOP_SLASHWARN_COMMAND &&
 			(g_warningOptions.integer & WARNOP_LINK_GUID ||
@@ -5856,13 +5739,6 @@ void ClientCommand( int clientNum ) {
 			limbo( ent, qtrue );
 		}
 
-		return;
-	} else if( !Q_stricmp( cmd, "skrwrd" ) ) {
-		if( !ent || !ent->client ) {
-			return;
-		}
-
-		G_SendSkillReward(ent);
 		return;
 	}
 

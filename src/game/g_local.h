@@ -834,7 +834,6 @@ typedef struct {
 	// tjw
 	int hitsounds;
 	qboolean slashKill;
-	int etmodc;
 	int lastkilled_client;
 	int	lastrevive_client;
 	int	lastkiller_client;
@@ -1947,20 +1946,6 @@ void G_CalcRank( gclient_t* client );
 //
 char *G_SHA1( char *string );
 
-//
-// pheno: g_shoutcaster.c
-//
-qboolean G_IsShoutcastPasswordSet( void );
-qboolean G_IsShoutcastStatusAvailable( gentity_t *ent );
-void G_MakeShoutcaster( gentity_t *ent );
-void G_RemoveShoutcaster( gentity_t *ent );
-void G_RemoveAllShoutcasters( void );
-void G_sclogin_cmd( gentity_t *ent, unsigned int dwCommand, qboolean fValue );
-void G_sclogout_cmd( gentity_t *ent, unsigned int dwCommand, qboolean fValue );
-void G_makesc_cmd( void );
-void G_removesc_cmd( void );
-
-
 // g_cmd.c
 void Cmd_Activate_f (gentity_t *ent);
 void Cmd_Activate2_f (gentity_t *ent);
@@ -2914,9 +2899,6 @@ void G_MakeReferee(void);
 void G_RemoveReferee(void);
 void G_MuteClient(void);
 void G_UnMuteClient(void);
-// pheno
-void G_refMakeShoutcaster_cmd( gentity_t *ent );
-void G_refRemoveShoutcaster_cmd( gentity_t *ent );
 void G_refLogout_cmd( gentity_t *ent );
 
 
@@ -3280,8 +3262,6 @@ qboolean G_FlingClient( gentity_t *vic, int flingType );
 void G_touchKnife( gentity_t *ent, gentity_t *other, trace_t *trace );
 void G_throwKnife( gentity_t *ent );
 void G_IntermissionMapVote( gentity_t *ent );
-void G_IntermissionMapList( gentity_t *ent );
-void G_IntermissionVoteTally( gentity_t *ent );
 
 // forty - airstrike block
 #define ASBLOCK_ANNOUNCE 1
@@ -3293,12 +3273,9 @@ void G_IntermissionVoteTally( gentity_t *ent );
 #define ASBLOCK_GIVE_XP 32
 
 // forty - sudden death dynamite and dynamite chaining.
-// dyno counter requires at least etmodclient 20070213
 #define DYNO_SUDDENDEATH 1
 #define DYNO_CHAIN 2
-#define DYNO_COUNTER 4
 #define DYNO_NO_TEAM_DISARM 8
-#define DYNO_ID 16 // Dens: requires ETPubclient >=20070719
 
 // Perro - g_dmg flags for advanced combat options
 #define COMBAT_USE_HITLOC 1

@@ -1427,11 +1427,6 @@ void G_IntermissionMapVote( gentity_t *ent )
 		return;
 	}
 	
-	if ( ent->client->pers.etmodc <= 20060310 ) {
-		CP(va("print \"^3Invalid version of etmod_client\n\""));
-		return;
-	}
-
 	trap_Argv(1, arg, sizeof(arg));
 	// normal one-map vote
 	if ( trap_Argc() == 2 ) {
@@ -1469,58 +1464,3 @@ void G_IntermissionMapVote( gentity_t *ent )
 	}
 }
 
-void G_IntermissionMapList( gentity_t *ent )
-{
-	int i;
-	char mapList[MAX_STRING_CHARS];
-	int maxMaps;
-
-	if ( g_gametype.integer != GT_WOLF_MAPVOTE ||
-			!level.intermissiontime || 
-			ent->client->pers.etmodc <= 20060310 )
-		return;
-
-	maxMaps = g_maxMapsVotedFor.integer;
-	if ( maxMaps > level.mapVoteNumMaps ) 
-		maxMaps = level.mapVoteNumMaps;
-
-	Q_strncpyz(mapList, 
-			va("immaplist %d ", (g_mapVoteFlags.integer & MAPVOTE_MULTI_VOTE)),
-			MAX_STRING_CHARS);
-
-	for ( i = 0; i < maxMaps; i++ ) {
-		Q_strcat(mapList, MAX_STRING_CHARS, 
-				va("%s %d %d %d ", 
-					level.mapvoteinfo[level.sortedMaps[i]].bspName,
-					level.sortedMaps[i],
-					level.mapvoteinfo[level.sortedMaps[i]].lastPlayed,
-					level.mapvoteinfo[level.sortedMaps[i]].totalVotes ) );
-	}
-
-	trap_SendServerCommand(ent-g_entities, mapList);
-	return;
-}
-
-void G_IntermissionVoteTally( gentity_t *ent )
-{
-	int i;
-	char voteTally[MAX_STRING_CHARS];
-	int maxMaps;
-
-	if ( g_gametype.integer != GT_WOLF_MAPVOTE ||
-			!level.intermissiontime || 
-			ent->client->pers.etmodc <= 20060310 )
-		return;
-
-	maxMaps = g_maxMapsVotedFor.integer;
-	if ( maxMaps > level.mapVoteNumMaps ) 
-		maxMaps = level.mapVoteNumMaps;
-
-	Q_strncpyz(voteTally, "imvotetally ", MAX_STRING_CHARS);
-	for ( i = 0; i < maxMaps; i++ ) {
-		Q_strcat(voteTally, MAX_STRING_CHARS, 
-				va("%d ", level.mapvoteinfo[level.sortedMaps[i]].numVotes ) );
-	}
-	trap_SendServerCommand(ent-g_entities, voteTally);
-	return;
-}

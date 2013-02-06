@@ -2104,7 +2104,7 @@ static qboolean G_IsVoteFlagCvar( cvarTable_t *cv )
 }
 
 
-qboolean G_IsEtpubinfoCvar(vmCvar_t *c)
+qboolean G_IsEtmodinfoCvar(vmCvar_t *c)
 {
 	return (
 		c == &g_misc ||
@@ -2135,7 +2135,7 @@ qboolean G_IsEtpubinfoCvar(vmCvar_t *c)
 
 }
 
-void G_UpdateEtpubinfo(void)
+void G_UpdateEtmodinfo(void)
 {
 	char cs[MAX_INFO_STRING];
 	cs[0] = '\0';
@@ -2501,21 +2501,13 @@ void G_UpdateCvars( void )
 						trap_Cvar_Set(cv->cvarName, "33");
 					}
 				}
-				else if(G_IsEtpubinfoCvar(cv->vmCvar)) {
-					G_UpdateEtpubinfo();
+				else if(G_IsEtmodinfoCvar(cv->vmCvar)) {
+					G_UpdateEtmodinfo();
 
 					// pheno: check for g_misc value changes
 					if (cv->vmCvar == &g_misc) {
 						G_AnnounceCvarChanges();
 						g_misc_lastValue = g_misc.integer;
-					}
-				}
-				// pheno: logout all currently logged in shoutcasters
-				//        when changing shoutcastPassword to '' or 'none'
-				else if( cv->vmCvar == &shoutcastPassword ) {
-					if( !Q_stricmp( shoutcastPassword.string, "none" ) ||
-						!shoutcastPassword.string[0] ) {
-						G_RemoveAllShoutcasters();
 					}
 				}
 				// OSP - Update vote info for clients, if necessary
@@ -2529,9 +2521,9 @@ void G_UpdateCvars( void )
 
 					// pheno: fixed - update etmod info string when
 					//        g_friendlyFire is changed (don't check for
-					//        g_friendlyFire changes in G_IsEtpubinfoCvar()!)
+					//        g_friendlyFire changes in G_IsEtmodinfoCvar()!)
 					if( cv->vmCvar == &g_friendlyFire ) {
-						G_UpdateEtpubinfo();
+						G_UpdateEtmodinfo();
 					}
 				}
 			}
@@ -3063,7 +3055,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	}
 
-	G_UpdateEtpubinfo();
+	G_UpdateEtmodinfo();
 
 	// parse the key/value pairs and spawn gentities
 	G_SpawnEntitiesFromString();
@@ -5870,17 +5862,6 @@ void etmod_version( gentity_t *ent )
 	G_refPrintf( ent, "\n ^3Build  ^1: ^3Version         OS and Build Date" );
 	G_refPrintf( ent, "^1-----------------------------------------------------"
 		"-----------------" );
-
-	if( ent && ent->client->pers.etmodc ) {
-		char userinfo[MAX_INFO_STRING];
-		const char *s2;
-
-		trap_GetUserinfo( ent - g_entities, userinfo, sizeof( userinfo ) );
-		s2 = Info_ValueForKey( userinfo, "cg_etmodcbuild" );
-
-		G_refPrintf( ent, " ^7etmodc ^1: ^7%-15i %s",
-			ent->client->pers.etmodc, s2 );
-	}
 
 	G_refPrintf( ent, " ^7etmod  ^1: ^7%-15s %s %s\n",
 		va( "%s (%i)", ETMOD_VERSION,
