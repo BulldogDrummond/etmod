@@ -1,6 +1,7 @@
 #include "g_local.h"
 #include "etpro_mdx.h"
 #include "g_http_client.h"
+#include "g_mysql.h"
 #include "menudef.h" // Dens: needed for the ref level
 
 // Include the "External"/"Public" components of AI_Team
@@ -1189,6 +1190,7 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
 		G_InitGame( arg0, arg1, arg2 );
 		if (!Bot_Interface_Init())
 			G_Printf(S_COLOR_RED "Unable to Initialize Omni-Bot.\n");
+		G_DB_InitGameTest();
 		return 0;
 	case GAME_SHUTDOWN:
 		if (!Bot_Interface_Shutdown())

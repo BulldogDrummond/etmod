@@ -71,16 +71,21 @@ g_player_rating.c
 g_settings.c
 et-antiwarp.c
 geoip.c
+g_mysql.c
 ../../../../omnibot/Common/BotLoadLibrary.cpp
 """
 
 local_env = g_env.Copy()
 
+LIBS = 'mysqlclient'
+LIBPATH = '/usr/lib:/usr/local/lib'
+
 local_env.Append( CPPDEFINES = ['GAMEDLL'] )
 local_env.Append( CPPDEFINES = ['USE_MDXFILE'] )
 local_env.Append( CPPDEFINES = ['NO_BOT_SUPPORT'] )
+local_env.Append( CPPDEFINES = ['FEATURE_MYSQL'] )
 
-local_env.Append( CPPPATH = ['../../../omnibot/Common', '../../../omnibot/ET'] )
+local_env.Append( CPPPATH = ['../../../omnibot/Common', '../../../omnibot/ET', '/usr/include/mysql'] )
 
 # Omnibot
 local_env.Append( CXXFLAGS = ['-fpermissive'] )
@@ -89,5 +94,5 @@ local_env['LINK'] = local_env['CXX']
 
 source_list = scons_utils.BuildList( 'game', qagame_string )
 
-ret = local_env.SharedLibrary( target = 'qagame', source = source_list )
+ret = local_env.SharedLibrary( target = 'qagame', source = source_list , LIBS = 'mysqlclient', LIBPATH = '/usr/lib:/usr/local/lib')
 Return( 'ret' )
