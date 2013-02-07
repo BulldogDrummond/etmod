@@ -664,10 +664,6 @@ Returns qfalse if the client is dropped
 =================
 */
 
-// shoutcaster is protected if g_inactivityOptions flag 1 is set
-#define CIT_PROTECTED_SHOUTCASTER (client->sess.shoutcaster && \
-	(g_inactivityOptions.integer & IO_DONT_DROP_SHOUTCASTERS))
-
 // spectator is protected if in following mode and g_inactivityOptions flag 2 is set
 #define CIT_PROTECTED_FOLLOWER (client->sess.sessionTeam == TEAM_SPECTATOR && \
 	client->sess.spectatorState == SPECTATOR_FOLLOW && \
@@ -725,8 +721,6 @@ qboolean ClientInactivityTimer(gclient_t *client)
 		(client->ps.pm_flags & PMF_LIMBO) ||
 		// forty - #515 - g_inactivity moves MG42 although player is active
 		((client->ps.eFlags & EF_PRONE) && client->ps.weapon == WP_MOBILE_MG42_SET) ||
-		client->sess.ettv || // never drop ETTV slaves
-		CIT_PROTECTED_SHOUTCASTER ||
 		CIT_PROTECTED_FOLLOWER ||
 		CIT_PROTECTED_SPECTATOR ||
 		CIT_PROTECTED_SHRUBBOT_ADMIN) {

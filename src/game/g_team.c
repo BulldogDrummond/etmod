@@ -2019,11 +2019,6 @@ qboolean G_teamJoinCheck(int team_num, gentity_t *ent)
 			return(qtrue);
 		}
 
-		// quad - don't allow shoutcasters to join the game
-		if (ent->client->sess.shoutcaster) {
-			return(qfalse);
- 		}
-
 		if( g_gametype.integer != GT_WOLF_LMS ) {
 			// Check for full teams
 			if(team_maxplayers.integer > 0 && team_maxplayers.integer <= cnt) {
@@ -2062,8 +2057,6 @@ void G_updateSpecLock(int nTeam, qboolean fLock)
 
 		if(ent->client->sess.referee) continue;
 		if(ent->client->sess.coach_team) continue;
-		// quad - shoutcasters are not affected by speclock
-		if(ent->client->sess.shoutcaster) continue;
 
 		ent->client->sess.spec_invite &= ~nTeam;
 
@@ -2107,7 +2100,7 @@ void G_removeSpecInvite(int team)
 
 	for(i=0; i<level.numConnectedClients; i++) {
 		cl = g_entities + level.sortedClients[i];
-		if(!cl->inuse || cl->client->sess.referee || cl->client->sess.coach_team == team || cl->client->sess.shoutcaster) continue;
+		if(!cl->inuse || cl->client->sess.referee || cl->client->sess.coach_team == team) continue;
 
 		cl->client->sess.spec_invite &= ~team;	// none = 0, red = 1, blue = 2
 	}

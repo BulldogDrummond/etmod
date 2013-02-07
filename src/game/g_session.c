@@ -71,7 +71,6 @@ void G_WriteClientSessionData( gclient_t *client, qboolean restart )
 		client->sess.ATB_count,
 		// Dens: Needs to be saved to prevent spoofing
 		// quad: I think this solves ticket #5, will need to test it at large now
-		//       but at least ETTV clients don't get kicked anymore.
 		client->sess.guid &&
 			( !client->sess.guid || !Q_stricmp( client->sess.guid, "" ) ) ?
 				"NOGUID" : client->sess.guid,
@@ -82,10 +81,7 @@ void G_WriteClientSessionData( gclient_t *client, qboolean restart )
 			( !client->sess.mac || !Q_stricmp( client->sess.mac, "" ) ) ?
 				"NOMAC" : client->sess.mac,
 		client->sess.uci, //mcwf GeoIP
-		client->sess.need_greeting,
-		// quad: shoutcaster and ettv
-		client->sess.shoutcaster,
-		client->sess.ettv
+		client->sess.need_greeting
 		);
 
 	trap_Cvar_Set( va( "session%i", client - level.clients ), s );
@@ -243,10 +239,7 @@ void G_ReadSessionData( gclient_t *client )
 		client->sess.ip,
 		client->sess.mac,
 		&client->sess.uci, //mcwf GeoIP
-		&need_greeting,
-		// quad: shoutcaster and ettv
-		&client->sess.shoutcaster,
-		&client->sess.ettv
+		&need_greeting
 		);
 
 	client->sess.need_greeting = (need_greeting == 1) ? qtrue : qfalse;
@@ -412,12 +405,6 @@ void G_InitSessionData( gclient_t *client, char *userinfo ) {
 	sess->uci = 0;//mcwf GeoIP
 	sess->need_greeting = qtrue; // redeye - moved greeting message to ClientBegin
 	
-	// quad - shoutcaster & ettv
-	sess->ettv = ( atoi( Info_ValueForKey( userinfo, "protocol" ) ) == 284 );
-	// pheno: grant shoutcaster status to ettv slave
-	sess->shoutcaster = ( sess->ettv &&
-		( g_ettvFlags.integer & ETTV_SHOUTCASTER ) );
-
 	G_WriteClientSessionData( client, qfalse );
 }
 

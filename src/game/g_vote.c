@@ -385,13 +385,6 @@ int G_Kick_v( gentity_t *ent, unsigned int dwVoteIndex, char *arg, char *arg2, q
 			return G_INVALID;
 		}
 
-		// pheno: prevent ettv slaves from being callvote kicked 
-		if( level.clients[pid].sess.ettv &&
-			( g_ettvFlags.integer & ETTV_IMMUNITY ) ) {
-			G_refPrintf( ent, "Can't vote to kick ettv slaves!" );
-			return G_INVALID;
-		}
-
 		if( !fRefereeCmd && ent ) {
 			if( level.clients[ pid ].sess.sessionTeam != TEAM_SPECTATOR && level.clients[ pid ].sess.sessionTeam != ent->client->sess.sessionTeam ) {
 				G_refPrintf( ent, "Can't vote to kick players on opposing team!" );
@@ -1394,10 +1387,6 @@ int G_Unreferee_v(gentity_t *ent, unsigned int dwVoteIndex, char *arg, char *arg
 		gclient_t *cl = &level.clients[atoi(level.voteInfo.vote_value)];
 
 		cl->sess.referee = RL_NONE;
-		
-		if( !cl->sess.shoutcaster ) { // don't remove shoutcaster's invitation
-			cl->sess.spec_invite = 0;
-		}
 		
 		AP(va("cp \"%s^7\nis no longer a referee\n\"", cl->pers.netname));
 		ClientUserinfoChanged( atoi(level.voteInfo.vote_value) );

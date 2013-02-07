@@ -2261,8 +2261,7 @@ void ClientUserinfoChanged( int clientNum ) {
 #endif
 		// mcwf GeoIP
 		// quad: added support for latched classes
-		// quad: added support for ettv & shoutcaster
-		s = va( "n\\%s\\t\\%i\\c\\%i\\r\\%i\\m\\%s\\s\\%s\\dn\\%s\\dr\\%i\\w\\%i\\lw\\%i\\sw\\%i\\mu\\%i\\ref\\%i\\uci\\%u\\lc\\%i\\tv\\%i\\sc\\%i",
+		s = va( "n\\%s\\t\\%i\\c\\%i\\r\\%i\\m\\%s\\s\\%s\\dn\\%s\\dr\\%i\\w\\%i\\lw\\%i\\sw\\%i\\mu\\%i\\ref\\%i\\uci\\%u\\lc\\%i",
 			client->pers.netname,
 			client->sess.sessionTeam,
 			client->sess.playerType,
@@ -2277,9 +2276,7 @@ void ClientUserinfoChanged( int clientNum ) {
 			(client->sess.auto_unmute_time != 0) ? 1 : 0,
 			client->sess.referee,
 			client->sess.uci, //mcwf GeoIP
-			client->sess.latchPlayerType,
-			client->sess.ettv,
-			client->sess.shoutcaster
+			client->sess.latchPlayerType
 		);
 #ifndef NO_BOT_SUPPORT
 	}
