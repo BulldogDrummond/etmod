@@ -715,6 +715,9 @@ typedef struct {
 	// redeye - moved greeting message to ClientBegin
 	qboolean need_greeting;
 
+	// quad - ettv and shoutcaster
+	int shoutcaster;
+	int ettv;
 	//flms - revive streak
 	int				rstreak;
 
@@ -2313,10 +2316,12 @@ extern vmCvar_t g_chargeType;
 extern vmCvar_t g_maxConnsPerIP;
 
 // pheno
+extern vmCvar_t shoutcastPassword;
 extern vmCvar_t	vote_allow_cointoss;
 extern vmCvar_t g_headshot;
 extern vmCvar_t g_instagibDamage;
 extern vmCvar_t g_inactivityOptions;
+extern vmCvar_t g_ettvFlags;
 extern vmCvar_t g_firstBloodMsg;
 extern vmCvar_t g_firstBloodMsgPos;
 extern vmCvar_t g_lastBloodMsg;
@@ -3391,12 +3396,20 @@ void G_IntermissionMapVote( gentity_t *ent );
 #define HSMF_INSTAGIB_DAMAGE 2
 
 // pheno: g_inactivityOptions
+// don't drop shoutcasters
+#define IO_DONT_DROP_SHOUTCASTERS 1
 // don't drop spectators when in following mode
 #define IO_DONT_DROP_FOLLOWERS 2
 // don't wait for a full server to kick spectators (etmain spectator inactivity behavior)
 #define IO_FORCE_KICKING_SPECTATORS 4
 // shrubbot flag '0' admins will be moved to spectators due to team inactivity
 #define IO_FORCE_MOVING_TO_SPECTATORS 8
+
+// pheno: g_ettvFlags
+// prevent ettv slaves from being callvote kicked
+#define ETTV_IMMUNITY 1
+// grant shoutcaster status to ettv slaves
+#define ETTV_SHOUTCASTER 2
 
 // forty - canister kicking
 void G_CanisterKick();

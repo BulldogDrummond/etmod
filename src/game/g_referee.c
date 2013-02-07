@@ -98,7 +98,8 @@ void G_refHelp_cmd(gentity_t *ent)
 	G_refPrintf(ent,"^5allready         putallies^7 <pid>^5  speclock         warmup");
 	G_refPrintf(ent,"^5lock             putaxis^7 <pid>^5    specunlock       warn^7 <pid>");
 	G_refPrintf(ent,"^5help             remove^7 <pid>^5     unlock           logout");
-	G_refPrintf(ent,"^5pause            unpause^7 <pid>");
+	G_refPrintf(ent,"^5pause            makeshoutcaster^7 <pid>");
+	G_refPrintf(ent,"^5unpause          removeshoutcaster^7 <pid>");
 	G_refPrintf(ent,"------------------------------------------");
 	G_refPrintf(ent,"Usage: ^3\\ref <cmd> [params]\n");
 }
