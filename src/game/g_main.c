@@ -2512,6 +2512,14 @@ void G_UpdateCvars( void )
 						g_misc_lastValue = g_misc.integer;
 					}
 				}
+				// pheno: logout all currently logged in shoutcasters
+				//        when changing shoutcastPassword to '' or 'none'
+				else if( cv->vmCvar == &shoutcastPassword ) {
+					if( !Q_stricmp( shoutcastPassword.string, "none" ) ||
+						!shoutcastPassword.string[0] ) {
+						G_RemoveAllShoutcasters();
+					}
+				}
 				// OSP - Update vote info for clients, if necessary
 				else if(!G_IsSinglePlayerGame()) {
 

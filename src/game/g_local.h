@@ -1946,6 +1946,20 @@ void G_CalcRank( gclient_t* client );
 //
 char *G_SHA1( char *string );
 
+//
+// pheno: g_shoutcaster.c
+//
+qboolean G_IsShoutcastPasswordSet( void );
+qboolean G_IsShoutcastStatusAvailable( gentity_t *ent );
+void G_MakeShoutcaster( gentity_t *ent );
+void G_RemoveShoutcaster( gentity_t *ent );
+void G_RemoveAllShoutcasters( void );
+void G_sclogin_cmd( gentity_t *ent, unsigned int dwCommand, qboolean fValue );
+void G_sclogout_cmd( gentity_t *ent, unsigned int dwCommand, qboolean fValue );
+void G_makesc_cmd( void );
+void G_removesc_cmd( void );
+
+
 // g_cmd.c
 void Cmd_Activate_f (gentity_t *ent);
 void Cmd_Activate2_f (gentity_t *ent);
@@ -2899,6 +2913,9 @@ void G_MakeReferee(void);
 void G_RemoveReferee(void);
 void G_MuteClient(void);
 void G_UnMuteClient(void);
+// pheno
+void G_refMakeShoutcaster_cmd( gentity_t *ent );
+void G_refRemoveShoutcaster_cmd( gentity_t *ent );
 void G_refLogout_cmd( gentity_t *ent );
 
 

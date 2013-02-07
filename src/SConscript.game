@@ -45,6 +45,7 @@ g_referee.c
 g_script.c
 g_script_actions.c
 g_session.c
+g_shoutcaster.c
 g_spawn.c
 g_stats.c
 g_svcmds.c

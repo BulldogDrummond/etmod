@@ -51,8 +51,16 @@ static const cmd_reference_t aCommandInfo[] = {
 //	{ "resign",				qtrue,	qtrue,	NULL, " [player_ID]:^7 Resigns captainship.  Can optionally be given to another teammate" },
 	{ "say_teamnl",			qtrue,	qtrue,	G_say_teamnl_cmd, "<msg>:^7 Sends a team chat without location info" },
 	// pheno: shoutcast - short commands
+	{ "sclogin",			qtrue,	qfalse,	G_sclogin_cmd, " <password>:^7 Become a shoutcaster" },
+	{ "sclogout",			qtrue,	qfalse,	G_sclogout_cmd, ":^7 Removes shoutcaster status" },
 	{ "scores",				qtrue,	qtrue,	G_scores_cmd, ":^7 Displays current match stat info" },
 	// pheno: shoutcast - long commands
+	{ "shoutcastlogin",		qtrue,	qfalse,	G_sclogin_cmd, " <password>:^7 Become a shoutcaster" },
+	{ "shoutcastlogout",	qtrue,	qfalse,	G_sclogout_cmd, ":^7 Removes shoutcaster status" },
+	{ "specinvite",			qtrue,	qtrue,	G_specinvite_cmd, ":^7 Invites a player to spectate a speclock'ed team" },
+	{ "speclock",			qtrue,	qtrue,	G_speclock_cmd, ":^7 Locks a player's team from spectators" },
+//	{ "speconly",			qtrue,	qtrue,	NULL, ":^7 Toggles option to stay as a spectator in 1v1" },
+	{ "specunlock",			qtrue,	qfalse,	G_speclock_cmd, ":^7 Unlocks a player's team from spectators" },
 	{ "statsall",			qtrue,	qfalse,	G_statsall_cmd, ":^7 Shows weapon accuracy stats for all players" },
 	{ "statsdump",			qtrue,	qtrue,	NULL, ":^7 Shows player stats + match info saved locally to a file" },
 	// CHRUKER: b012 - Was missing

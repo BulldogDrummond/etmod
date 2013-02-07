@@ -436,6 +436,59 @@ void G_TeamDamageStats(gentity_t *ent)
 
 
 
+static void G_SendPR(gentity_t *ent)
+{
+	int i;
+	gclient_t *cl;
+	char buff[1021] = {"pr "};
+
+	Q_strcat(buff, sizeof(buff), va("%.1f ", 
+		(level.axisProb * 100.0f)));
+	Q_strcat(buff, sizeof(buff), va("%.1f ", 
+		(level.alliesProb * 100.0f)));
+	for(i=0; i < level.numConnectedClients; i++) {
+		cl = &level.clients[level.sortedClients[i]];
+		Q_strcat(buff, sizeof(buff), va("%.3f ", 
+			1.0 / (1.0 + 
+				exp(-cl->sess.rating
+					/sqrt(1.0+3.0*cl->sess.rating_variance*20.0/(M_PI*M_PI))))
+			));
+	}
+	if(strlen(buff) > 3) {
+		buff[strlen(buff)-1] = '\0';
+	}
+	trap_SendServerCommand(ent-g_entities, va(
+		"%s\n", buff));
+}
+
+static void G_SendKR(gentity_t *ent)
+{
+	int i;
+	float kr_kills_per_death;
+	gclient_t *cl;
+	char buff[1021] = {"kr "};
+
+	for(i=0; i < level.numConnectedClients; i++) {
+		cl = &level.clients[level.sortedClients[i]];
+		if(ent->client->sess.ettv) {
+			kr_kills_per_death = G_GetAdjKillsPerDeath(
+				cl->sess.overall_killrating
+				,cl->sess.overall_killvariance
+			);
+			Q_strcat(buff, sizeof(buff), va("%.3f ", 
+				kr_kills_per_death));
+		} else {
+			Q_strcat(buff, sizeof(buff), va("%i ", 
+				(int)cl->sess.overall_killrating));
+		}
+	}
+	if(i) {
+		buff[strlen(buff)-1] = '\0';
+	}
+	trap_SendServerCommand(ent-g_entities, va(
+		"%s\n", buff));
+}
+
 // G_SendScore_Add
 // 
 // Add score with clientNum at index i of level.sortedClients[]
@@ -2446,6 +2499,13 @@ void Cmd_Team_f( gentity_t *ent, unsigned int dwCommand, qboolean fValue ) {
 		&specState, 
 		&specClient);
 		
+	// quad - don't allow shoutcasters to join teams
+	if (ent->client->sess.shoutcaster && (team == TEAM_ALLIES || team == TEAM_AXIS)) {
+		CP("print \"team: shoutcasters may not join a team\n\"");
+		CP("cp \"Shoutcasters may not join a team\n\"");
+		return;
+	}
+
 	playerType = -1;
 	if(*ptype) {
 		// returns -1 if undefined
@@ -2532,6 +2592,13 @@ void Cmd_Class_f( gentity_t* ent, unsigned int dwCommand, qboolean fValue ) {
 		pteam = ci->sessionTeam;
 	}
 	
+	// quad - don't allow shoutcasters to join teams
+	if (ent->client->sess.shoutcaster && (pteam == TEAM_ALLIES || pteam == TEAM_AXIS)) {
+		CP("print \"class: shoutcasters may not join a team.\n\"");
+		CP("cp \"Shoutcasters may not join a team.\n\"");
+		return;
+	}
+
 	trap_Argv( 1, ptype,	sizeof( ptype	));
 	trap_Argv( 2, weap,		sizeof( weap	));
 	trap_Argv( 3, weap2,	sizeof( weap2	));

@@ -1718,6 +1718,27 @@ qboolean G_LandmineSnapshotCallback( int entityNum, int clientNum ) {
 		return qfalse;
 	}
 
+	// pheno: shoutcasters can see landmines (check only if
+	//        shoutcaster status available!)
+	if( G_IsShoutcastStatusAvailable( clEnt ) ) { 
+		if( clEnt->client->sess.sessionTeam == TEAM_SPECTATOR &&
+			clEnt->client->sess.shoutcaster ) {
+			return qtrue;
+		}
+
+		// check also following shoutcasters
+		for( i = 0; i < level.numConnectedClients; i++ ) {
+			gclient_t *cl = &level.clients[level.sortedClients[i]];
+
+			if( cl->sess.sessionTeam == TEAM_SPECTATOR &&
+				cl->sess.spectatorState == SPECTATOR_FOLLOW &&
+				cl->sess.spectatorClient == ( clEnt - g_entities ) &&
+				cl->sess.shoutcaster ) {
+				return qtrue;
+			}
+		}
+	}
+
 	if( clEnt->client->sess.skill[ SK_BATTLE_SENSE ] >= 4 ) {
 		return qtrue;
 	}

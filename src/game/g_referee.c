@@ -34,6 +34,10 @@ qboolean G_refCommandCheck(gentity_t *ent, char *cmd)
 	//else if(!Q_stricmp(cmd, "unmute"))		G_refMute_cmd(ent, qfalse);
 
 	// pheno
+	else if( !Q_stricmp( cmd, "makeshoutcaster" ) )
+		G_refMakeShoutcaster_cmd( ent );
+	else if( !Q_stricmp( cmd, "removeshoutcaster" ) )
+		G_refRemoveShoutcaster_cmd( ent );
 	else if( !Q_stricmp( cmd, "logout" ) )
 		G_refLogout_cmd( ent );
 
@@ -459,6 +463,98 @@ void G_refWarning_cmd(gentity_t* ent)
 		ClientUserinfoChanged( pid );
 	}
 }*/
+
+/*
+================
+G_refMakeShoutcaster_cmd
+================
+*/
+void G_refMakeShoutcaster_cmd( gentity_t *ent )
+{
+	int			pid;
+	char		name[MAX_NAME_LENGTH];
+	gentity_t	*player;
+
+	if( trap_Argc() != 3 ) {
+		G_refPrintf( ent, "Usage: \\ref makeshoutcaster <pid>" );
+		return;
+	}
+
+	if( !G_IsShoutcastPasswordSet() ) {
+		G_refPrintf( ent,
+			"Sorry, shoutcaster status disabled on this server." );
+		return;
+	}
+
+	trap_Argv( 2, name, sizeof( name ) );
+	
+	if( ( pid = ClientNumberFromString( ent, name ) ) == -1 ) {
+		return;
+	}
+
+	player = g_entities + pid;
+
+	if( !player || !player->client ) {
+		return;
+	}
+
+	// ignore bots
+	if( player->r.svFlags & SVF_BOT ) {
+		G_refPrintf( ent, "Sorry, a bot can not be a shoutcaster." );
+		return;
+	}
+
+	if( player->client->sess.shoutcaster ) {
+		G_refPrintf( ent, "Sorry, %s^7 is already a shoutcaster.",
+			player->client->pers.netname );
+		return;
+	}
+
+	G_MakeShoutcaster( player );
+}
+
+/*
+================
+G_refRemoveShoutcaster_cmd
+================
+*/
+void G_refRemoveShoutcaster_cmd( gentity_t *ent )
+{
+	int			pid;
+	char		name[MAX_NAME_LENGTH];
+	gentity_t	*player;
+
+	if( trap_Argc() != 3 ) {
+		G_refPrintf( ent, "Usage: \\ref removeshoutcaster <pid>" );
+		return;
+	}
+
+	if( !G_IsShoutcastPasswordSet() ) {
+		G_refPrintf( ent,
+			"Sorry, shoutcaster status disabled on this server." );
+		return;
+	}
+
+	trap_Argv( 2, name, sizeof( name ) );
+	
+	if( ( pid = ClientNumberFromString( ent, name ) ) == -1 ) {
+		return;
+	}
+
+	player = g_entities + pid;
+
+	if( !player || !player->client ) {
+		return;
+	}
+
+	if( !player->client->sess.shoutcaster ) {
+		G_refPrintf( ent, "Sorry, %s^7 is not a shoutcaster.",
+			player->client->pers.netname );
+		return;
+	}
+
+	G_RemoveShoutcaster( player );
+}
 
 /*
 ================
