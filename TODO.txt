@@ -1,0 +1,65 @@
+Test all options for CMakeLists.txt.
+
+Modify to use local omni-bot lib and files.
+
+Test/correct install bits.
+
+Check if lib will strip and how to do it in cmake.
+
+
+CODE WARNINGS:
+============================================================================================================
+
+[ 31%] Building C object CMakeFiles/qagame.mp.i386.dir/src/game/g_combat.c.o
+/opt/wolfet/src/etmod/src/game/g_combat.c: In function ‘G_calculateDamageBonus’:
+/opt/wolfet/src/etmod/src/game/g_combat.c:1608: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_combat.c:1614: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_combat.c:1622: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_combat.c:1628: warning: format not a string literal and no format arguments
+
+[ 60%] Building C object CMakeFiles/qagame.mp.i386.dir/src/game/g_svcmds.c.o
+/opt/wolfet/src/etmod/src/game/g_svcmds.c: In function ‘ConsoleChat’:
+/opt/wolfet/src/etmod/src/game/g_svcmds.c:1131: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_svcmds.c:1135: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_svcmds.c: In function ‘ConsoleCommand’:
+/opt/wolfet/src/etmod/src/game/g_svcmds.c:1350: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_svcmds.c:1360: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_svcmds.c:1370: warning: format not a string literal and no format arguments
+
+[ 71%] Building C object CMakeFiles/qagame.mp.i386.dir/src/game/g_utils.c.o
+/opt/wolfet/src/etmod/src/game/g_utils.c: In function ‘G_LoadCampaignsFromFile’:
+/opt/wolfet/src/etmod/src/game/g_utils.c:1248: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_utils.c:1277: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_utils.c:1285: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_utils.c:1291: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_utils.c:1299: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_utils.c:1307: warning: format not a string literal and no format arguments
+
+[ 73%] Building C object CMakeFiles/qagame.mp.i386.dir/src/game/g_vote.c.o
+/opt/wolfet/src/etmod/src/game/g_vote.c: In function ‘G_voteCmdCheck’:
+/opt/wolfet/src/etmod/src/game/g_vote.c:105: warning: format not a string literal and no format arguments
+
+[ 79%] Building C object CMakeFiles/qagame.mp.i386.dir/src/game/g_shrubbot.c.o
+/opt/wolfet/src/etmod/src/game/g_shrubbot.c: In function ‘G_shrubbot_howfair’:
+/opt/wolfet/src/etmod/src/game/g_shrubbot.c:2442: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_shrubbot.c: In function ‘G_shrubbot_print’:
+/opt/wolfet/src/etmod/src/game/g_shrubbot.c:4201: warning: format not a string literal and no format arguments
+/opt/wolfet/src/etmod/src/game/g_shrubbot.c: In function ‘G_shrubbot_print_chat’:
+/opt/wolfet/src/etmod/src/game/g_shrubbot.c:4231: warning: format not a string literal and no format arguments
+
+[ 85%] Building CXX object CMakeFiles/qagame.mp.i386.dir/src/game/g_etbot_interface.cpp.o
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual int ETInterface::AddBot(const MessageHelper&)’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:1929: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual obResult ETInterface::ChangeTeam(int, int, const MessageHelper*)’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:2008: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:2010: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual obResult ETInterface::InterfaceSendMessage(const MessageHelper&, GameEntity)’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4658: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5202: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5214: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5227: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5240: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5253: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In function ‘void Bot_Interface_Update()’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5751: warning: deprecated conversion from string constant to ‘char*’
+
