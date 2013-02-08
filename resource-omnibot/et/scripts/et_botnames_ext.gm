@@ -16,130 +16,130 @@ RegisterDefaultProfile(CLASS.FIELDOPS, "def_bot.gm");
 RegisterDefaultProfile(CLASS.COVERTOPS, "def_bot.gm");
 
 /////////////////////////////////////////////////////////////////////
-// optionally assign a prefix for the bot name. set to "" for no prefix
-global BotPrefix = "^o[BOT]^7";
+// optionally assign a suffix for the bot name. set to "" for no prefix
+global BotSuffix = " ^o[B]^7";
 
 /////////////////////////////////////////////////////////////////////
 // Axis Bots
 
 // Covert Ops
-AxisBots["Walter"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AxisBots["Fred"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AxisBots["Morgan"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AxisBots["Lawrence"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AxisBots["Richard"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AxisBots["Michael"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AxisBots["Brad"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Muller"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Schmidt"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Schneider"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Fischer"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Weller"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Schafer"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AxisBots["Meiner"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
 
 // Engineers
-AxisBots["George"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AxisBots["Anton"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AxisBots["Monty"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AxisBots["Bean"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AxisBots["Sean"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AxisBots["Backfire"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AxisBots["Halfwit"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Becker"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Bauer"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Hoffman"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Zimmermann"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Schmitt"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Schmid"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AxisBots["Kruger"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
 
 // Field Ops
-AxisBots["Halfbaked"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AxisBots["Fullmonty"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AxisBots["Nohope"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AxisBots["Hitnrun"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AxisBots["Missnrun"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AxisBots["Oysterhead"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AxisBots["Fullthrottle"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Weissmann"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Lange"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Krause"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Schultze"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Huber"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Herrmann"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AxisBots["Kaiser"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
 
 // Medics
-AxisBots["NoAmmo"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AxisBots["Bullseye"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AxisBots["Aimless"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AxisBots["Blackadder"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AxisBots["Newbie"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AxisBots["Cledus"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AxisBots["Chimichanga"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Jung"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Keller"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Hahn"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Friedrich"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Vogel"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Lorenz"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AxisBots["Ludwig"] = { class=CLASS.MEDIC, weapon=0, profile="" };
 
 // Soldiers
-AxisBots["Razor"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AxisBots["Tanz"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AxisBots["Vic"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AxisBots["Malin"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AxisBots["Thor"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AxisBots["Grog"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AxisBots["Drago"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Heinrich"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Bohm"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Albrecht"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Schreiber"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Brandt"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Seidel"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AxisBots["Wolff"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
 
 /////////////////////////////////////////////////////////////////////
 // Allied Bots
 
 // Covert Ops
-AlliedBots["Stinger"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AlliedBots["Stickler"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
 AlliedBots["Tarnok"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AlliedBots["Wens"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AlliedBots["Brohn"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AlliedBots["Ivor"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AlliedBots["Gordac"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
-AlliedBots["Bortack"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AlliedBots["Koweki"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AlliedBots["Bronson"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AlliedBots["Isaacs"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AlliedBots["Gordon"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
+AlliedBots["Barton"] = { class=CLASS.COVERTOPS, weapon=0, profile="" };
 
 // Engineers
-AlliedBots["Morgriff"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AlliedBots["Kole"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AlliedBots["Garbok"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AlliedBots["Korv"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AlliedBots["Vokur"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AlliedBots["Gali"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
-AlliedBots["Beelz"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["Morgan"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["Mahone"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["Tomlinson"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["Corman"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["Smith"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["MacDonald"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
+AlliedBots["Benson"] = { class=CLASS.ENGINEER, weapon=0, profile="" };
 
 // Field Ops
-AlliedBots["CraigChrist"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AlliedBots["WhittlinMan"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AlliedBots["SpecialEd"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AlliedBots["Kennick"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AlliedBots["Whittman"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AlliedBots["Kowalski"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
 AlliedBots["Flint"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AlliedBots["Argo"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AlliedBots["Antonetti"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
 AlliedBots["Milius"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
-AlliedBots["Vera"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
+AlliedBots["Roberts"] = { class=CLASS.FIELDOPS, weapon=0, profile="" };
 
 // Medics
-AlliedBots["Merki"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AlliedBots["Tarnen"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AlliedBots["Royen"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AlliedBots["Kaolin"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AlliedBots["Nandet"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AlliedBots["Nundak"] = { class=CLASS.MEDIC, weapon=0, profile="" };
-AlliedBots["Ryver"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Maloney"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Jacobs"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Durant"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Washington"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Johnson"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Kilarney"] = { class=CLASS.MEDIC, weapon=0, profile="" };
+AlliedBots["Rowan"] = { class=CLASS.MEDIC, weapon=0, profile="" };
 
 // Soldiers
-AlliedBots["Mungri"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AlliedBots["Chan"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AlliedBots["Amadi"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AlliedBots["Zarna"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AlliedBots["PillowPants"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AlliedBots["ListerFiend"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
-AlliedBots["Ilikechocmilk"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Miller"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Christman"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Anderson"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Zollicker"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Clements"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Lister"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
+AlliedBots["Peterson"] = { class=CLASS.SOLDIER, weapon=0, profile="" };
 
 /////////////////////////////////////////////////////////////////////
 // Overflow bots - used if no bots left for team / class desired
 global _OverFlowBotNumber = 0;
 global ExtraBots =
 {
-	"Himdar",
-	"Vedro",
-	"Icexo",
-	"Tahlkora",
-	"Bolund",
-	"Ellanil",
-	"Galul",
-	"Mindelos",
-	"Ostmor",
-	"Sagel",
-	"Thalath",
-	"Dharmesh",
-	"Aegarond",
-	"Havo",
-	"Jarno",
+	"Himmle",
+	"Vedron",
+	"Eccels",
+	"Tahlman",
+	"Boland",
+	"Lanicik",
+	"Galman",
+	"Tanel",
+	"Ostmamn",
+	"Segel",
+	"Dahlmann",
+	"Weber",
+	"Aron",
+	"Havolik",
+	"Jarnon",
 	"Leiruth",
-	"Edoli",
+	"Edmund",
 	"Edwig",
 	"Faden",
-	"Skorgan"
+	"Skokie"
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -158,7 +158,7 @@ global _PreferredWeapon = table();
 
 // axis
 foreach ( botName and loadout in AxisBots ) {
-	name = BotPrefix + botName;
+	name = botName + BotSuffix;
 	Names[ name ] = loadout.profile;
 	if (!_AxisBots[ loadout.class ]) {
 		_AxisBots[ loadout.class ] = table();
@@ -173,7 +173,7 @@ foreach ( botName and loadout in AxisBots ) {
 
 // allies
 foreach ( botName and loadout in AlliedBots ) {
-	name = BotPrefix + botName;
+	name = botName + BotSuffix;
 	Names[ name ] = loadout.profile;
 	if (!_AlliedBots[ loadout.class ]) {
 		_AlliedBots[ loadout.class ] = table();
@@ -227,7 +227,7 @@ global OnBotAutoJoin = function()
 		}
 
 		if ( botName ) {
-			botTable = { class = desiredClass, team = desiredTeam, name = BotPrefix + botName };
+			botTable = { class = desiredClass, team = desiredTeam, name = botName + BotSuffix };
 		}
 		else {
 			botTable = { class = desiredClass, team = desiredTeam };
