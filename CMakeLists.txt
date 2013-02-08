@@ -18,16 +18,11 @@ set(ETMOD_SYSTEM_PROCESSOR ${CMAKE_SYSTEM_PROCESSOR}) # See IS_64_BIT_BUILD_SYST
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 
 # Options
-option(BUILD_PAK2_PK3	"Pack updated game scripts into pak2.pk3"	OFF)
-
-option(CROSS_COMPILE32 "Compile 32-bit version (64bit req for 2.60b)"	ON)
+option(CROSS_COMPILE32	"Compile 32-bit version (64bit req for 2.60b)"	ON)
+option(FEATURE_MYSQL	"Enable MySQL support in game code"		ON)
 
 # Installation options
-set(INSTALL_DEFAULT_MODDIR "data"	CACHE STRING "Appended to CMAKE_INSTALL_PREFIX")
-
-# Optional features
-option(FEATURE_MYSQL	"Enable MySQL support in game code"		ON)
-option(INSTALL_OMNIBOT	"Install the Omni-Bot lib and files"		OFF)
+set(INSTALL_DEFAULT_MODDIR "data"       CACHE STRING "Appended to CMAKE_INSTALL_PREFIX")
 
 #-----------------------------------------------------------------
 # Platform-specific settings
@@ -41,7 +36,6 @@ set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
 set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m32")
 
@@ -53,9 +47,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 # From ET:Legacy - may not be needed - TODO: Check these
 set(OS_LIBRARIES dl m rt pthread)
+
 set(LIB_SUFFIX ".mp.")
 
-# These are derived from the compiler calls in the scons build
+# These are derived from the compiler calls in the scons build - TODO: Check these
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -c -pipe -O3 -fPIC -fmessage-length=0")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -finline-functions -fschedule-insns2")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing")
@@ -191,47 +186,40 @@ install(TARGETS qagame${LIB_SUFFIX}${ARCH}
 	ARCHIVE DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod"
 )
 
-if(BUILD_PAK2_PK3)
-	add_custom_target(
-		pak2_pk3 ALL
-		COMMAND zip -r ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak2.pk3 *
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resource-pak2/
-	)
+# install pak2.pk3
+add_custom_target(
+	pak2_pk3 ALL
+	COMMAND zip -r ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak2.pk3 *
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resource-pak2/
+)
 
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak2.pk3
-		DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod"
-	)
-endif(BUILD_PAK2_PK3)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/etmod/pak2.pk3
+	DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod"
+)
 
-if(INSTALL_OMNIBOT)
-	message(STATUS "Installing Omni-Bot")
+# install sample configs
+message(STATUS "Adding sample config files")
+add_custom_target(
+	sample_configs ALL
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+		"${CMAKE_CURRENT_SOURCE_DIR}/resource-config"
+		"${CMAKE_CURRENT_BINARY_DIR}/etmod"
+)
 
-	# Note: used tar (16MB) doesn't contain windows, incomplete nav- and other unwanted files
-	set(ETMOD_OMNIBOT_L_DL_URL "http://mirror.etlegacy.com/omnibot/omnibot-linux-latest.tar.gz")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/resource-config/*"
+        DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod"
+)
 
-	message(STATUS "Downloading Omni-Bot to ${CMAKE_CURRENT_BINARY_DIR}/omnibot-linux-latest.tar.gz")
-	file(DOWNLOAD ${ETMOD_OMNIBOT_L_DL_URL} "${CMAKE_CURRENT_BINARY_DIR}/omnibot-linux-latest.tar.gz")
+# install omni-bot
+message(STATUS "Adding Omni-Bot library and files")
+add_custom_target(
+        omnibot ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${CMAKE_CURRENT_SOURCE_DIR}/resource-omnibot"
+                "${CMAKE_CURRENT_BINARY_DIR}/etmod/omni-bot"
+)
 
-	message(STATUS "Unzipping Omni-Bot to ${CMAKE_CURRENT_BINARY_DIR}/etmod/omnibot")
-	execute_process(
-		COMMAND tar -xf ${CMAKE_CURRENT_BINARY_DIR}/omnibot-linux-latest.tar.gz
-		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-	)
-
-	message(STATUS "Adding Omni-Bot to installer scripts")
-		install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/etmod/omnibot/"
-		DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod/omni-bot"
-	)
-endif(INSTALL_OMNIBOT)
-
-#-----------------------------------------------------------------
-# Installer/Package generation
-#-----------------------------------------------------------------
-
-# install adds ...
-
-# /etmmod/ adds
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/resource-config/"
-	DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmmod"
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/resource-omnibot"
+        DESTINATION "${INSTALL_DEFAULT_MODDIR}/etmod/omni-bot"
 )
 

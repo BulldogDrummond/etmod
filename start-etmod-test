@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ${HOME}/data/etmod
+
+${HOME}/bin/etlded +exec server.cfg \
++set fs_game etmod \
++set fs_basepath ${HOME}/data \
++set fs_homepath ${HOME}/runtime \
++set com_hunkmegs 256 \
++set com_zonemegs 32 
+

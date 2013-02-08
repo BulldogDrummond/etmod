@@ -1,9 +1,3 @@
-Test all options for CMakeLists.txt.
-
-Modify to use local omni-bot lib and files.
-
-Test/correct install bits.
-
 Check if lib will strip and how to do it in cmake.
 
 
