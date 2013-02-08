@@ -11,7 +11,7 @@
 //#include "g_threads.h"
 #include "etmod.h"
 
-#include "../game/be_aas.h"
+#include "be_aas.h"
 
 //==================================================================
 

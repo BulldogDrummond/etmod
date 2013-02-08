@@ -5,20 +5,20 @@
 
 #ifdef SAVEGAME_SUPPORT
 
-#include "../game/g_local.h"
-#include "../game/q_shared.h"
-#include "../game/botlib.h"		//bot lib interface
-#include "../game/be_aas.h"
-#include "../game/be_ea.h"
-#include "../game/be_ai_gen.h"
-#include "../game/be_ai_goal.h"
-#include "../game/be_ai_move.h"
-#include "../botai/botai.h"			//bot ai interface
-#include "../botai/ai_main.h"
-#include "../botai/chars.h"
-#include "../botai/ai_team.h"
-#include "../botai/	ai_dmq3.h"
-#include "../game/be_ai_chat.h"
+#include "g_local.h"
+#include "q_shared.h"
+#include "botlib.h"		//bot lib interface
+#include "be_aas.h"
+#include "be_ea.h"
+#include "be_ai_gen.h"
+#include "be_ai_goal.h"
+#include "be_ai_move.h"
+#include "botai.h"			//bot ai interface
+#include "ai_main.h"
+#include "chars.h"
+#include "ai_team.h"
+#include "ai_dmq3.h"
+#include "be_ai_chat.h"
 
 extern bot_waypoint_t botai_waypoints[MAX_BOTAIWAYPOINTS];
 extern bot_waypoint_t *botai_freewaypoints;
@@ -224,10 +224,10 @@ funcList_t gameFuncList[] = {
 	#include "g_funcs.h"
 };
 
-#include "../botai/ai_func_decs.h"	// declare all ai functions
+#include "ai_func_decs.h"	// declare all ai functions
 
 funcList_t aiFuncList[] = {
-	#include "../botai/ai_funcs.h"
+	#include "ai_funcs.h"
 };
 
 //=========================================================

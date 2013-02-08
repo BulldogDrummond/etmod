@@ -6,9 +6,9 @@
 // Tab Size:		4 (real tabs)
 //===========================================================================
 
-#include "../game/g_local.h"
-#include "../game/q_shared.h"
-#include "../game/g_etbot_interface.h"
+#include "g_local.h"
+#include "q_shared.h"
+#include "g_etbot_interface.h"
 /*
 Scripting that allows the designers to control the behaviour of entities
 according to each different scenario.

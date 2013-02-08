@@ -5,7 +5,7 @@
 #include "menudef.h" // Dens: needed for the ref level
 
 // Include the "External"/"Public" components of AI_Team
-#include "../botai/ai_teamX.h"
+#include "ai_teamX.h"
 
 #include "g_etbot_interface.h"
 

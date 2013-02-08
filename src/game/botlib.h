@@ -11,7 +11,7 @@
 #ifndef __BOTLIB_H__
 #define __BOTLIB_H__
 
-#include "../game/be_aas.h"
+#include "be_aas.h"
 
 #define	BOTLIB_API_VERSION		2
 
