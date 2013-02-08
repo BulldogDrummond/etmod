@@ -1605,13 +1605,13 @@ float G_calculateDamageBonus(gentity_t *targ, gentity_t *attacker){
 			if(count < 0){
 				if(g_damageBonusOpts.integer & DMGBONUS_DEBUG){
 					Q_strcat(debug, sizeof(debug),va("^3%f\n",pow((100.0f - g_damageBonus.value)/100.0f, abs(count))));
-					G_Printf(debug);
+					G_Printf("%s",debug);
 				}
 				return pow((100.0f - g_damageBonus.value)/100.0f, abs(count));
 			}else{
 				if(g_damageBonusOpts.integer & DMGBONUS_DEBUG){
 					Q_strcat(debug, sizeof(debug),va("^3%f\n",pow((100.0f + g_damageBonus.value)/100.0f, count)));
-					G_Printf(debug);
+					G_Printf("%s",debug);
 				}
 				return pow((100.0f + g_damageBonus.value)/100.0f, count);
 			}
@@ -1619,13 +1619,13 @@ float G_calculateDamageBonus(gentity_t *targ, gentity_t *attacker){
 			if(count < 0){
 				if(g_damageBonusOpts.integer & DMGBONUS_DEBUG){
 					Q_strcat(debug, sizeof(debug),va("^3%f\n",(100.0f - g_damageBonus.value)/100.0f));
-					G_Printf(debug);
+					G_Printf("%s",debug);
 				}
 				return (100.0f - g_damageBonus.value)/100.0f;
 			}else{
 				if(g_damageBonusOpts.integer & DMGBONUS_DEBUG){
 					Q_strcat(debug, sizeof(debug),va("^3%f\n",(100.0f + g_damageBonus.value)/100.0f));
-					G_Printf(debug);
+					G_Printf("%s",debug);
 				}
 				return (100.0f + g_damageBonus.value)/100.0f;
 			}

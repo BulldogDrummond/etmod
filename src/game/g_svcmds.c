@@ -1126,13 +1126,13 @@ qboolean ConsoleChat(qboolean chatClient) {
 				line));
 	}
 	if(chatClient) {
-		G_LogPrintf(va("chat(client): %d: %s\n",
+		G_LogPrintf("chat(client): %d: %s\n",
 			clientNum,
-			ConcatArgs(1)));
+			ConcatArgs(1));
 	}
 	else {
-		G_LogPrintf(va("chat(client): %s\n", 
-			ConcatArgs(1)));
+		G_LogPrintf("chat(client): %s\n", 
+			ConcatArgs(1));
 	}
 	return qtrue;
 }
@@ -1346,8 +1346,8 @@ qboolean	ConsoleCommand( void ) {
 		trap_SendServerCommand( -1, va(
 					"cp \"%s\"", 
 					Q_AddCR(ConcatArgs(1))));
-		G_LogPrintf(va("cp: %s\n",
-			Q_AddCR(ConcatArgs(1))));
+		G_LogPrintf("cp: %s\n",
+			Q_AddCR(ConcatArgs(1)));
 		return qtrue;
 	}
 
@@ -1356,8 +1356,8 @@ qboolean	ConsoleCommand( void ) {
 		trap_SendServerCommand( -1, va(
 					"bp \"%s\"", 
 					Q_AddCR(ConcatArgs(1))));
-		G_LogPrintf(va("bp: %s\n",
-			Q_AddCR(ConcatArgs(1))));
+		G_LogPrintf("bp: %s\n",
+			Q_AddCR(ConcatArgs(1)));
 		return qtrue;
 	}
 
@@ -1367,7 +1367,7 @@ qboolean	ConsoleCommand( void ) {
 		trap_SendServerCommand( -1, va(
 					"cpm \"%s\" 1", 
 					ConcatArgs(1)));
-		G_LogPrintf(va("cpm: %s\n", ConcatArgs(1)));
+		G_LogPrintf("cpm: %s\n", ConcatArgs(1));
 		return qtrue;
 	}
 

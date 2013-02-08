@@ -2435,11 +2435,11 @@ qboolean G_shrubbot_howfair(gentity_t *ent, int skiparg) {
 		axisProb
 		));
 
-	G_LogPrintf(va("howfair: %s (Allies: %.2f Axis %.2f)\n",
+	G_LogPrintf("howfair: %s (Allies: %.2f Axis %.2f)\n",
 		howfair,
 		alliesProb,
 		axisProb
-		));
+		);
 
 	return qtrue;
 }
@@ -4198,7 +4198,7 @@ void G_shrubbot_print(gentity_t *ent, char *m)
 	else {
 		char m2[MAX_STRING_CHARS];
 		DecolorString(m, m2);
-		G_Printf(m2);
+		G_Printf("%s",m2);
 	}
 }
 
@@ -4228,7 +4228,7 @@ void G_shrubbot_print_chat(gentity_t *ent, char *m)
 	}else {
 		char m2[MAX_STRING_CHARS];
 		DecolorString(m, m2);
-		G_Printf(va("%s\n",m2));
+		G_Printf("%s\n", m2);
 	}
 }
 
