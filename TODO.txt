@@ -1,2 +1,22 @@
 Check if lib will strip and how to do it in cmake.
 
+
+CODE WARNINGS:
+============================================================================================================
+
+[ 85%] Building CXX object CMakeFiles/qagame.mp.i386.dir/src/game/g_etbot_interface.cpp.o
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual int ETInterface::AddBot(const MessageHelper&)’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:1929: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual obResult ETInterface::ChangeTeam(int, int, const MessageHelper*)’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:2008: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:2010: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual obResult ETInterface::InterfaceSendMessage(const MessageHelper&, GameEntity)’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4658: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5202: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5214: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5227: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5240: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5253: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In function ‘void Bot_Interface_Update()’:
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5751: warning: deprecated conversion from string constant to ‘char*’
+

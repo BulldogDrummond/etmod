@@ -1641,7 +1641,7 @@ public:
 
 	obResult ChangeTeam(int _client, int _newteam, const MessageHelper *_data)
 	{
-		const char* teamName;
+		char* teamName;
 		gentity_t* bot = &g_entities[_client];
 
 		// find a team if we didn't get one and we need one ;-)
@@ -1716,11 +1716,11 @@ public:
 
 		// if SetTeam() fails, be sure to at least send a note to the bot about the current team
 		// (else this won't be neccessary because on respawn messages will be sent automatically)
-		//if (!SetTeam(bot, teamName, qtrue, (weapon_t)-1, (weapon_t)-1, qfalse))
-		//{
+		if (!SetTeam(bot, teamName, qtrue, (weapon_t)-1, (weapon_t)-1, qfalse))
+		{
 			// also retransmit weapons stuff
 			//ReTransmitWeapons(bot);
-		//}
+		}
 		return Success;
 	}
 
@@ -4054,8 +4054,7 @@ public:
 				OB_GETMSG(Msg_GotoWaypoint);
 				if(pMsg && pMsg->m_Origin && g_cheats.integer)
 				{
-					char *cmd;
-					sprintf(cmd, "setviewpos %f %f %f %f", pMsg->m_Origin[0], pMsg->m_Origin[1], pMsg->m_Origin[2], 0.f);
+					char * cmd = va("setviewpos %f %f %f %f", pMsg->m_Origin[0], pMsg->m_Origin[1], pMsg->m_Origin[2], 0.f);
 					trap_SendConsoleCommand(EXEC_NOW, cmd);
 					return Success;
 				}
@@ -4572,9 +4571,7 @@ public:
 				if(pEnt && pEnt->client)
 				{
 					OB_GETMSG(ET_FireTeamApply);
-					char *mfabuf;
-					sprintf(mfabuf, "fireteam apply %i", pMsg->m_FireTeamNum);
-					trap_EA_Command(pEnt-g_entities, mfabuf);
+					trap_EA_Command(pEnt-g_entities, va("fireteam apply %i", pMsg->m_FireTeamNum));
 				}
 				break;
 			}
@@ -4586,9 +4583,7 @@ public:
 					gentity_t *targ = EntityFromHandle(pMsg->m_Target);
 					if(targ)
 					{
-						char *mfibuf;
-						sprintf(mfibuf, "fireteam invite %i", targ-g_entities + 1);
-						trap_EA_Command(pEnt-g_entities, mfibuf);
+						trap_EA_Command(pEnt-g_entities, va("fireteam invite %i", (targ-g_entities)+1));
 					}
 				}
 				break;
@@ -4601,9 +4596,7 @@ public:
 					gentity_t *targ = EntityFromHandle(pMsg->m_Target);
 					if(targ)
 					{
-						char *mfwbuf;
-						sprintf(mfwbuf, "fireteam warn %i", targ-g_entities + 1);
-						trap_EA_Command(pEnt-g_entities, mfwbuf);
+						trap_EA_Command(pEnt-g_entities, va("fireteam warn %i", (targ-g_entities)+1));
 					}
 				}
 				break;
@@ -4616,9 +4609,7 @@ public:
 					gentity_t *targ = EntityFromHandle(pMsg->m_Target);
 					if(targ)
 					{
-						char *mfkbuf;
-						sprintf(mfkbuf, "fireteam kick %i", targ-g_entities + 1);
-						trap_EA_Command(pEnt-g_entities, mfkbuf);
+						trap_EA_Command(pEnt-g_entities, va("fireteam kick %i", (targ-g_entities)+1));
 					}
 				}
 				break;
@@ -4631,9 +4622,7 @@ public:
 					gentity_t *targ = EntityFromHandle(pMsg->m_Target);
 					if(targ)
 					{
-						char *mfpbuf;
-						sprintf(mfpbuf, "fireteam propose %i", targ-g_entities + 1);
-						trap_EA_Command(pEnt-g_entities, mfpbuf);
+						trap_EA_Command(pEnt-g_entities, va("fireteam propose %i", (targ-g_entities)+1));
 					}
 				}
 				break;
@@ -5127,9 +5116,7 @@ void Bot_Interface_Update()
 			if(g_OmniBotPlaying.integer != iNumBots)
 			{
 				g_OmniBotPlaying.integer = iNumBots;
-				char *nbbuf;
-				sprintf(nbbuf, "%i", iNumBots);
-				trap_Cvar_Set("omnibot_playing", nbbuf);
+				trap_Cvar_Set("omnibot_playing", va("%i", iNumBots));
 			}
 		}
 		else
