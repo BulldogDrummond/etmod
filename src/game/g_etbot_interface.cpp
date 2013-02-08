@@ -261,11 +261,6 @@ static qboolean weaponCharged(playerState_t* ps, team_t team, int weapon, int* s
 {
 	switch (weapon)
 	{
-#ifdef NOQUARTER
-	// IRATA added BAZOOKA
-	case WP_BAZOOKA:
-
-#endif
 	case WP_PANZERFAUST:
 		if ( ps->eFlags & EF_PRONE )
 			return qfalse;
@@ -281,10 +276,6 @@ static qboolean weaponCharged(playerState_t* ps, team_t team, int weapon, int* s
 		break;
 	case WP_MORTAR:
 	case WP_MORTAR_SET:
-#ifdef NOQUARTER
-	case WP_MORTAR2:
-	case WP_MORTAR2_SET:
-#endif
 		if ( skill[SK_HEAVY_WEAPONS] >= 1 )
 		{
 			if ( WC_WEAPON_TIME_LEFT < WC_SOLDIER_TIME * 0.33f)
@@ -308,24 +299,6 @@ static qboolean weaponCharged(playerState_t* ps, team_t team, int weapon, int* s
 		}
 		break;
 	case WP_LANDMINE:
-#ifdef NOQUARTER
-		// IRATA NQ: see bg_misc charge cost
-		// { 0.5f, 0.5f, 0.5f, .33f, .33f, .33f, .33f, .25f, .25f, .25f}; <--
-		if ( skill[SK_EXPLOSIVES_AND_CONSTRUCTION] >= 2 && skill[SK_EXPLOSIVES_AND_CONSTRUCTION] <= 5)
-		{
-			if ( WC_WEAPON_TIME_LEFT < (WC_ENGINEER_TIME * 0.33f))
-				return qfalse;
-		}
-		if ( skill[SK_EXPLOSIVES_AND_CONSTRUCTION] >= 6 && skill[SK_EXPLOSIVES_AND_CONSTRUCTION] <= 9)
-		{
-			if ( WC_WEAPON_TIME_LEFT < (WC_ENGINEER_TIME * 0.25f))
-				return qfalse;
-		}
-		else if ( WC_WEAPON_TIME_LEFT < (WC_ENGINEER_TIME * 0.5f))
-		{
-			return qfalse;
-		}
-#else
 		if ( skill[SK_EXPLOSIVES_AND_CONSTRUCTION] >= 2 )
 		{
 			if ( WC_WEAPON_TIME_LEFT < (WC_ENGINEER_TIME * 0.33f))
@@ -335,7 +308,6 @@ static qboolean weaponCharged(playerState_t* ps, team_t team, int weapon, int* s
 		{
 			return qfalse;
 		}
-#endif
 		break;
 	case WP_DYNAMITE:
 		if ( skill[SK_EXPLOSIVES_AND_CONSTRUCTION] >= 3 )
@@ -407,26 +379,10 @@ static qboolean weaponCharged(playerState_t* ps, team_t team, int weapon, int* s
 		break;
 	case WP_GPG40:
 	case WP_M7:
-#ifdef NOQUARTER
-		// IRATA NQ: see bg_misc charge cost
-		//{ .50f, .50f, .50f, .50f, .50f, .50f, .50f, .50f, .35f, .35f};
-		if (skill[SK_EXPLOSIVES_AND_CONSTRUCTION] >= 8)
-		{
-			if ( WC_WEAPON_TIME_LEFT < WC_ENGINEER_TIME * 0.35f )
-			{
-				return qfalse;
-			}
-		}
-		else if ( WC_WEAPON_TIME_LEFT < WC_ENGINEER_TIME * 0.5f )
-		{
-			return qfalse;
-		}
-#else
 		if ( WC_WEAPON_TIME_LEFT < WC_ENGINEER_TIME * 0.5f )
 		{
 			return qfalse;
 		}
-#endif
 		break;
 	}
 	return qtrue;
@@ -597,52 +553,6 @@ static int _weaponBotToGame(int weapon)
 		return WP_MEDIC_SYRINGE;
 	case ET_WP_THOMPSON:
 		return WP_THOMPSON;
-#ifdef JAYMOD_name
-	case 75:
-		return WP_POISON_SYRINGE;
-	case 76:
-		return WP_ADRENALINE_SHARE;
-	case 77:
-		return WP_M97;
-	case 78:
-		return WP_POISON_GAS;
-	case 79:
-		return WP_LANDMINE_BBETTY;
-	case 80:
-		return WP_LANDMINE_PGAS;
-#endif
-#ifdef NOQUARTER
-	case 85:
-		return WP_STG44;
-	case 86:
-		return WP_BAR;
-	case 87:
-		return WP_BAR_SET;
-	case 88:
-		return WP_MOBILE_BROWNING;
-	case 89:
-		return WP_MOBILE_BROWNING_SET;
-	case 90:
-		return WP_SHOTGUN;
-	case 91:
-		return WP_MP34;
-	case 92:
-		return WP_MORTAR2;
-	case 93:
-		return WP_MORTAR2_SET;
-	case 94:
-		return WP_KNIFE_KABAR;
-	case 95:
-		return WP_STEN_MKII;
-	case 96:
-		return WP_BAZOOKA;
-	case 98:
-		return WP_VENOM;
-	case 99:
-		return WP_POISON_SYRINGE;
-	case 100:
-		return WP_FOOTKICK;
-#endif
 	default:
 		return WP_NONE;
 	}
@@ -736,52 +646,6 @@ int Bot_WeaponGameToBot(int weapon)
 		return ET_WP_SYRINGE;
 	case WP_THOMPSON:
 		return ET_WP_THOMPSON;
-#ifdef JAYMOD_name
-	case WP_POISON_SYRINGE:
-		return 75;
-	case WP_ADRENALINE_SHARE:
-		return 76;
-	case WP_M97:
-		return 77;
-	case WP_POISON_GAS:
-		return 78;
-	case WP_LANDMINE_BBETTY:
-		return 79;
-	case WP_LANDMINE_PGAS:
-		return 80;
-#endif
-#ifdef NOQUARTER
-	case WP_STG44:
-		return 85;
-	case WP_BAR:
-		return 86;
-	case WP_BAR_SET:
-		return 87;
-	case WP_MOBILE_BROWNING:
-		return ET_WP_MOBILE_MG42; //cs: was 88
-	case WP_MOBILE_BROWNING_SET:
-		return ET_WP_MOBILE_MG42_SET; //cs: was 89
-	case WP_SHOTGUN:
-		return 90;
-	case WP_MP34:
-		return 91;
-	case WP_MORTAR2:
-		return ET_WP_MORTAR; //cs: was 92
-	case WP_MORTAR2_SET:
-		return ET_WP_MORTAR_SET; //cs: was 93
-	case WP_KNIFE_KABAR:
-		return ET_WP_KNIFE; //cs: was 94
-	case WP_STEN_MKII:
-		return 95;
-	case WP_BAZOOKA:
-		return 96;
-	case WP_VENOM:
-		return 98;
-	case WP_POISON_SYRINGE:
-		return 99;
-	case WP_FOOTKICK:
-		return 100;
-#endif
 	default:
 		return ET_WP_NONE;
 	}
@@ -817,11 +681,9 @@ static int Bot_HintGameToBot(gentity_t *_ent)
 			return CURSOR_HINT_ALARM;
 		case HINT_HEALTH:
 			return CURSOR_HINT_HEALTH;
-#ifndef NOQUARTER
 		case HINT_TREASURE:
 			return CURSOR_HINT_TREASURE;
 			break;
-#endif
 		case HINT_KNIFE:
 			return CURSOR_HINT_KNIFE;
 		case HINT_LADDER:
@@ -830,7 +692,6 @@ static int Bot_HintGameToBot(gentity_t *_ent)
 			return CURSOR_HINT_BUTTON;
 		case HINT_WATER:
 			return CURSOR_HINT_WATER;
-#ifndef NOQUARTER
 		case HINT_CAUTION:
 			return CURSOR_HINT_CAUTION;
 		case HINT_DANGER:
@@ -843,21 +704,16 @@ static int Bot_HintGameToBot(gentity_t *_ent)
 			return CURSOR_HINT_EXCLAMATION;
 		case HINT_CLIPBOARD:
 			return CURSOR_HINT_CLIPBOARD;
-#endif
 		case HINT_WEAPON:
 			return CURSOR_HINT_WEAPON;
 		case HINT_AMMO:
 			return CURSOR_HINT_AMMO;
-#ifndef NOQUARTER
 		case HINT_ARMOR:
 			return CURSOR_HINT_ARMOR;
-#endif
 		case HINT_POWERUP:
 			return CURSOR_HINT_POWERUP;
-#ifndef NOQUARTER
 		case HINT_HOLDABLE:
 			return CURSOR_HINT_HOLDABLE;
-#endif
 		case HINT_INVENTORY:
 			return CURSOR_HINT_INVENTORY;
 		case HINT_SCENARIC:
@@ -892,10 +748,8 @@ static int Bot_HintGameToBot(gentity_t *_ent)
 			return CURSOR_HINT_TANK;
 		case HINT_SATCHELCHARGE:
 			return CURSOR_HINT_SATCHELCHARGE;
-#ifndef NOQUARTER
 		case HINT_LOCKPICK:
 			return CURSOR_HINT_LOCKPICK;
-#endif
 		default:
 			return CURSOR_HINT_NONE;
 		}
@@ -921,45 +775,6 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 		{
 		case ET_CLASS_SOLDIER:
 			{
-#ifdef NOQUARTER
-				if (jp_insanity.integer & JP_INSANITY_VENOM && ( rand() % 6 ) == 5 ){
-					return 98;
-				}
-				else if(team == ET_TEAM_ALLIES)
-				{
-					int wpns[] =
-					{
-						86, // BAR
-						96, // BAZOOKA
-						//88, // BROWNING
-						ET_WP_MOBILE_MG42,
-						ET_WP_FLAMETHROWER,
-						ET_WP_MORTAR,
-						ET_WP_THOMPSON
-					};
-
-					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
-					iSelected = wpns[rInt];
-					break;
-				}
-				else
-				{
-					int wpns[] =
-					{
-						85, // STG44
-						ET_WP_PANZERFAUST,
-						ET_WP_MOBILE_MG42,
-						ET_WP_FLAMETHROWER,
-						//92 // MORTAR2
-						ET_WP_MORTAR,
-						ET_WP_MP40
-					};
-
-					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
-					iSelected = wpns[rInt];
-					break;
-				}
-#else
 				int wpns[] =
 				{
 					// add shit as needed
@@ -968,14 +783,10 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					ET_WP_MOBILE_MG42,
 					ET_WP_FLAMETHROWER,
 					ET_WP_MORTAR,
-#ifdef JAYMOD_name
-					77 //WP_M97
-#endif
 				};
 				int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 				iSelected = wpns[rInt];
 				break;
-#endif
 			}
 		case ET_CLASS_MEDIC:
 			{
@@ -985,9 +796,6 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					{
 						// add shit as needed
 						ET_WP_THOMPSON,
-#ifdef JAYMOD_name
-						77 //WP_M97
-#endif
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 					iSelected = wpns[rInt];
@@ -999,9 +807,6 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					{
 						// add shit as needed
 						ET_WP_MP40,
-#ifdef JAYMOD_name
-						77 //WP_M97
-#endif
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 					iSelected = wpns[rInt];
@@ -1016,13 +821,7 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					{
 						// add shit as needed
 						ET_WP_THOMPSON,
-						ET_WP_CARBINE,
-#ifdef JAYMOD_name
-						77 //WP_M97
-#endif
-#ifdef NOQUARTER
-						90 //SHOTGUN
-#endif
+						ET_WP_CARBINE
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 					iSelected = wpns[rInt];
@@ -1035,12 +834,6 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 						// add shit as needed
 						ET_WP_MP40,
 						ET_WP_KAR98,
-#ifdef JAYMOD_name
-						77 //WP_M97
-#endif
-#ifdef NOQUARTER
-						90 //SHOTGUN
-#endif
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 					iSelected = wpns[rInt];
@@ -1054,13 +847,7 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					int wpns[] =
 					{
 						// add shit as needed
-						ET_WP_THOMPSON,
-#ifdef JAYMOD_name
-						77 //WP_M97
-#endif
-#ifdef NOQUARTER
-						90 //SHOTGUN
-#endif
+						ET_WP_THOMPSON
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 					iSelected = wpns[rInt];
@@ -1071,13 +858,7 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					int wpns[] =
 					{
 						// add shit as needed
-						ET_WP_MP40,
-#ifdef JAYMOD_name
-						77 //WP_M97
-#endif
-#ifdef NOQUARTER
-						90 //SHOTGUN
-#endif
+						ET_WP_MP40
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
 					iSelected = wpns[rInt];
@@ -1092,11 +873,7 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					{
 						// add shit as needed
 						ET_WP_STEN,
-#ifdef NOQUARTER
-						86, //BAR
-#else
 						ET_WP_FG42,
-#endif
 						ET_WP_GARAND
 					};
 					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
@@ -1108,11 +885,7 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 					int wpns[] =
 					{
 						// add shit as needed
-#ifdef NOQUARTER
-						91, //MP34
-#else
 						ET_WP_STEN,
-#endif
 						ET_WP_FG42,
 						ET_WP_K43
 					};
@@ -1125,9 +898,7 @@ static int _choosePriWeap(gentity_t *bot, int playerClass, int team)
 			iSelected = ET_WP_NONE;
 			break;
 		}
-#ifdef NOQUARTER
-	} while(G_IsWeaponDisabled(bot,(weapon_t)_weaponBotToGame(iSelected),qtrue));
-#elif defined(ETMOD_VERSION)
+#ifdef ETMOD_VERSION
 	} while(G_IsWeaponDisabled(bot,(weapon_t)_weaponBotToGame(iSelected),bot->client->sess.sessionTeam,qtrue));
 #else
 	} while(G_IsWeaponDisabled(bot,(weapon_t)_weaponBotToGame(iSelected)));
@@ -1140,101 +911,6 @@ static int _chooseSecWeap(gentity_t *bot, int playerClass, int team)
 {
 	int iSelected = ET_WP_NONE;
 
-// IRATA NQ like _chooseSecWeap
-#ifdef NOQUARTER
-
-	switch (playerClass)
-	{
-	case ET_CLASS_SOLDIER:
-	case ET_CLASS_MEDIC:
-	case ET_CLASS_ENGINEER:
-	case ET_CLASS_FIELDOPS:
-		{
-			if (team == ET_TEAM_ALLIES)
-			{
-				if ( bot->client->sess.skill[SK_LIGHT_WEAPONS] < 4 )
-				{
-					iSelected = ET_WP_COLT;
-				}
-				else {
-
-					int wpns[] =
-					{
-						ET_WP_COLT, // simple noob bots ...
-						ET_WP_AKIMBO_COLT,
-						ET_WP_AKIMBO_COLT
-					};
-					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
-					iSelected = wpns[rInt];
-				}
-			}
-			else
-			{
-				if ( bot->client->sess.skill[SK_LIGHT_WEAPONS] < 4 )
-				{
-					iSelected = ET_WP_LUGER;
-				}
-				else {
-					int wpns[] =
-					{
-						ET_WP_LUGER, // simple noob bots ...
-						ET_WP_AKIMBO_LUGER,
-						ET_WP_AKIMBO_LUGER
-					};
-					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
-					iSelected = wpns[rInt];
-				}
-			}
-		}
-		break;
-	case ET_CLASS_COVERTOPS:
-		{
-			if (team == ET_TEAM_ALLIES)
-			{
-				if ( bot->client->sess.skill[SK_LIGHT_WEAPONS] < 4 )
-				{
-					iSelected = ET_WP_SILENCED_COLT;
-				}
-				else {
-					int wpns[] =
-					{
-						ET_WP_SILENCED_COLT, // simple noob bots ...
-						ET_WP_AKIMBO_SILENCED_COLT,
-						ET_WP_AKIMBO_SILENCED_COLT
-					};
-					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
-					iSelected = wpns[rInt];
-				}
-			}
-			else
-			{
-				if ( bot->client->sess.skill[SK_LIGHT_WEAPONS] < 4 )
-				{
-					iSelected = ET_WP_SILENCED_LUGER;
-				}
-				else {
-					int wpns[] =
-					{
-						ET_WP_SILENCED_LUGER, // simple noob bots ...
-						ET_WP_AKIMBO_SILENCED_LUGER,
-						ET_WP_AKIMBO_SILENCED_LUGER
-					};
-					int rInt = rand() % (sizeof(wpns) / sizeof(wpns[0]));
-					iSelected = wpns[rInt];
-				}
-			}
-		}
-		break;
-	default:
-		iSelected = ET_WP_NONE;
-		break;
-	}
-
-// common
-// IRATA @ botteam:
-// In fact G_IsWeaponDisabled won't return true for secondary weapons it only checks for HW in most mods & vanilla
-// I did fix inconsistency of return & break usage
-#else
 	do
 	{
 		switch (playerClass)
@@ -1373,7 +1049,6 @@ static int _chooseSecWeap(gentity_t *bot, int playerClass, int team)
 #else
 	} while(G_IsWeaponDisabled(bot,(weapon_t)_weaponBotToGame(iSelected)));
 #endif // ETMOD_VERSION
-#endif // NOQUARTER
 
 	return iSelected;
 }
@@ -1587,10 +1262,6 @@ static int _GetEntityClass(gentity_t *_ent)
 				return ET_CLASSEX_GRENADE;
 			case WP_PANZERFAUST:
 				return ET_CLASSEX_ROCKET;
-#ifdef NOQUARTER
-			case WP_BAZOOKA:
-				return ET_CLASSEX_ROCKET;
-#endif
 			case WP_ARTY:
 				return ET_CLASSEX_ARTY;
 			case WP_DYNAMITE:
@@ -1609,10 +1280,6 @@ static int _GetEntityClass(gentity_t *_ent)
 				return ET_CLASSEX_GPG40_GRENADE;
 			case WP_MORTAR_SET:
 				return ET_CLASSEX_MORTAR;
-#ifdef NOQUARTER
-			case WP_MORTAR2_SET:
-				return ET_CLASSEX_MORTAR;
-#endif
 			default:
 				if(!Q_strncmp(_ent->classname, "air strike", sizeof("air strike")))
 				{
@@ -1926,7 +1593,7 @@ public:
 		const char *s = 0;
 		if((s = ClientConnect(num, qtrue, qtrue)) != 0)
 		{
-			PrintError(va("Could not connect bot: %s", s));
+			G_Printf("%sCould not connect bot: %s\n", S_COLOR_RED, s);
 			num = -1;
 		}
 		// bad hack to prevent unhandled errors being returned as successful connections
@@ -1974,11 +1641,7 @@ public:
 
 	obResult ChangeTeam(int _client, int _newteam, const MessageHelper *_data)
 	{
-#ifdef NOQUARTER
-		const char* teamName;
-#else
 		char* teamName;
-#endif
 		gentity_t* bot = &g_entities[_client];
 
 		// find a team if we didn't get one and we need one ;-)
@@ -2022,12 +1685,7 @@ public:
 			if(pMsg->m_WeaponChoice[1])
 				bot->client->sess.latchPlayerWeapon2 = _weaponBotToGame(pMsg->m_WeaponChoice[1]);
 
-#ifdef NOQUARTER
-			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon,qtrue))
-				bot->client->sess.latchPlayerWeapon = 0;
-			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon2,qtrue))
-				bot->client->sess.latchPlayerWeapon2 = 0;
-#elif defined(ETMOD_VERSION)
+#ifdef ETMOD_VERSION
 			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon,bot->client->sess.sessionTeam,qtrue))
 				bot->client->sess.latchPlayerWeapon = 0;
 			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon2,bot->client->sess.sessionTeam,qtrue))
@@ -2152,12 +1810,7 @@ public:
 			if(pMsg->m_WeaponChoice[1])
 				bot->client->sess.latchPlayerWeapon2 = _weaponBotToGame(pMsg->m_WeaponChoice[1]);
 
-#ifdef NOQUARTER
-			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon,qtrue))
-				bot->client->sess.latchPlayerWeapon = 0;
-			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon2,qtrue))
-				bot->client->sess.latchPlayerWeapon2 = 0;
-#elif defined(ETMOD_VERSION)
+#ifdef ETMOD_VERSION
 			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon,bot->client->sess.sessionTeam,qtrue))
 				bot->client->sess.latchPlayerWeapon = 0;
 			if(G_IsWeaponDisabled(bot,(weapon_t)bot->client->sess.latchPlayerWeapon2,bot->client->sess.sessionTeam,qtrue))
@@ -2237,26 +1890,6 @@ public:
 		// Set the weapon
 		cmd.weapon = _weaponBotToGame(_input.m_CurrentWeapon);
 
-#ifdef NOQUARTER
-		// cs: nq bots need to select alt versions of mobile mg and mortar
-		if (bot->client->sess.sessionTeam == TEAM_ALLIES)
-		{
-			if (cmd.weapon == WP_MOBILE_MG42)
-				cmd.weapon = WP_MOBILE_BROWNING;
-			else if (cmd.weapon == WP_MOBILE_MG42_SET)
-				cmd.weapon = WP_MOBILE_BROWNING_SET;
-			else if (cmd.weapon == WP_KNIFE )
-				cmd.weapon = WP_KNIFE_KABAR;
-		}
-		else if (bot->client->sess.sessionTeam == TEAM_AXIS)
-		{
-			if (cmd.weapon == WP_MORTAR)
-				cmd.weapon = WP_MORTAR2;
-			else if (cmd.weapon == WP_MORTAR_SET)
-				cmd.weapon = WP_MORTAR2_SET;
-		}
-#endif //NOQUARTER
-
 		// dont choose scoped directly.
 		switch(cmd.weapon)
 		{
@@ -2275,25 +1908,6 @@ public:
 			cmd.wbuttons |= WBUTTON_ZOOM;
 
 		// If trying to switch to rifle nade from anything other than the base rifle, switch to base first
-#ifdef NOQUARTER
-		if(cmd.weapon == WP_GPG40 && bot->client->ps.weapon == WP_GPG40 /*&& bot->client->ps.weapon != WP_KAR98*/)
-		{
-			const int ammo = bot->client->ps.ammoclip[WeaponTable[WP_GPG40].clipindex];
-			if(ammo==0 && bot->client->ps.weaponstate==WEAPON_READY)
-				cmd.weapon = WP_KAR98;
-		}
-		else if(cmd.weapon == WP_M7 && bot->client->ps.weapon == WP_M7 /*&& bot->client->ps.weapon != WP_CARBINE*/)
-		{
-			const int ammo = bot->client->ps.ammoclip[WeaponTable[WP_M7].clipindex];
-			if(ammo==0 && bot->client->ps.weaponstate==WEAPON_READY)
-				cmd.weapon = WP_CARBINE;
-		}
-		else if(cmd.weapon == WP_FOOTKICK)
-		{
-			// convert from weapon request to command
-			cmd.buttons |= BUTTON_GESTURE;
-		}
-#else
 		if(cmd.weapon == WP_GPG40 && bot->client->ps.weapon == WP_GPG40 /*&& bot->client->ps.weapon != WP_KAR98*/)
 		{
 			const int ammo = bot->client->ps.ammoclip[BG_FindClipForWeapon(WP_GPG40)];
@@ -2306,7 +1920,6 @@ public:
 			if(ammo==0 && bot->client->ps.weaponstate==WEAPON_READY)
 				cmd.weapon = WP_CARBINE;
 		}
-#endif
 
 		// Process the bot keypresses.
 		if(_input.m_ButtonFlags.CheckFlag(BOT_BUTTON_RESPAWN))
@@ -2418,9 +2031,6 @@ public:
 			// cant move in these states
 			cmd.buttons &= ~BUTTON_ATTACK;
 			cmd.wbuttons &= ~WBUTTON_ATTACK2;
-#ifdef NOQUARTER
-			cmd.buttons &= ~BUTTON_GESTURE;
-#endif
 		}
 		else
 		{
@@ -2580,127 +2190,6 @@ public:
 		int iPlayerClass = 0;
 		int iSpawnFlags = 0;
 
-#ifdef NOQUARTER
-		int iHash = 0;
-
-		switch(classId)
-		{
-		case ET_CLASS_SOLDIER:
-		case ET_CLASS_MEDIC:
-		case ET_CLASS_ENGINEER:
-		case ET_CLASS_FIELDOPS:
-		case ET_CLASS_COVERTOPS:
-		case ET_CLASS_ANY:
-			iPlayerClass = classId != ET_CLASS_ANY ? classId : 0;
-			pClassName = "player";
-			iHash = PLAYER_HASH;
-			break;
-			//////////////////////////////////////////////////////////////////////////
-		case ET_CLASSEX_MG42MOUNT:
-			pClassName = "misc_mg42";
-			iHash = MISC_MG42_HASH;
-			break;
-		case ET_CLASSEX_DYNAMITE:
-			pClassName = "dynamite";
-			iHash = DYNAMITE_HASH;
-			break;
-		case ET_CLASSEX_MINE:
-			pClassName = "landmine";
-			iHash = LANDMINE_HASH;
-			break;
-		case ET_CLASSEX_SATCHEL:
-			pClassName = "satchel_charge";
-			iHash = SATCHEL_CHARGE_HASH;
-			break;
-		case ET_CLASSEX_SMOKEBOMB:
-			pClassName = "smoke_bomb";
-			iHash = SMOKE_BOMB_HASH;
-			break;
-		case ET_CLASSEX_SMOKEMARKER:
-			pClassName = "air strike";
-			iHash = AIR_STRIKE_HASH;
-			break;
-		case ET_CLASSEX_VEHICLE:
-		case ET_CLASSEX_VEHICLE_HVY:
-			iSpawnFlags = classId == ET_CLASSEX_VEHICLE_HVY ? 4 : 0;
-			pClassName = "script_mover";
-			iHash = SCRIPT_MOVER_HASH;
-			break;
-		case ET_CLASSEX_BREAKABLE:
-			break;
-		case ET_CLASSEX_CORPSE:
-			pClassName = "corpse";
-			iHash = CORPSE_HASH;
-			break;
-		case ET_CLASSEX_GRENADE:
-			pClassName = "grenade";
-			iHash = GRENADE_HASH;
-			break;
-		case ET_CLASSEX_ROCKET:
-			pClassName = "rocket";
-			iHash = ROCKET_HASH;
-			break;
-		case ET_CLASSEX_MORTAR:
-			pClassName = "mortar_grenade";
-			iHash = MORTAR_GRENADE_HASH;
-			break;
-		case ET_CLASSEX_ARTY:
-			pClassName = "air strike";
-			iHash = AIR_STRIKE_HASH;
-			break;
-		case ET_CLASSEX_AIRSTRIKE:
-			pClassName = "air strike";
-			iHash = AIR_STRIKE_HASH;
-			break;
-		case ET_CLASSEX_FLAMECHUNK:
-			pClassName = "flamechunk";
-			iHash = FLAMECHUNK_HASH;
-			break;
-		case ET_CLASSEX_M7_GRENADE:
-			pClassName = "m7_grenade";
-			iHash = M7_GRENADE_HASH;
-			break;
-		case ET_CLASSEX_GPG40_GRENADE:
-			pClassName = "gpg40_grenade";
-			iHash = GPG40_GRENADE_HASH;
-			break;
-		case ET_CLASSEX_HEALTHCABINET:
-			pClassName = "misc_cabinet_health";
-			iHash = MISC_CABINET_HEALTH_HASH;
-			break;
-		case ET_CLASSEX_AMMOCABINET:
-			pClassName = "misc_cabinet_supply";
-			iHash = MISC_CABINET_SUPPLY_HASH;
-			break;
-		}
-
-		if(iHash)
-		{
-			float fSqRad = _radius * _radius;
-			vec3_t toent;
-
-			while((pStartEnt = G_FindByClassnameFast(pStartEnt, pClassName, iHash)) != NULL)
-			{
-				if(iPlayerClass && pStartEnt->client &&
-					pStartEnt->client->sess.sessionTeam != iPlayerClass)
-					continue;
-
-				if(iSpawnFlags && !(pStartEnt->spawnflags & iSpawnFlags))
-					continue;
-
-				// don't detect unusable corpses. these ents hang around until the body queue slot is re-used
-				if ( classId == ET_CLASSEX_CORPSE &&
-					(!pStartEnt->physicsObject ||
-					(pStartEnt->activator && pStartEnt->activator->client->ps.powerups[PW_OPS_DISGUISED])) )
-					continue;
-
-				VectorSubtract(_pos, pStartEnt->r.currentOrigin, toent);
-				if(VectorLengthSquared(toent) < fSqRad)
-					break;
-			}
-			return HandleFromEntity(pStartEnt);
-		}
-#else	// not NoQuarter
 		switch(classId)
 		{
 		case ET_CLASS_SOLDIER:
@@ -2799,7 +2288,6 @@ public:
 			}
 			return HandleFromEntity(pStartEnt);
 		}
-#endif
 		return GameEntity();
 	}
 
@@ -2943,18 +2431,10 @@ public:
 				case WP_M7:
 				case WP_GPG40:
 				case WP_MORTAR_SET:
-#ifdef NOQUARTER
-				case WP_MORTAR2_SET:
-				case WP_BAZOOKA:
-#endif
 					_category.SetFlag(ENT_CAT_AVOID);
 					_category.SetFlag(ENT_CAT_PROJECTILE);
 					break;
 				case WP_LANDMINE:
-#ifdef JAYMOD_name
-				case 79: //WP_LANDMINE_BBETTY
-				case 80: //WP_LANDMINE_PGAS
-#endif
 					_category.SetFlag(ENT_CAT_AVOID);
 					_category.SetFlag(ET_ENT_CAT_MINE);
 					_category.SetFlag(ENT_CAT_OBSTACLE);
@@ -3135,14 +2615,6 @@ public:
 				_flags.SetFlag(ET_ENT_FLAG_MOUNTED);
 			}
 
-#ifndef NOQUARTER
-			if(pEnt->s.eFlags & EF_AAGUN_ACTIVE)
-			{
-				_flags.SetFlag(ET_ENT_FLAG_MNT_AAGUN);
-				_flags.SetFlag(ET_ENT_FLAG_MOUNTED);
-			}
-#endif
-
 			if(pEnt->s.eType == ET_HEALER || pEnt->s.eType == ET_SUPPLIER)
 			{
 				if(pEnt->entstate == STATE_INVISIBLE)
@@ -3185,14 +2657,8 @@ public:
 
 			if(pEnt->client)
 			{
-#ifdef NOQUARTER
-				if(pEnt->client->ps.eFlags & EF_POISONED)
-					_flags.SetFlag(ET_ENT_FLAG_POISONED);
-#elif defined ETMOD_VERSION
+#ifdef ETMOD_VERSION
 				if(pEnt->client->pmext.poisoned)
-					_flags.SetFlag(ET_ENT_FLAG_POISONED);
-#elif defined JAYMOD_name
-				if(G_IsPoisoned(pEnt))
 					_flags.SetFlag(ET_ENT_FLAG_POISONED);
 #endif
 				if(pEnt->client->ps.pm_flags & PMF_LADDER)
@@ -3296,10 +2762,6 @@ public:
 					case WP_M7:
 					case WP_GPG40:
 					case WP_MORTAR_SET:
-#ifdef NOQUARTER
-					case WP_MORTAR2_SET:
-					case WP_BAZOOKA:
-#endif
 					case WP_SMOKE_BOMB:
 
 					default:
@@ -3698,11 +3160,7 @@ public:
 		if(bot && bot->inuse && bot->client)
 		{
 			int iWeapon = bot->client->ps.weapon;
-#ifdef NOQUARTER
-			_curclip = bot->client->ps.ammoclip[WeaponTable[(weapon_t)iWeapon].clipindex];
-#else
 			_curclip = bot->client->ps.ammoclip[BG_FindClipForWeapon((weapon_t)iWeapon)];
-#endif
 
 			// sanity check for non-clipped weapons
 			switch (iWeapon)
@@ -3720,11 +3178,6 @@ public:
 			case WP_MORTAR:
 			case WP_MORTAR_SET:
 			case WP_PANZERFAUST:
-#ifdef NOQUARTER
-			case WP_MORTAR2:
-			case WP_MORTAR2_SET:
-			case WP_BAZOOKA:
-#endif
 			case WP_PLIERS:
 			case WP_SATCHEL:
 			case WP_SATCHEL_DET:
@@ -3734,11 +3187,7 @@ public:
 				_maxclip = 0;
 				break;
 			default:
-#ifdef NOQUARTER
-				_maxclip = GetWeaponTableData(iWeapon)->maxclip;
-#else
 				_maxclip = GetAmmoTableData(iWeapon)->maxclip;
-#endif
 			}
 			return Success;
 		}
@@ -3755,47 +3204,10 @@ public:
 
 			_weaponId = _weaponBotToGame(_weaponId);
 
-#ifdef NOQUARTER
-			// need to translate for correct ammo ...
-			if ( bot->client->sess.sessionTeam == TEAM_ALLIES )
-			{
-				switch(_weaponId)
-				{
-				case WP_MOBILE_MG42:
-					_weaponId = WP_MOBILE_BROWNING;
-					break;
-				case WP_MOBILE_MG42_SET:
-					_weaponId = WP_MOBILE_BROWNING_SET;
-					break;
-				default:
-					break;
-				}
-			}
-			else if ( bot->client->sess.sessionTeam == TEAM_AXIS )
-			{
-				switch(_weaponId)
-				{
-				case WP_MORTAR:
-					_weaponId = WP_MORTAR2;
-					break;
-				case WP_MORTAR_SET:
-					_weaponId = WP_MORTAR2_SET;
-					break;
-				default:
-					break;
-				}
-			}
-#endif
-
 			ammoIndex = BG_FindAmmoForWeapon((weapon_t)_weaponId);
 
-#ifdef NOQUARTER
-			_cur = bot->client->ps.ammoclip[WeaponTable[(weapon_t)_weaponId].clipindex] +
-				bot->client->ps.ammo[WeaponTable[(weapon_t)_weaponId].ammoindex];
-#else
 			_cur = bot->client->ps.ammoclip[BG_FindClipForWeapon((weapon_t)_weaponId)] +
 				bot->client->ps.ammo[ammoIndex];
-#endif
 
 			// sanity check for non-clipped weapons
 			switch (_weaponId)
@@ -3813,11 +3225,6 @@ public:
 			case WP_MORTAR:
 			case WP_MORTAR_SET:
 			case WP_PANZERFAUST:
-#ifdef NOQUARTER
-			case WP_MORTAR2:
-			case WP_MORTAR2_SET:
-			case WP_BAZOOKA:
-#endif
 			case WP_PLIERS:
 			case WP_SATCHEL:
 			case WP_SATCHEL_DET:
@@ -3827,17 +3234,9 @@ public:
 				maxclip = 0;
 				break;
 			default:
-#ifdef NOQUARTER
-				maxclip = GetWeaponTableData(ammoIndex)->maxclip;
-#else
 				maxclip = GetAmmoTableData(ammoIndex)->maxclip;
-#endif
 			}
-#ifdef NOQUARTER
-			_max = maxclip + GetWeaponTableData(ammoIndex)->maxammo;
-#else
 			_max = maxclip + BG_MaxAmmoForWeapon((weapon_t)_weaponId, bot->client->sess.skill);
-#endif
 			return Success;
 		}
 		return InvalidEntity;
@@ -4850,11 +4249,7 @@ public:
 						if(pMsg->m_Weapon != ET_WP_MOUNTABLE_MG42)
 						{
 							int iCurHeat = pEnt->client->ps.weapHeat[_weaponBotToGame(pMsg->m_Weapon)];
-#ifdef NOQUARTER
-							int iMaxHeat = GetWeaponTableData(_weaponBotToGame(pMsg->m_Weapon))->maxHeat;
-#else
 							int iMaxHeat = GetAmmoTableData(_weaponBotToGame(pMsg->m_Weapon))->maxHeat;
-#endif
 							pMsg->m_IsOverheated = iMaxHeat ? ((iCurHeat >= iMaxHeat) ? True : False) : False;
 						}
 						else
@@ -4891,27 +4286,6 @@ public:
 								pEnt->client->sess.botSuicide = qtrue;
 							}
 
-#ifdef NOQUARTER
-							// dupe weapons now have same id for NQ
-							if ( pEnt->client->sess.sessionTeam == TEAM_ALLIES && pMsg->m_Selection == ET_WP_MOBILE_MG42 )
-							{
-								pEnt->client->sess.playerWeapon = WP_MOBILE_BROWNING;
-								pEnt->client->sess.latchPlayerWeapon = WP_MOBILE_BROWNING;
-							}
-							else if ( pEnt->client->sess.sessionTeam == TEAM_AXIS && pMsg->m_Selection == ET_WP_MORTAR )
-							{
-								pEnt->client->sess.playerWeapon = WP_MORTAR2;
-								pEnt->client->sess.latchPlayerWeapon = WP_MORTAR2;
-							}
-							else
-							{
-								pEnt->client->sess.playerWeapon = _weaponBotToGame(pMsg->m_Selection);
-								pEnt->client->sess.latchPlayerWeapon = _weaponBotToGame(pMsg->m_Selection);
-							}
-#else // !NOQUARTER
-							pEnt->client->sess.playerWeapon = _weaponBotToGame(pMsg->m_Selection);
-							pEnt->client->sess.latchPlayerWeapon = _weaponBotToGame(pMsg->m_Selection);
-#endif
 						}
 
 						pMsg->m_Good = True;
@@ -5128,9 +4502,7 @@ public:
 					if(pEnt && pEnt->client)
 					{
 						pMsg->m_Current = G_CountTeamLandmines(pEnt->client->sess.sessionTeam);
-#ifdef NOQUARTER
-						pMsg->m_Max = team_maxLandmines.integer;
-#elif defined ETMOD_VERSION
+#ifdef ETMOD_VERSION
 						pMsg->m_Max = g_maxTeamLandmines.integer;
 #else
 						pMsg->m_Max = MAX_TEAM_LANDMINES;
@@ -5339,7 +4711,7 @@ public:
 
 	void PrintError(const char *_error)
 	{
-		if (_error)
+		if (_error) 
 			G_Printf("%s%s\n", S_COLOR_RED, _error);
 	}
 
@@ -5677,11 +5049,7 @@ void Bot_Interface_Update()
 		//////////////////////////////////////////////////////////////////////////
 		{
 			// time triggers for Omni-bot
-#ifdef NOQUARTER
-			if ( level.framenum % sv_fps.integer == 0 )
-#else
 			if ( level.framenum % 20 == 0 ) //@sv_fps
-#endif
 			{
 				if ( !level.twoMinute && (g_timelimit.value * 60000 - (level.time - level.startTime)) < 120000 ){
 					level.twoMinute = qtrue;
@@ -5788,11 +5156,6 @@ qboolean Bot_Util_AllowPush(int weaponId)
 	switch(weaponId)
 	{
 	case WP_MORTAR_SET:
-#ifdef NOQUARTER
-	case WP_MORTAR2_SET:
-	case WP_MOBILE_BROWNING_SET:
-	case WP_BAR_SET:
-#endif
 	case WP_MOBILE_MG42_SET:
 		return qfalse;
 	}
