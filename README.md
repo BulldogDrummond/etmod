@@ -1,6 +1,8 @@
 ETMod
 =====
 
+... For RtCW: Enemy Territory ...
+
 Server-side mod for added admin functions.  Based on etpub rev 552.
 
 This mod is intended to be a testbed for development.  Because it is
