@@ -1,13 +1,4 @@
 
+build
 etmod
-
-scons_utils.pyc
-site.conf
-
-src/*.so
-src/scons.*
-
-src/build
-
-src/omnibot/Common/BotLoadLibrary.os
 
