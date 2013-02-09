@@ -1,5 +1,7 @@
 Check if lib will strip and how to do it in cmake.
 
+Remove watermark code (needs client)
+Remove map vote code (needs client)
 
 CODE WARNINGS:
 ============================================================================================================
