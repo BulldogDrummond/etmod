@@ -136,7 +136,7 @@ FILE(GLOB QAGAME_SRC
 	"src/game/g_player_rating.c"
 	"src/game/g_settings.c"
 	"src/game/et-antiwarp.c"
-	"src/game/geoip.c"
+	"src/game/g_geoip.c"
 	"src/game/g_mysql.c"
 	"src/omnibot/Common/BotLoadLibrary.cpp"
 )

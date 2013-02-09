@@ -1,15 +1,17 @@
-/*
- * ET <-> Omni-Bot interface header file.
- * 
- */
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_etbot_interface.h
+ * Desc    : Omni-Bot interface declarations.
+ *
+ * Status  : Accepted
+ *
+ *********************************************************/
 
 #ifndef __G_ETBOT_INTERFACE_H__
 #define __G_ETBOT_INTERFACE_H__
 
-//#include "q_shared.h"
 #include "g_local.h"
-
-//#define NO_BOT_SUPPORT
 
 // IMPORTANT: when changed this has to be copied manually to GAMEVERSION (g_local.h)
 #define OMNIBOT_NAME "Omni-Bot:etmain" //cs: this appears to be unused
@@ -17,25 +19,23 @@
 #define OMNIBOT_MODNAME GAMEVERSION
 #define OMNIBOT_MODVERSION ETMOD_VERSION
 
-//////////////////////////////////////////////////////////////////////////
 // g_OmniBotFlags bits
 enum BotFlagOptions
 {
-	OBF_DONT_XPSAVE			= (1<<0), // Disables XPSave for bots 
-	OBF_DONT_MOUNT_TANKS	= (1<<1), // Bots cannot mount tanks 
-	OBF_DONT_MOUNT_GUNS		= (1<<2), // Bots cannot mount emplaced guns
-	OBF_DONT_SHOW_BOTCOUNT	= (1<<3), // Don't count bots
-	OBF_GIBBING				= (1<<4), // Bots will target ungibbed enemies
-	OBF_TRIGGER_MINES		= (1<<5), // Bots will trigger team and spotted mines
-	OBF_SHOVING				= (1<<6), // Bots can use g_shove
-	OBF_NEXT_FLAG			= (1<<16), // mod specific flags start from here
+    OBF_DONT_XPSAVE            = (1<<0),  // Disables XPSave for bots 
+    OBF_DONT_MOUNT_TANKS       = (1<<1),  // Bots cannot mount tanks 
+    OBF_DONT_MOUNT_GUNS        = (1<<2),  // Bots cannot mount emplaced guns
+    OBF_DONT_SHOW_BOTCOUNT     = (1<<3),  // Don't count bots
+    OBF_GIBBING                = (1<<4),  // Bots will target ungibbed enemies
+    OBF_TRIGGER_MINES          = (1<<5),  // Bots will trigger team and spotted mines
+    OBF_SHOVING                = (1<<6),  // Bots can use g_shove
+    OBF_NEXT_FLAG              = (1<<16), // mod specific flags start from here
 
-	BOT_FLAGS_SHRUBBOT_IMMUTABLE	= OBF_NEXT_FLAG,			// Bit 17 - 2^16 = 65536
-	BOT_FLAGS_NO_KICKBAN			= (OBF_NEXT_FLAG << 1),		// Bit 18 - 2^17 = 131072
-	// pheno: do not welcome bots
-	BOT_FLAGS_DISABLE_GREETING		= ( OBF_NEXT_FLAG << 2 ),	// Bit 19 - 2^18 = 262144
+    BOT_FLAGS_SHRUBBOT_IMMUTABLE    = OBF_NEXT_FLAG,           // Bit 17 - 2^16 = 65536
+    BOT_FLAGS_NO_KICKBAN            = (OBF_NEXT_FLAG << 1),    // Bit 18 - 2^17 = 131072
+    // pheno: do not welcome bots
+    BOT_FLAGS_DISABLE_GREETING      = (OBF_NEXT_FLAG << 2),    // Bit 19 - 2^18 = 262144
 };
-//////////////////////////////////////////////////////////////////////////
 
 int Bot_Interface_Init();
 void Bot_Interface_InitHandles();
@@ -49,7 +49,6 @@ qboolean Bot_Util_AllowPush(int weaponId);
 qboolean Bot_Util_CheckForSuicide(gentity_t *ent);
 const char *_GetEntityName(gentity_t *_ent);
 
-//void Bot_Util_AddGoal(gentity_t *_ent, int _goaltype, int _team, const char *_tag, obUserData *_bud);
 void Bot_Util_SendTrigger(gentity_t *_ent, gentity_t *_activator, const char *_tagname, const char *_action);
 
 int Bot_WeaponGameToBot(int weapon);
@@ -58,8 +57,6 @@ int Bot_PlayerClassGameToBot(int playerClass);
 
 void Bot_Queue_EntityCreated(gentity_t *pEnt);
 void Bot_Event_EntityDeleted(gentity_t *pEnt);
-
-//////////////////////////////////////////////////////////////////////////
 
 void Bot_Event_ClientConnected(int _client, qboolean _isbot);
 void Bot_Event_ClientDisConnected(int _client);
@@ -100,6 +97,7 @@ void Bot_AddDynamiteGoal(gentity_t *_ent, int _team, const char *_tag);
 void Bot_AddFallenTeammateGoals(gentity_t *_teammate, int _team);
 void AddDeferredGoal(gentity_t *ent);
 void UpdateGoalEntity(gentity_t *oldent, gentity_t *newent);
-void GetEntityCenter( gentity_t *ent, vec3_t pos );
+void GetEntityCenter(gentity_t *ent, vec3_t pos);
 
 #endif
+
