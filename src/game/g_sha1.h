@@ -1,13 +1,10 @@
 /*
- *  sha1.h
+ *  g_sha1.h
  *
+ *  Original source was sha1.h
  *  Copyright (C) 1998, 2009
  *  Paul E. Jones <paulej@packetizer.com>
  *  All Rights Reserved
- *
- *****************************************************************************
- *  $Id: sha1.h 12 2009-06-22 19:34:25Z paulej $
- *****************************************************************************
  *
  *  Description:
  *      This class implements the Secure Hashing Standard as defined

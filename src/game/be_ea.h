@@ -1,16 +1,17 @@
-
-/*****************************************************************************
- * name:		be_ea.h
+/*********************************************************
+ * Project : ETMod
  *
- * desc:		elementary actions
+ * File    : be_ea.h
+ * Desc    : Elementary actions
  *
+ * Status  : Accepted
  *
- *****************************************************************************/
+ *********************************************************/
 
 #ifndef __BE_EA_H__
 #define __BE_EA_H__
 
-//ClientCommand elementary actions
+// ClientCommand elementary actions
 void EA_Say(int client, char *str);
 void EA_SayTeam(int client, char *str);
 void EA_UseItem(int client, char *it);
@@ -18,7 +19,8 @@ void EA_DropItem(int client, char *it);
 void EA_UseInv(int client, char *inv);
 void EA_DropInv(int client, char *inv);
 void EA_Command(int client, char *command );
-//regular elementary actions
+
+// regular elementary actions
 void EA_SelectWeapon(int client, int weapon);
 void EA_Attack(int client);
 void EA_Reload(int client);
@@ -39,11 +41,13 @@ void EA_MoveRight(int client);
 void EA_Move(int client, vec3_t dir, float speed);
 void EA_View(int client, vec3_t viewangles);
 void EA_Prone(int client);
-//send regular input to the server
+
+// send regular input to the server
 void EA_EndRegular(int client, float thinktime);
 void EA_GetInput(int client, float thinktime, bot_input_t *input);
 void EA_ResetInput(int client, bot_input_t *init);
-//setup and shutdown routines
+
+// setup and shutdown routines
 int EA_Setup(void);
 void EA_Shutdown(void);
 

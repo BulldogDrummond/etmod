@@ -1,8 +1,7 @@
 // g_sha1.c
 
 #include "g_local.h"
-
-#include <sha1.h>
+#include "g_sha1.h"
 
 char *G_SHA1(char *string)
 {
