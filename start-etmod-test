@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cp build/etmod/*.so build/etmod/pak2.pk3 ${HOME}/data/etmod/
+cp build/etmod/pak2.pk3 ${HOME}/www/mod-dl/etmod/
+
 cd ${HOME}/data/etmod
 
 ${HOME}/bin/etlded +exec server.cfg \
