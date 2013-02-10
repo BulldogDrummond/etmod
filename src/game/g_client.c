@@ -736,7 +736,6 @@ void reinforce(gentity_t *ent) {
     int p, team;// numDeployable=0, finished=0; // TTimo unused
     char *classname;
     gclient_t *rclient;
-#ifndef NO_BOT_SUPPORT
     char    userinfo[MAX_INFO_STRING], *respawnStr;
 
     if (ent->r.svFlags & SVF_BOT) {
@@ -746,7 +745,6 @@ void reinforce(gentity_t *ent) {
             return;    // no respawns
         }
     }
-#endif
 
     if (!(ent->client->ps.pm_flags & PMF_LIMBO)) {
         G_Printf("player already deployed, skipping\n");
@@ -2231,7 +2229,6 @@ void ClientUserinfoChanged(int clientNum) {
 
     // send over a subset of the userinfo keys so other clients can
     // print scoreboards, display models, and play custom sounds
-#ifndef NO_BOT_SUPPORT
     if (ent->r.svFlags & SVF_BOT) {
         // n: netname
         // t: sessionTeam
@@ -2263,7 +2260,6 @@ void ClientUserinfoChanged(int clientNum) {
             client->sess.uci //mcwf GeoIP
        );
     } else {
-#endif
         // mcwf GeoIP
         // quad: added support for latched classes
         // quad: added support for ettv & shoutcaster
@@ -2286,9 +2282,7 @@ void ClientUserinfoChanged(int clientNum) {
             client->sess.ettv,
             client->sess.shoutcaster
        );
-#ifndef NO_BOT_SUPPORT
     }
-#endif
 
     trap_GetConfigstring(CS_PLAYERS + clientNum, oldname, sizeof(oldname));
 
@@ -3268,11 +3262,9 @@ void ClientSpawn(
     ent->client = &level.clients[index];
     ent->takedamage = qtrue;
     ent->inuse = qtrue;
-#ifndef NO_BOT_SUPPORT
     if(ent->r.svFlags & SVF_BOT)
         ent->classname = "bot";
     else
-#endif
         ent->classname = "player";
     ent->r.contents = CONTENTS_BODY;
 
@@ -3478,7 +3470,6 @@ void ClientSpawn(
         SetClientViewAngle(ent, newangle);
     }
 
-#ifndef NO_BOT_SUPPORT
     if(ent->r.svFlags & SVF_BOT) {
         // xkan, 10/11/2002 - the ideal view angle is defaulted to 0,0,0, but the
         // spawn_angles is the desired angle for the bots to face.
@@ -3487,7 +3478,6 @@ void ClientSpawn(
         // TAT 1/14/2003 - now that we have our position in the world, init our autonomy positions
         BotInitMovementAutonomyPos(ent);
     }
-#endif
 
     if(ent->client->sess.sessionTeam != TEAM_SPECTATOR) {
         //G_KillBox(ent);
@@ -3540,11 +3530,9 @@ void ClientSpawn(
         // RF, call entity scripting event
         G_Script_ScriptEvent(ent, "playerstart", "");
     }
-#ifndef NO_BOT_SUPPORT
     else if(revived && (ent->r.svFlags & SVF_BOT)) {
         Bot_ScriptEvent(ent->s.number, "revived", "");
     }
-#endif
 }
 
 

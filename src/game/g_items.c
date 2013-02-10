@@ -766,10 +766,8 @@ int Pickup_Weapon( gentity_t *ent, gentity_t *other ) {
     }
 
     // TAT 1/6/2003 - If we are a bot, call the pickup function
-#ifndef NO_BOT_SUPPORT
     if( other->r.svFlags & SVF_BOT )
         BotPickupWeapon( other->s.number, ent->item->giTag, alreadyHave );
-#endif
 
     Bot_Event_AddWeapon(other->client->ps.clientNum, Bot_WeaponGameToBot(ent->item->giTag));
     return -1;

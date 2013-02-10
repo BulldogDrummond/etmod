@@ -291,11 +291,9 @@ void PushBot(gentity_t *ent, gentity_t *other) {
     }
     //
     // also, if "ent" is a bot, tell "other" to move!
-#ifndef NO_BOT_SUPPORT
     if (rand()%50 == 0 && (ent->r.svFlags & SVF_BOT) && oldspeed < 10) {
         BotVoiceChatAfterIdleTime(ent->s.number, "Move", SAY_TEAM, 1000, qfalse, 20000, qfalse);
     }
-#endif
 }
 
 /*
@@ -381,11 +379,9 @@ void ClientImpacts(gentity_t *ent, pmove_t *pm) {
         }
         other = &g_entities[ pm->touchents[i] ];
 
-#ifndef NO_BOT_SUPPORT
         if ((ent->r.svFlags & SVF_BOT) && (ent->touch)) {
             ent->touch(ent, other, &trace);
         }
-#endif
 
         // RF, bot should get pushed out the way
         if ((ent->client) /*&& !(ent->r.svFlags & SVF_BOT)*/ && (other->r.svFlags & SVF_BOT) && 
@@ -407,11 +403,9 @@ void ClientImpacts(gentity_t *ent, pmove_t *pm) {
             PushBot(other, ent);
         }
 
-#ifndef NO_BOT_SUPPORT
         if (ent->r.svFlags & SVF_BOT) {
             CheckBotImpacts(ent, other);
         }
-#endif
 
         if (!other->touch) {
             continue;
@@ -505,11 +499,9 @@ void    G_TouchTriggers(gentity_t *ent) {
             hit->touch (hit, ent, &trace);
         }
 
-#ifndef NO_BOT_SUPPORT
         if ((ent->r.svFlags & SVF_BOT) && (ent->touch)) {
             ent->touch(ent, hit, &trace);
         }
-#endif
     }
 }
 
@@ -643,7 +635,6 @@ void SpectatorThink(gentity_t *ent, usercmd_t *ucmd) {
             }
             Cmd_FollowCycle_f(ent, 1);
         }
-#ifndef NO_BOT_SUPPORT
         // activate button swaps places with bot
         else if(client->sess.sessionTeam != TEAM_SPECTATOR &&
                 ((client->buttons & BUTTON_ACTIVATE) && ! (client->oldbuttons & BUTTON_ACTIVATE)) &&
@@ -652,7 +643,6 @@ void SpectatorThink(gentity_t *ent, usercmd_t *ucmd) {
         {
             Cmd_SwapPlacesWithBot_f(ent, ent->client->sess.spectatorClient);
         }
-#endif
         else if(client->sess.sessionTeam == TEAM_SPECTATOR &&
             client->sess.spectatorState == SPECTATOR_FOLLOW &&
             (((client->buttons & BUTTON_ACTIVATE) &&
@@ -1943,12 +1933,10 @@ void ClientThink(int clientNum) {
     }
 
     // if this is the locally playing client, do bot thinks
-#ifndef NO_BOT_SUPPORT
     if(bot_enable.integer && !g_dedicated.integer && clientNum == 0) {
         BotAIThinkFrame(ent->client->pers.cmd.serverTime);
         level.lastClientBotThink = level.time;
     }
-#endif // NO_BOT_SUPPORT
 }
 
 
