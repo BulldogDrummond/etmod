@@ -130,8 +130,6 @@ bg_playerclass_t bg_axis_playerclasses[NUM_PLAYER_CLASSES] = {
     },
 };
 
-// pheno
-#ifdef GAMEDLL
 weapon_t bg_unlockedWeapons[MAX_WEAPS_PER_CLASS] =
 {
     WP_NONE,
@@ -144,7 +142,6 @@ weapon_t bg_unlockedWeapons[MAX_WEAPS_PER_CLASS] =
     WP_FG42,
     WP_MORTAR
 };
-#endif
 
 bg_playerclass_t* BG_GetPlayerClassInfo(int team, int cls) {
     bg_playerclass_t* teamList;
@@ -192,7 +189,6 @@ BG_UnlockWeapons
 pheno: unlock weapons for both teams and all classes
 ================
 */
-#ifdef GAMEDLL
 void BG_UnlockWeapons(bg_playerclass_t *classInfo, int classnum, team_t team)
 {
     if (g_unlockWeapons.integer & (1 << classnum)) {
@@ -205,7 +201,6 @@ void BG_UnlockWeapons(bg_playerclass_t *classInfo, int classnum, team_t team)
         }
     }
 }
-#endif
 
 qboolean BG_WeaponIsPrimaryForClassAndTeam(int classnum, team_t team, weapon_t weapon)
 {
@@ -214,20 +209,13 @@ qboolean BG_WeaponIsPrimaryForClassAndTeam(int classnum, team_t team, weapon_t w
     if(team == TEAM_ALLIES) {
         classInfo = &bg_allies_playerclasses[classnum];
 
-// pheno: unlock weapons for allied team
-#ifdef GAMEDLL
+        // unlock weapons for allied team
         BG_UnlockWeapons(classInfo, classnum, team);
-#endif
-
         return BG_ClassHasWeapon(classInfo, weapon);
     } else if(team == TEAM_AXIS) {
         classInfo = &bg_axis_playerclasses[classnum];
-
-// pheno: unlock weapons for axis team
-#ifdef GAMEDLL
+        // unlock weapons for axis team
         BG_UnlockWeapons(classInfo, classnum, team);
-#endif
-
         return BG_ClassHasWeapon(classInfo, weapon);
     }
 

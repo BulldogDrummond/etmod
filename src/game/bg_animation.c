@@ -15,14 +15,8 @@
 #include "q_shared.h"
 #include "bg_public.h"
 
-// JPW NERVE -- added because I need to check single/multiplayer instances and branch accordingly
-#ifdef CGAMEDLL
-    extern vmCvar_t            cg_gameType;
-#endif
-#ifdef GAMEDLL
-    extern    vmCvar_t        g_gametype;
-    extern  vmCvar_t        g_realHead;
-#endif
+extern vmCvar_t g_gametype;
+extern vmCvar_t g_realHead;
 
 // debug defines, to prevent doing costly string cvar lookups
 //#define    DBGANIMS
@@ -1489,8 +1483,6 @@ int BG_AnimScriptAnimation(playerState_t *ps, animModelInfo_t *animModelInfo, sc
     }
 
 
-    #ifdef GAMEDLL
-
     // tjw: this is a dirty dirty hack and should be removed
     //      if using a client mod (update the animation script).
     //      This is here because I added head hitboxes to 
@@ -1508,8 +1500,6 @@ int BG_AnimScriptAnimation(playerState_t *ps, animModelInfo_t *animModelInfo, sc
                 qtrue) != -1);
 
     }
-
-    #endif
 
     // run it
     return(BG_ExecuteCommand(ps, animModelInfo, scriptCommand, setTimer, isContinue, qfalse) != -1);

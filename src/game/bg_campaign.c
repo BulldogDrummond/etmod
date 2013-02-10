@@ -9,14 +9,9 @@
  *********************************************************/
 
 #include "q_shared.h"
-
-#ifdef GAMEDLL
 #include "g_local.h"
-#endif
 
 // Saves
-// FIXME: need byteswapping for macs
-
 qboolean BG_LoadCampaignSave(const char *filename, cpsFile_t *file, const char *profile) {
     fileHandle_t f;
     long hash;
