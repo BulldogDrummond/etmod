@@ -750,14 +750,6 @@ void ReadClient (fileHandle_t f, gclient_t *client, int size)
 
     ent = &g_entities[client->ps.clientNum];
 
-#ifndef NO_BOT_SUPPORT
-    if( ent->r.svFlags & SVF_BOT ) {
-        if( trap_BotAllocateClient( client->ps.clientNum ) < 0 ) {
-            G_Error("G_LoadGame: can't allocate required client for bot");
-        }
-    }
-#endif
-
     // make sure they face the right way
     trap_GetUsercmd( ent->client - level.clients, &ent->client->pers.cmd );
     SetClientViewAngle( ent, ent->client->ps.viewangles );

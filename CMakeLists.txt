@@ -56,7 +56,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 add_definitions(-DNDEBUG)
 add_definitions(-DUSE_MDXFILE)
-add_definitions(-DNO_BOT_SUPPORT)
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Winline")
 
 # Get the system architecture
