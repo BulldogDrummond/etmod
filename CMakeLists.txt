@@ -9,7 +9,6 @@ set(ETMOD_VERSION "1.0")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 include(Build)
-include(GetGitRevisionDescription)
 
 # Used to store real system processor when we overwrite CMAKE_SYSTEM_PROCESSOR for cross-compile builds
 set(ETMOD_SYSTEM_PROCESSOR ${CMAKE_SYSTEM_PROCESSOR}) # See IS_64_BIT_BUILD_SYSTEM
@@ -142,18 +141,8 @@ FILE(GLOB QAGAME_SRC
 )
 
 # Version generation
-# TODO: Fix this
-git_describe(GIT_DESCRIBE)
-git_describe(GIT_DESCRIBE_TAG "--abbrev=0")
-if(GIT_DESCRIBE)
-	set(ETMOD_CMAKE_VERSION ${GIT_DESCRIBE})
-	set(ETMOD_CMAKE_VERSION_SHORT ${GIT_DESCRIBE_TAG})
-else() # Not using source from git repo
-	set(ETMOD_CMAKE_VERSION ${ETMOD_VERSION})
-	set(ETMOD_CMAKE_VERSION_SHORT ${ETMOD_VERSION})
-endif()
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/git_version.h.in" "${CMAKE_CURRENT_BINARY_DIR}/src/game/git_version.h" @ONLY)
-list(APPEND QAGAME_SRC "${CMAKE_CURRENT_BINARY_DIR}/src/game/git_version.h")
+file (STRINGS "build.id" BUILD_NUMBER)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/game/etmod.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/game/etmod.h" @ONLY)
 
 #-----------------------------------------------------------------
 # Build
