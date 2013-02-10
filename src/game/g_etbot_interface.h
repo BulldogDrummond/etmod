@@ -1,7 +1,12 @@
-/*
- * ET <-> Omni-Bot interface header file.
- * 
- */
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_etbot_interface.h
+ * Desc    : Omni-Bot interface declarations.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
 
 #ifndef __G_ETBOT_INTERFACE_H__
 #define __G_ETBOT_INTERFACE_H__
@@ -21,19 +26,19 @@
 // g_OmniBotFlags bits
 enum BotFlagOptions
 {
-	OBF_DONT_XPSAVE			= (1<<0), // Disables XPSave for bots 
-	OBF_DONT_MOUNT_TANKS	= (1<<1), // Bots cannot mount tanks 
-	OBF_DONT_MOUNT_GUNS		= (1<<2), // Bots cannot mount emplaced guns
-	OBF_DONT_SHOW_BOTCOUNT	= (1<<3), // Don't count bots
-	OBF_GIBBING				= (1<<4), // Bots will target ungibbed enemies
-	OBF_TRIGGER_MINES		= (1<<5), // Bots will trigger team and spotted mines
-	OBF_SHOVING				= (1<<6), // Bots can use g_shove
-	OBF_NEXT_FLAG			= (1<<16), // mod specific flags start from here
+    OBF_DONT_XPSAVE            = (1<<0), // Disables XPSave for bots 
+    OBF_DONT_MOUNT_TANKS    = (1<<1), // Bots cannot mount tanks 
+    OBF_DONT_MOUNT_GUNS        = (1<<2), // Bots cannot mount emplaced guns
+    OBF_DONT_SHOW_BOTCOUNT    = (1<<3), // Don't count bots
+    OBF_GIBBING                = (1<<4), // Bots will target ungibbed enemies
+    OBF_TRIGGER_MINES        = (1<<5), // Bots will trigger team and spotted mines
+    OBF_SHOVING                = (1<<6), // Bots can use g_shove
+    OBF_NEXT_FLAG            = (1<<16), // mod specific flags start from here
 
-	BOT_FLAGS_SHRUBBOT_IMMUTABLE	= OBF_NEXT_FLAG,			// Bit 17 - 2^16 = 65536
-	BOT_FLAGS_NO_KICKBAN			= (OBF_NEXT_FLAG << 1),		// Bit 18 - 2^17 = 131072
-	// pheno: do not welcome bots
-	BOT_FLAGS_DISABLE_GREETING		= ( OBF_NEXT_FLAG << 2 ),	// Bit 19 - 2^18 = 262144
+    BOT_FLAGS_SHRUBBOT_IMMUTABLE    = OBF_NEXT_FLAG,            // Bit 17 - 2^16 = 65536
+    BOT_FLAGS_NO_KICKBAN            = (OBF_NEXT_FLAG << 1),        // Bit 18 - 2^17 = 131072
+    // pheno: do not welcome bots
+    BOT_FLAGS_DISABLE_GREETING        = ( OBF_NEXT_FLAG << 2 ),    // Bit 19 - 2^18 = 262144
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -103,3 +108,4 @@ void UpdateGoalEntity(gentity_t *oldent, gentity_t *newent);
 void GetEntityCenter( gentity_t *ent, vec3_t pos );
 
 #endif
+

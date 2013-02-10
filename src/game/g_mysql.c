@@ -1,7 +1,12 @@
-/*
- * MySQL Functions
+/*********************************************************
+ * Project : ETMod
  *
- */
+ * File    : g_mysql.c
+ * Desc    : Mysql database code.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
 
 #ifdef FEATURE_MYSQL
 

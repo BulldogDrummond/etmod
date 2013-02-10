@@ -1,3 +1,18 @@
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_shrubbot.h
+ * Desc    : Shubbot options declarations.
+ *
+ * Note    : This code was the original work of
+ *           Tony J. White.  Permission was granted in
+ *           original code.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
+
+
 #ifndef _G_SHRUBBOT_H
 #define _G_SHRUBBOT_H
 
@@ -60,60 +75,60 @@
 #define SHRUBBOT_KICK_LENGTH 120
 
 struct g_shrubbot_cmd {
-	const char *keyword;
-	qboolean (* const handler)(gentity_t *ent, int skiparg);
-	char flag;
-	int cmdFlags; // see SCMDF_ defines
-	const char *function;		// used for !help
-	const char *syntax;		// used for !help
+    const char *keyword;
+    qboolean (* const handler)(gentity_t *ent, int skiparg);
+    char flag;
+    int cmdFlags; // see SCMDF_ defines
+    const char *function;        // used for !help
+    const char *syntax;        // used for !help
 };
 
 typedef struct g_shrubbot_level {
-	int level;
-	char name[MAX_NAME_LENGTH];
-	char flags[MAX_SHRUBBOT_FLAGS];
-	char greeting[MAX_STRING_CHARS];
-	char greeting_sound[MAX_STRING_CHARS];
+    int level;
+    char name[MAX_NAME_LENGTH];
+    char flags[MAX_SHRUBBOT_FLAGS];
+    char greeting[MAX_STRING_CHARS];
+    char greeting_sound[MAX_STRING_CHARS];
 } g_shrubbot_level_t;
 
 typedef struct g_shrubbot_admin {
-	char guid[PB_GUID_LENGTH + 1];
-	char name[MAX_NAME_LENGTH];
-	int level;
-	char flags[MAX_SHRUBBOT_FLAGS];
-	char greeting[MAX_STRING_CHARS];
-	char greeting_sound[MAX_STRING_CHARS];
+    char guid[PB_GUID_LENGTH + 1];
+    char name[MAX_NAME_LENGTH];
+    int level;
+    char flags[MAX_SHRUBBOT_FLAGS];
+    char greeting[MAX_STRING_CHARS];
+    char greeting_sound[MAX_STRING_CHARS];
 } g_shrubbot_admin_t;
 
 typedef struct g_shrubbot_ban {
-	char name[MAX_NAME_LENGTH];
-	char guid[PB_GUID_LENGTH + 1];
-	char ip[18];
-	char mac[18];
-	char reason[MAX_STRING_CHARS];
-	char made[50]; // big enough for strftime() %c
-	int expires;
-	char banner[MAX_NAME_LENGTH];
+    char name[MAX_NAME_LENGTH];
+    char guid[PB_GUID_LENGTH + 1];
+    char ip[18];
+    char mac[18];
+    char reason[MAX_STRING_CHARS];
+    char made[50]; // big enough for strftime() %c
+    int expires;
+    char banner[MAX_NAME_LENGTH];
 } g_shrubbot_ban_t;
 
 typedef struct g_shrubbot_command {
-	char command[64];
-	char exec[MAX_STRING_CHARS];
-	char desc[MAX_STRING_CHARS];
-	int levels[MAX_SHRUBBOT_LEVELS+1];
+    char command[64];
+    char exec[MAX_STRING_CHARS];
+    char desc[MAX_STRING_CHARS];
+    int levels[MAX_SHRUBBOT_LEVELS+1];
 } g_shrubbot_command_t;
 
 typedef struct g_shrubbot_warning {
-	char name[MAX_NAME_LENGTH];
-	char guid[PB_GUID_LENGTH + 1];
-	char ip[18];
-	char warning[MAX_STRING_CHARS];
-	int made;
-	char warner[MAX_NAME_LENGTH];
+    char name[MAX_NAME_LENGTH];
+    char guid[PB_GUID_LENGTH + 1];
+    char ip[18];
+    char warning[MAX_STRING_CHARS];
+    int made;
+    char warner[MAX_NAME_LENGTH];
 } g_shrubbot_warning_t;
 
 #define WARPROTO(TYPE) \
-	qboolean G_shrubbot_ ## TYPE ## war(gentity_t *ent, int skiparg);
+    qboolean G_shrubbot_ ## TYPE ## war(gentity_t *ent, int skiparg);
 
 qboolean G_shrubbot_tempban(int clientnum, char *reason, int length);
 qboolean G_shrubbot_ban_check(char *userinfo, char *reason);
@@ -200,3 +215,4 @@ void G_shrubbot_writeconfig_float(float v, fileHandle_t f);
 void G_shrubbot_duration(int secs, char *duration, int dursize);
 void G_shrubbot_cleanup();
 #endif /* ifndef _G_SHRUBBOT_H */
+

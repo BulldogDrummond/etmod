@@ -1,3 +1,12 @@
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_matchinfo.c
+ * Desc    : Match reporting routines.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
 
 #include "g_local.h"
 #include "g_http_client.h"

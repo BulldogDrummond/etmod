@@ -1,22 +1,17 @@
-/*
- *  g_sha1.h
+/*********************************************************
+ * Project : ETMod
  *
- *  Original source was sha1.h
- *  Copyright (C) 1998, 2009
- *  Paul E. Jones <paulej@packetizer.com>
- *  All Rights Reserved
+ * File    : g_sha1.h
+ * Desc    : Sha-1 declarations.
  *
- *  Description:
- *      This class implements the Secure Hashing Standard as defined
- *      in FIPS PUB 180-1 published April 17, 1995.
+ * Note    : Original source was sha1.h
+ *           Copyright (C) 1998, 2009
+ *           Paul E. Jones <paulej@packetizer.com>
+ *           All Rights Reserved
  *
- *      Many of the variable names in the SHA1Context, especially the
- *      single character names, were used because those were the names
- *      used in the publication.
+ * Status  : Pending
  *
- *      Please read the file sha1.c for more information.
- *
- */
+ *********************************************************/
 
 #ifndef _SHA1_H_
 #define _SHA1_H_
@@ -49,3 +44,4 @@ void SHA1Input( SHA1Context *,
                 unsigned);
 
 #endif
+

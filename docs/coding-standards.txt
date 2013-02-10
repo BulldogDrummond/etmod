@@ -1,0 +1,31 @@
+ETMod Coding Standards
+======================
+
+Indents are to be 4 spaces.  Tabs are not allowed.
+
+Line-ending are unix-style.
+
+All files will end with a single blank line.
+
+All files must have a description block in the following
+format beginning at the first line of the file:
+
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : filename.c
+ * Desc    : What the file does/is.
+ *
+ * Status  : Pending | Accepted
+ *
+ *********************************************************/
+
+File Pending/Accepted status: This is set to pending until
+the file meets the project coding standards.
+
+If a file is not c/cpp, comment charaters should be used as
+needed for the language the file is meant to use.  If the
+language compiler/interpreter requires a declaration at
+line one (such as #!/bin/bash), then it is acceptable to
+include the description block starting at line two.
+

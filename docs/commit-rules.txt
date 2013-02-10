@@ -1,0 +1,21 @@
+ETMod Commit Rules
+==================
+
+Clean-up commits MUST be separate from code changes/adds.
+In other words, if you are writing code to add a new
+function, and you see clean-up that needs done, commit
+your new code then do a separate commit for the clean-up.
+
+THIS IS NOT OPTIONAL!  In order to easily see the code
+progression, we MUST NOT mix these two.
+
+All code should be tested to compile and execute before
+being commited to the repo.  The only exceptions are
+during the initial repo build, when code is being 
+cleaned up for the project.  If you have multiple
+commits for this situation, it is good form to mark
+the commit as untested.
+
+After Build ID 100, there are no exceptions to pre-
+commit testing.
+

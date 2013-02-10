@@ -1,6 +1,13 @@
-/*
- * ET <-> Mysql interface header file.
- */
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_mysql.h
+ * Desc    : Mysql database declarations.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
+
 #ifndef _Q_MYSQL_H
 #define _Q_MYSQL_H
 

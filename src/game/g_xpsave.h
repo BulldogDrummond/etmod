@@ -1,3 +1,13 @@
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_xpsave.h
+ * Desc    : XP save declarations.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
+
 #ifndef _G_XPSAVE_H
 #define _G_XPSAVE_H
 
@@ -6,64 +16,64 @@
 #define MAX_DISCONNECTS 1024
 
 typedef struct {
-	char guid[PB_GUID_LENGTH + 1];
-	char name[MAX_NAME_LENGTH];
-	int time;
-	float skill[SK_NUM_SKILLS];
-	float hits;
-	float team_hits;
-	int pr_skill_updates[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
-	float pr_skill[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
-	// tjw: lives moved into g_disconnect_t
-	//int lives;
+    char guid[PB_GUID_LENGTH + 1];
+    char name[MAX_NAME_LENGTH];
+    int time;
+    float skill[SK_NUM_SKILLS];
+    float hits;
+    float team_hits;
+    int pr_skill_updates[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
+    float pr_skill[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
+    // tjw: lives moved into g_disconnect_t
+    //int lives;
     
     // josh: killrating removed, now kill_rating AND kill_variance
     float kill_rating;
     float kill_variance;
 
-	// The real player rating for 0.8.x
-	float rating;
-	//rating variance for 0.8.x. NOT a sum. This IS the variance.
-	float rating_variance;
+    // The real player rating for 0.8.x
+    float rating;
+    //rating variance for 0.8.x. NOT a sum. This IS the variance.
+    float rating_variance;
 
-	// Dens: store the real time when someone needs to be unmuted
-	// 0 means not muted, -1 means permanent (never)
-	int mutetime;
+    // Dens: store the real time when someone needs to be unmuted
+    // 0 means not muted, -1 means permanent (never)
+    int mutetime;
 
 } g_xpsave_t;
 
 typedef struct {
-	char name[MAX_QPATH];
+    char name[MAX_QPATH];
 
-	// rating and variance always allies for 0.8.x
-	float rating;
-	float rating_variance;
+    // rating and variance always allies for 0.8.x
+    float rating;
+    float rating_variance;
 
-	int spreeRecord;
-	char spreeName[MAX_NETNAME];
+    int spreeRecord;
+    char spreeName[MAX_NETNAME];
 } g_mapstat_t;
 
 typedef struct {
-	// for 0.8.x
-	float rating;
-	float rating_variance;
+    // for 0.8.x
+    float rating;
+    float rating_variance;
     float distance_rating;
     float distance_variance;
 } g_serverstat_t;
 
 typedef struct {
-	g_xpsave_t *xpsave;
-	int axis_time;
-	int allies_time;
-	team_t map_ATBd_team;
-	team_t last_playing_team;
-	int skill_time[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
-	int lives;
-	float killrating;
-	float killvariance;
-	// These are temp variables for PR system usage, not really tracked
-	float total_percent_time;
-	float diff_percent_time;
+    g_xpsave_t *xpsave;
+    int axis_time;
+    int allies_time;
+    team_t map_ATBd_team;
+    team_t last_playing_team;
+    int skill_time[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
+    int lives;
+    float killrating;
+    float killvariance;
+    // These are temp variables for PR system usage, not really tracked
+    float total_percent_time;
+    float diff_percent_time;
 } g_disconnect_t;
 
 void G_xpsave_writeconfig();
@@ -83,3 +93,4 @@ void G_ShowSpreeRecord(qboolean command);
 // pheno
 void G_xpsave_writexp();
 #endif /* ifndef _G_XPSAVE_H */
+
