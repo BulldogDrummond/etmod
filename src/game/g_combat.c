@@ -457,7 +457,9 @@ void player_die(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int 
 
     // RF, record this death in AAS system so that bots avoid areas which have high death rates
     if(!OnSameTeam(self, attacker)) {
+#ifndef NO_BOT_SUPPORT
         BotRecordTeamDeath(self->s.number);
+#endif
         self->isProp = qfalse;    // were we teamkilled or not?
     } else {
         self->isProp = qtrue;
@@ -607,9 +609,11 @@ void player_die(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int 
     }
 
     // RF, record bot kills
+#ifndef NO_BOT_SUPPORT
     if (attacker->r.svFlags & SVF_BOT) {
         BotRecordKill(attacker->s.number, self->s.number);
     }
+#endif
 
     // report gib
     if(self->health <= GIB_HEALTH) {
@@ -2137,9 +2141,11 @@ void G_Damage(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,  vec3_
                 // record "fake" pain - although the bot is not really hurt, 
                 // his feeling have been hurt :-)
                 // well at least he wants to shout "watch your fire".
+#ifndef NO_BOT_SUPPORT
                 if (targ->s.number < level.maxclients && targ->r.svFlags & SVF_BOT) {
                     BotRecordPain(targ->s.number, attacker->s.number, mod);
                 }
+#endif
                 //Perro:  Shrub-style reflecting damage.
                 if (g_reflectFriendlyFire.value > 0){
                     // is this weapon one that will reflect?
@@ -2337,9 +2343,11 @@ void G_Damage(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,  vec3_
                 // RF, entity scripting
                 if (targ->health <= 0) {    // might have revived itself in death function
                     if(targ->r.svFlags & SVF_BOT) {
+#ifndef NO_BOT_SUPPORT
                         // See if this is the first kill of this bot
                         if (wasAlive)
                             Bot_ScriptEvent(targ->s.number, "death", "");
+#endif
                     } else if(   (targ->s.eType != ET_CONSTRUCTIBLE && targ->s.eType != ET_EXPLOSIVE) ||
                                 (targ->s.eType == ET_CONSTRUCTIBLE && !targ->desstages))    { // call manually if using desstages
                         G_Script_ScriptEvent(targ, "death", "");
@@ -2347,9 +2355,11 @@ void G_Damage(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,  vec3_
                 }
 
                 // RF, record bot death
+#ifndef NO_BOT_SUPPORT
                 if (targ->s.number < level.maxclients && targ->r.svFlags & SVF_BOT) {
                     BotRecordDeath(targ->s.number, attacker->s.number);
                 }
+#endif
             }
 
         } else if (targ->pain) {
@@ -2385,14 +2395,18 @@ void G_Damage(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,  vec3_
         // RF, entity scripting
         G_Script_ScriptEvent(targ, "pain", va("%d %d", targ->health, targ->health+take));
 
+#ifndef NO_BOT_SUPPORT
         if (targ->s.number < MAX_CLIENTS && (targ->r.svFlags & SVF_BOT)) {
             Bot_ScriptEvent(targ->s.number, "pain", va("%d %d", targ->health, targ->health+take));
         }
+#endif
 
         // RF, record bot pain
         if (targ->s.number < level.maxclients)
         {
+#ifndef NO_BOT_SUPPORT
             BotRecordPain(targ->s.number, attacker->s.number, mod);
+#endif
             // notify omni-bot framework
             Bot_Event_TakeDamage(targ-g_entities, attacker);
         }

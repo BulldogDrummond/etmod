@@ -1232,11 +1232,23 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
     case GAME_CONSOLE_COMMAND:
          return ConsoleCommand();
     case BOTAI_START_FRAME:
+#ifdef NO_BOT_SUPPORT
+        return 0;
+#else
         return BotAIStartFrame( arg0 );
+#endif // NO_BOT_SUPPORT
     case BOT_VISIBLEFROMPOS:
+#ifdef NO_BOT_SUPPORT
+        return qfalse;
+#else
         return BotVisibleFromPos( (float *)arg0, arg1, (float *)arg2, arg3, arg4 );
+#endif // NO_BOT_SUPPORT
     case BOT_CHECKATTACKATPOS:
+#ifdef NO_BOT_SUPPORT
+        return qfalse;
+#else
         return BotCheckAttackAtPos( arg0, arg1, (float *)arg2, arg3, arg4 );
+#endif // NO_BOT_SUPPORT
     case GAME_SNAPSHOT_CALLBACK:
         return G_SnapshotCallback( arg0, arg1 );
     case GAME_MESSAGERECEIVED:
@@ -3104,10 +3116,13 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
     trap_PbStat ( -1 , "INIT" , "GAME" ) ;
 
+#ifndef NO_BOT_SUPPORT
     if ( bot_enable.integer ) {
         BotAISetup( restart );
+//        BotAILoadMap( restart );
         G_InitBots( restart );
     }
+#endif // NO_BOT_SUPPORT
 
     G_RemapTeamShaders();
 
@@ -3190,9 +3205,11 @@ void G_ShutdownGame( int restart )
     // redeye/mcwf - release allocated GeoIP stuff
     GeoIP_close();
 
+#ifndef NO_BOT_SUPPORT
     if ( bot_enable.integer ) {
         BotAIShutdown( restart );
     }
+#endif // NO_BOT_SUPPORT
 
     // zinx - realistic hitboxes
     mdx_cleanup();

@@ -943,6 +943,7 @@ static void Svcmd_Kick_f( void ) {
                 }
             }
         }
+#ifndef NO_BOT_SUPPORT
         else if ( !Q_stricmp(name, "allbots") ) {
             for (i = 0, cl = level.clients; i < level.numConnectedClients; i++, cl++) {
                 if( !( g_entities[cl - level.clients].r.svFlags & SVF_BOT ) ) {
@@ -952,6 +953,7 @@ static void Svcmd_Kick_f( void ) {
                 trap_DropClient( cl - level.clients, "player kicked", 0 );
             }
         }
+#endif
         return;
     } else {
         // dont kick localclients ...
@@ -1277,10 +1279,12 @@ qboolean    ConsoleCommand( void ) {
         return qtrue;
     }
 
+#ifndef NO_BOT_SUPPORT
     if (Q_stricmp (cmd, "spawnbot") == 0) {
         Svcmd_SpawnBot();
         return qtrue;
     }
+#endif
 
 // START - Mad Doc - TDF
     if (Q_stricmp (cmd, "revive") == 0)
