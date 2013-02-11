@@ -146,7 +146,6 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/game/etmod.h.in" "${CMAKE_CURREN
 # Build
 #-----------------------------------------------------------------
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/game
-	${CMAKE_CURRENT_SOURCE_DIR}/src/botai
 	${CMAKE_CURRENT_SOURCE_DIR}/src/omnibot/Common
 	${CMAKE_CURRENT_SOURCE_DIR}/src/omnibot/ET)
 
