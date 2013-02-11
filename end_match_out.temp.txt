@@ -1,3 +1,5 @@
+---- server ----
+
 Exit: Wolf EndRound.
 score: 2016  ping: 31  client: 0 Malone
 score: 1374  ping: 0  client: 6 Kowalski [Bot]
@@ -59,4 +61,59 @@ WeaponStats: 1 0 917528 7 13 2 0 1 0 0 0 3 0 1 1 0 0 0 6 4 1 0 0 0 29 0 0 0 661 
 WeaponStats: 3 0 24632 18 46 3 0 1 0 0 0 5 0 0 0 0 1 0 3 5 1 0 0 2 2 0 0 0 570 1048 110 127 263 74 122 124 496 21 61
 WeaponStats: 15 0 1064984 27 143 7 0 4 0 0 0 2 0 7 7 0 0 0 0 0 0 1 0 1033 834 178 127 233 89 178 51 545 10 25
 WeaponStats: 16 0 4120 0 0 0 4 0 26 89 5 0 2 1 2 0 0 0 732 741 138 127 271 49 221 34 474 18 32
+
+---- client ----
+
+^3Player Rating Points^7: Kilpatrick ^30.022
+[skipnotify]^7Overall stats for: ^3Kilpatrick ^7(^20^7 Rounds)
+
+[skipnotify]Weapon     Acrcy Hits/Atts Kills Deaths Headshots
+[skipnotify]-------------------------------------------------
+[skipnotify]^3MP-40    :                 ^2    0 ^1     4 ^3        0
+[skipnotify]^3Thompson : ^7 36.7 ^5  61/166  ^2   12 ^1     0 ^3        9
+[skipnotify]^3Dynamite : ^7 33.3 ^5   1/3    ^2    1 ^1     0
+[skipnotify]^3Landmine :                 ^2    0 ^1     2
+[skipnotify]
+^3Damage Given: ^72464    ^3Team Damage: ^736
+[skipnotify]^3Damage Recvd: ^7898
+[skipnotify]
+^2Rank: ^7Corporal (94 XP)
+[skipnotify]Skills         Level/Points
+[skipnotify]---------------------------
+[skipnotify]Battle Sense   ^30 (16/20)   
+[skipnotify]Engineering    ^31 (23/50)   
+[skipnotify]Light Weapons  ^32 (55/90)   
+[skipnotify]
+^7TEAM   Player          Kll Dth Sui TK Eff  ^3GP^7    ^2DG    ^1DR  ^6TDG  ^4TDR  ^3Score
+^7--------------------------------------------------------------------------
+[skipnotify]^1Axis^7   ^7Herrmann [B]   ^3   3  10   0  1^7  23^3   4^2   672^1  1866^6  108^4  530^3   1455
+[skipnotify]^1Axis^7   ^7Lorenz [B]     ^3   8   8   1  1^7  50^3  18^2   998^1  1191^6  122^4  691^3   1436
+[skipnotify]^1Axis^7   ^7Zimmermann [B] ^3  12  11   0  3^7  52^3   4^2  1996^1  2247^6  600^4  293^3   1417
+[skipnotify]^1Axis^7   ^7Lange [B]      ^3  12  11   1  2^7  52^3   3^2  1716^1  1569^6  374^4  190^3   1396
+[skipnotify]^1Axis^7   ^7Bohm [B]       ^3   9  11   0  2^7  45^3   6^2  1881^1  1682^6  184^4   54^3   1378
+[skipnotify]^1Axis^7   ^7Friedrich [B]  ^3   8   9   1  4^7  47^3   2^2  1646^1  1381^6  673^4  178^3   1363
+[skipnotify]^1Axis^7   ^7Weller [B]     ^3   4   9   0  1^7  30^3   2^2   794^1  1318^6  207^4  214^3   1338
+[skipnotify]^1Axis^7   ^7Vogel [B]      ^3   4  11   0  1^7  26^3  11^2   750^1  2057^6  250^4   69^3   1332
+[skipnotify]^1Axis^7   ^7Himmel [B]     ^3  10   8   0  2^7  55^3   6^2  2026^1  1278^6  374^4  673^3   1330
+[skipnotify]^7--------------------------------------------------------------------------
+^1Axis^7   ^5Totals           70  88   3 17^5  44^3  56^2 12479^1 14589^6 2892^4 2892^3    126
+[skipnotify]
+^7TEAM   Player          Kll Dth Sui TK Eff  ^3GP^7    ^2DG    ^1DR  ^6TDG  ^4TDR  ^3Score
+^7--------------------------------------------------------------------------
+[skipnotify]^4Allies^7 ^7Smith [B]      ^3  15   6   0  3^7  71^3  20^2  1947^1  1360^6  552^4   86^3   1538
+[skipnotify]^4Allies^7 ^7Kowalski [B]   ^3  12   7   0  1^7  63^3   3^2  2091^1  1098^6  232^4  320^3   1531
+[skipnotify]^4Allies^7 ^7Miller [B]     ^3   7   9   0  0^7  43^3  15^2   842^1  1412^6   94^4  178^3   1460
+[skipnotify]^4Allies^7 ^7Barton [B]     ^3   7  10   0  2^7  41^3   2^2  1665^1  1702^6  377^4  356^3   1448
+[skipnotify]^4Allies^7 ^7Rowan [B]      ^3  11   7   0  0^7  61^3  11^2  1884^1  1261^6    0^4  658^3   1435
+[skipnotify]^4Allies^7 ^7Shaw [B]       ^3   6   8   0  3^7  42^3   4^2  1086^1  1794^6  532^4  232^3   1428
+[skipnotify]^4Allies^7 ^7Johnson [B]    ^3   7   7   0  0^7  50^3   1^2   912^1  1270^6   72^4  349^3   1402
+[skipnotify]^4Allies^7 ^7Morgan [B]     ^3   8  10   0  4^7  44^3  12^2  1698^1  1684^6  784^4  370^3   1282
+[skipnotify]^4Allies^7 ^3Kilpatrick     ^3  13   6   0  0^3  68^3  12^2  2464^1   898^6   36^4  130^3     94
+[skipnotify]^7--------------------------------------------------------------------------
+^4Allies^7 ^5Totals           86  70   0 13^5  55^3  80^2 14589^1 12479^6 2679^4 2679^3    166
+[skipnotify]
+
+^fOverall Top Killer^7: Kilpatrick^7 ^fKR K/D^7: ^31.943
+^fTop Player^7: Herrmann [B] ^fRating^7: ^30.555
+^8Final kill of this round goes to Zimmermann [B]^8!
 
