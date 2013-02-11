@@ -10,6 +10,7 @@
 
 #include "g_local.h"
 #include "g_etbot_interface.h"
+#include "g_mysql.h"
 
 g_xpsave_t *g_xpsaves[MAX_XPSAVES];
 g_mapstat_t *g_mapstats[MAX_MAPSTATS];
@@ -548,6 +549,8 @@ void G_reset_disconnects() {
 
 qboolean G_xpsave_add(gentity_t *ent,qboolean disconnect)
 {
+    // TODO: This is a good place to add database write
+    //       for player xp.
     int i = 0;
     int j = 0;
     int k = 0;
@@ -650,6 +653,12 @@ qboolean G_xpsave_add(gentity_t *ent,qboolean disconnect)
             ,ent->client->sess.overall_killvariance
         );
     }
+
+    G_DB_XPSave(x->guid,x->name,x->time,x->skill[0],x->skill[1],x->skill[2],
+                x->skill[3],x->skill[4],x->skill[5],x->skill[6],
+                x->kill_rating,x->kill_variance,x->rating,
+                x->rating_variance);
+
     return qtrue;
 }
 
