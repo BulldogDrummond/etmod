@@ -2542,6 +2542,13 @@ extern vmCvar_t g_damageBonusTotalMedics;
 
 extern vmCvar_t g_countryFlags; //mcwf GeoIP
 
+// Mysql
+extern vmCvar_t g_dbEnable;
+extern vmCvar_t g_dbHostname;
+extern vmCvar_t g_dbDatabase;
+extern vmCvar_t g_dbUsername;
+extern vmCvar_t g_dbPassword;
+
 void    trap_Printf( const char *fmt );
 void    trap_Error( const char *fmt );
 int        trap_Milliseconds( void );

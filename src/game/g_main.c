@@ -582,6 +582,13 @@ vmCvar_t g_panzerLevelUp;
 
 vmCvar_t g_countryFlags; //mcwf GeoIP
 
+// Mysql
+vmCvar_t g_dbEnable;
+vmCvar_t g_dbHostname;
+vmCvar_t g_dbDatabase;
+vmCvar_t g_dbUsername;
+vmCvar_t g_dbPassword;
+
 cvarTable_t        gameCvarTable[] = {
     // don't override the cheat state set by the system
     { &g_cheats, "sv_cheats", "", 0, qfalse },
@@ -1116,6 +1123,12 @@ cvarTable_t        gameCvarTable[] = {
 
     { &g_countryFlags, "g_countryFlags", "1", 0}, //mcwf GeoIP
 
+    { &g_dbEnable,   "db_enable",   "0", 0, 0, qfalse}, // Mysql  
+    { &g_dbHostname, "db_hostname", "",  0, 0, qfalse},
+    { &g_dbDatabase, "db_database", "",  0, 0, qfalse},
+    { &g_dbUsername, "db_username", "",  0, 0, qfalse},
+    { &g_dbPassword, "db_password", "",  0, 0, qfalse},
+
     { NULL, "mod_version", ETMOD_VERSION, CVAR_SERVERINFO | CVAR_ROM },
     { NULL, "mod_url", "http://github.com/BulldogDrummond/etmod", CVAR_SERVERINFO | CVAR_ROM },
     // Omni-bot user defined path to load bot library from.
@@ -1205,6 +1218,7 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
     case GAME_SHUTDOWN:
         if (!Bot_Interface_Shutdown())
             G_Printf(S_COLOR_RED "Error shutting down Omni-Bot.\n");
+        G_DB_ResetMap();
         G_ShutdownGame( arg0 );
         DisableStackTrace();
         return 0;
@@ -2864,6 +2878,8 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
     trap_GetServerinfo( cs, sizeof( cs ) );
     Q_strncpyz( level.rawmapname, Info_ValueForKey( cs, "mapname" ), sizeof(level.rawmapname) );
+
+    G_DB_SetMap(level.rawmapname);
 
     G_ParseCampaigns();
     if( g_gametype.integer == GT_WOLF_CAMPAIGN ) {

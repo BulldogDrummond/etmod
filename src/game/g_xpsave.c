@@ -124,6 +124,8 @@ void G_xpsave_writeconfig()
      G_shrubbot_writeconfig_float(g_serverstat.distance_variance, f);
      trap_FS_Write("\n", 1, f);
      G_Printf("xpsave: wrote server rating: %f\n", g_serverstat.rating);
+
+    G_DB_ServerStatSave(g_serverstat.rating,g_serverstat.rating_variance,g_serverstat.distance_rating,g_serverstat.distance_variance); 
  
      for(i=0; g_mapstats[i]; i++) {
          trap_FS_Write("[mapstat]\n", 10, f);
@@ -138,6 +140,7 @@ void G_xpsave_writeconfig()
         trap_FS_Write("spree_name        = ", 20, f);
          G_shrubbot_writeconfig_string(g_mapstats[i]->spreeName, f);
          trap_FS_Write("\n", 1, f);
+        G_DB_MapStatSave(g_mapstats[i]->name, g_mapstats[i]->rating, g_mapstats[i]->rating_variance, g_mapstats[i]->spreeRecord, g_mapstats[i]->spreeName);
      }
     G_Printf("xpsave: wrote %d mapstats\n", i);
 
@@ -657,7 +660,7 @@ qboolean G_xpsave_add(gentity_t *ent,qboolean disconnect)
     G_DB_XPSave(x->guid,x->name,x->time,x->skill[0],x->skill[1],x->skill[2],
                 x->skill[3],x->skill[4],x->skill[5],x->skill[6],
                 x->kill_rating,x->kill_variance,x->rating,
-                x->rating_variance);
+                x->rating_variance,x->mutetime,x->hits,x->team_hits);
 
     return qtrue;
 }

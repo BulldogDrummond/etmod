@@ -1,0 +1,62 @@
+Exit: Wolf EndRound.
+score: 2016  ping: 31  client: 0 Malone
+score: 1374  ping: 0  client: 6 Kowalski [Bot]
+score: 1294  ping: 0  client: 8 Miller [Bot]
+score: 1289  ping: 0  client: 2 Smith [Bot]
+score: 1242  ping: 0  client: 7 Bohm [Bot]
+score: 1240  ping: 0  client: 17 Schmitt [Bot]
+score: 1227  ping: 0  client: 10 Barton [Bot]
+score: 1223  ping: 0  client: 14 Benson [Bot]
+score: 1210  ping: 0  client: 4 Rowan [Bot]
+score: 1210  ping: 0  client: 11 Vogel [Bot]
+score: 1203  ping: 0  client: 13 Hahn [Bot]
+score: 1185  ping: 0  client: 5 Lange [Bot]
+score: 1183  ping: 0  client: 9 Weller [Bot]
+score: 1183  ping: 0  client: 12 Durant [Bot]
+score: 1164  ping: 0  client: 1 Zimmermann [Bot]
+score: 1161  ping: 0  client: 3 Friedrich [Bot]
+score: 1131  ping: 0  client: 15 Lorenz [Bot]
+score: 1099  ping: 0  client: 16 Flint [Bot]
+red:245  blue:354
+Saving XP for GUID ECEBD89CADE1E45BBD5F626091963F7E (Malone)
+Saving XP for GUID OMNIBOT0600000000000000000000000 (Kowalski [Bot])
+Saving XP for GUID OMNIBOT0800000000000000000000000 (Miller [Bot])
+Saving XP for GUID OMNIBOT0200000000000000000000000 (Smith [Bot])
+Saving XP for GUID OMNIBOT0700000000000000000000000 (Bohm [Bot])
+Saving XP for GUID OMNIBOT1700000000000000000000000 (Schmitt [Bot])
+Saving XP for GUID OMNIBOT1000000000000000000000000 (Barton [Bot])
+Saving XP for GUID OMNIBOT1400000000000000000000000 (Benson [Bot])
+Saving XP for GUID OMNIBOT0400000000000000000000000 (Rowan [Bot])
+Saving XP for GUID OMNIBOT1100000000000000000000000 (Vogel [Bot])
+Saving XP for GUID OMNIBOT1300000000000000000000000 (Hahn [Bot])
+Saving XP for GUID OMNIBOT0500000000000000000000000 (Lange [Bot])
+Saving XP for GUID OMNIBOT0900000000000000000000000 (Weller [Bot])
+Saving XP for GUID OMNIBOT1200000000000000000000000 (Durant [Bot])
+Saving XP for GUID OMNIBOT0100000000000000000000000 (Zimmermann [Bot])
+Saving XP for GUID OMNIBOT0300000000000000000000000 (Friedrich [Bot])
+Saving XP for GUID OMNIBOT1500000000000000000000000 (Lorenz [Bot])
+Saving XP for GUID OMNIBOT1600000000000000000000000 (Flint [Bot])
+xpsave: wrote server rating: 2.640779
+Saving Server Stats to Database.
+xpsave: wrote 19 mapstats
+xpsave: wrote 21 xpsaves
+Sending gameCompleteStatus to etmaster.idsoftware.com
+WeaponStats: 0 0 2072 0 0 0 1 0 61 156 11 0 7 1 4 1 0 0 2177 122 90 115 525 239 783 268 201
+WeaponStats: 6 0 65592 0 0 0 5 0 0 13 0 0 0 15 88 4 0 2 0 2 0 0 0 502 672 0 95 372 119 83 35 667 98
+WeaponStats: 8 0 26 0 0 0 1 0 0 0 0 3 0 30 89 3 0 1 551 590 286 127 393 141 141 22 558 20 19
+WeaponStats: 2 0 1181704 0 0 0 2 0 1 3 0 0 0 1 2 0 0 0 10 41 2 0 1 531 474 160 63 301 204 119 35 599 31
+WeaponStats: 7 0 262170 2 7 1 0 0 16 78 1 0 0 0 0 0 5 0 0 1 0 0 0 324 973 0 127 281 159 183 5 528 41 45
+WeaponStats: 17 0 2359320 5 27 1 0 0 0 0 0 6 0 3 3 0 0 0 2 20 0 0 0 306 1148 320 63 305 110 139 33 647 6
+WeaponStats: 10 0 3145816 0 0 0 4 0 27 101 3 0 2 0 0 0 1 0 8 18 0 0 0 0 0 0 1 0 1000 1125 34 95 324 181 118 7 527 70
+WeaponStats: 14 0 18456 0 0 0 1 0 23 76 4 0 1 0 2 0 0 0 3 4 0 0 0 500 388 36 95 278 234 77 1 551 82
+WeaponStats: 4 0 802840 0 0 0 5 0 30 176 4 0 3 1 1 0 0 0 0 0 0 1 0 4 35 0 0 0 953 1081 407 127 309 84 202 13 591 6 5
+WeaponStats: 11 0 56 24 121 2 0 1 0 0 0 5 0 0 0 0 2 0 520 1116 196 95 291 67 197 107 547 1
+WeaponStats: 13 0 2136 16 82 2 0 0 0 0 0 4 0 2 6 1 0 1 0 0 0 1 0 445 840 160 127 286 153 126 5 561 5 67
+WeaponStats: 5 0 12344 36 121 7 0 5 0 0 0 4 0 0 0 0 1 0 0 2 0 0 0 0 1 0 0 0 1294 868 196 63 310 102 55 17 697 4
+WeaponStats: 9 0 3145752 3 9 1 0 0 0 0 0 4 0 0 0 0 1 0 10 41 1 0 1 486 801 160 127 297 116 126 9 614 3 18
+WeaponStats: 12 0 8216 0 0 0 1 0 36 113 8 0 3 0 0 0 1 0 1056 319 18 63 290 142 199 12 533 7
+WeaponStats: 1 0 917528 7 13 2 0 1 0 0 0 3 0 1 1 0 0 0 6 4 1 0 0 0 29 0 0 0 661 459 335 127 319 111 152 9 526 25 22
+WeaponStats: 3 0 24632 18 46 3 0 1 0 0 0 5 0 0 0 0 1 0 3 5 1 0 0 2 2 0 0 0 570 1048 110 127 263 74 122 124 496 21 61
+WeaponStats: 15 0 1064984 27 143 7 0 4 0 0 0 2 0 7 7 0 0 0 0 0 0 1 0 1033 834 178 127 233 89 178 51 545 10 25
+WeaponStats: 16 0 4120 0 0 0 4 0 26 89 5 0 2 1 2 0 0 0 732 741 138 127 271 49 221 34 474 18 32
+

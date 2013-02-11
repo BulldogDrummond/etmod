@@ -26,27 +26,16 @@ void G_DB_InitGameTest();
 void G_DB_SetMap(char *server);
 void G_DB_ResetMap();
 
-/*
-  guid varchar(32)
-  name varchar(40)
-  time bigint(20) unsigned
-  skill0 decimal(9,6) unsigned zerofill
-  skill1 decimal(9,6) unsigned zerofill
-  skill2 decimal(9,6) unsigned zerofill
-  skill3 decimal(9,6) unsigned zerofill
-  skill4 decimal(9,6) unsigned zerofill
-  skill5 decimal(9,6) unsigned zerofill
-  skill6 decimal(9,6) unsigned zerofill
-  kill_rating decimal(7,6) unsigned zerofill
-  kill_variance decimal(7,6) unsigned zerofill
-  rating decimal(7,6) unsigned zerofill
-  rating_variance decimal(7,6) unsigned zerofill
-*/
+void G_DB_ServerStatSave(float s_rating, float s_rating_variance,
+                         float s_distance_rating, float s_distance_variance);
+
+void G_DB_MapStatSave(char *mapname, float rating, float rating_variance, int spree_record, char *spree_name);
 
 void G_DB_XPSave(char *guid, char *name, int time, float skill0, float skill1,
                  float skill2, float skill3, float skill4, float skill5,
                  float skill6, float kill_rating, float kill_variance,
-                 float rating, float rating_variance);
+                 float rating, float rating_variance, int mutetime, int hits,
+                 int team_hits);
 
 #endif /* ifdef FEATURE_MYSQL */
 
