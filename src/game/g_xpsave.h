@@ -11,8 +11,8 @@
 #ifndef _G_XPSAVE_H
 #define _G_XPSAVE_H
 
-#define MAX_XPSAVES 32768
-#define MAX_MAPSTATS 1024
+#define MAX_XPSAVES     32768
+#define MAX_MAPSTATS    1024
 #define MAX_DISCONNECTS 1024
 
 typedef struct

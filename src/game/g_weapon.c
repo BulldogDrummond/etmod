@@ -2976,7 +2976,7 @@ void G_AddArtyToCounters(gentity_t *ent)
     }
 }
 
-#define NUMBOMBS 10
+#define NUMBOMBS   10
 #define BOMBSPREAD 150
 extern void G_SayTo(gentity_t *ent, gentity_t *other, int mode, int color, const char *name, const char *message, qboolean localize);
 
@@ -3853,8 +3853,8 @@ void Weapon_Artillery(gentity_t *ent)
     Bot_Event_FireWeapon(ent - g_entities, Bot_WeaponGameToBot(WP_ARTY), 0);
 }
 
-#define SMOKEBOMB_GROWTIME 1000
-#define SMOKEBOMB_SMOKETIME 15000
+#define SMOKEBOMB_GROWTIME      1000
+#define SMOKEBOMB_SMOKETIME     15000
 #define SMOKEBOMB_POSTSMOKETIME 2000
 // xkan, 11/25/2002 - increases postsmoke time from 2000->32000, this way, the entity
 // is still around while the smoke is around, so we can check if it blocks bot's vision
@@ -4180,63 +4180,63 @@ float G_GetWeaponSpread(int weapon)
     return 0;    // shouldn't get here
 }
 
-#define LUGER_SPREAD    G_GetWeaponSpread(WP_LUGER)
-#define LUGER_DAMAGE    G_GetWeaponDamage(WP_LUGER) // JPW
+#define LUGER_SPREAD G_GetWeaponSpread(WP_LUGER)
+#define LUGER_DAMAGE G_GetWeaponDamage(WP_LUGER)    // JPW
 
-#define SILENCER_DAMAGE        G_GetWeaponDamage(WP_SILENCER)
-#define SILENCER_SPREAD        G_GetWeaponSpread(WP_SILENCER)
+#define SILENCER_DAMAGE G_GetWeaponDamage(WP_SILENCER)
+#define SILENCER_SPREAD G_GetWeaponSpread(WP_SILENCER)
 
-#define AKIMBO_LUGER_DAMAGE            G_GetWeaponDamage(WP_AKIMBO_LUGER)
-#define AKIMBO_LUGER_SPREAD            G_GetWeaponSpread(WP_AKIMBO_LUGER)
+#define AKIMBO_LUGER_DAMAGE G_GetWeaponDamage(WP_AKIMBO_LUGER)
+#define AKIMBO_LUGER_SPREAD G_GetWeaponSpread(WP_AKIMBO_LUGER)
 
-#define AKIMBO_SILENCEDLUGER_DAMAGE    G_GetWeaponDamage(WP_AKIMBO_SILENCEDLUGER)
-#define AKIMBO_SILENCEDLUGER_SPREAD    G_GetWeaponSpread(WP_AKIMBO_SILENCEDLUGER)
+#define AKIMBO_SILENCEDLUGER_DAMAGE G_GetWeaponDamage(WP_AKIMBO_SILENCEDLUGER)
+#define AKIMBO_SILENCEDLUGER_SPREAD G_GetWeaponSpread(WP_AKIMBO_SILENCEDLUGER)
 
-#define COLT_SPREAD        G_GetWeaponSpread(WP_COLT)
-#define    COLT_DAMAGE        G_GetWeaponDamage(WP_COLT) // JPW
+#define COLT_SPREAD    G_GetWeaponSpread(WP_COLT)
+#define    COLT_DAMAGE G_GetWeaponDamage(WP_COLT)        // JPW
 
-#define SILENCED_COLT_DAMAGE    G_GetWeaponDamage(WP_SILENCED_COLT)
-#define SILENCED_COLT_SPREAD    G_GetWeaponSpread(WP_SILENCED_COLT)
+#define SILENCED_COLT_DAMAGE G_GetWeaponDamage(WP_SILENCED_COLT)
+#define SILENCED_COLT_SPREAD G_GetWeaponSpread(WP_SILENCED_COLT)
 
-#define AKIMBO_COLT_DAMAGE    G_GetWeaponDamage(WP_AKIMBO_COLT)
-#define AKIMBO_COLT_SPREAD    G_GetWeaponSpread(WP_AKIMBO_COLT)
+#define AKIMBO_COLT_DAMAGE G_GetWeaponDamage(WP_AKIMBO_COLT)
+#define AKIMBO_COLT_SPREAD G_GetWeaponSpread(WP_AKIMBO_COLT)
 
-#define AKIMBO_SILENCEDCOLT_DAMAGE    G_GetWeaponDamage(WP_AKIMBO_SILENCEDCOLT)
-#define AKIMBO_SILENCEDCOLT_SPREAD    G_GetWeaponSpread(WP_AKIMBO_SILENCEDCOLT)
+#define AKIMBO_SILENCEDCOLT_DAMAGE G_GetWeaponDamage(WP_AKIMBO_SILENCEDCOLT)
+#define AKIMBO_SILENCEDCOLT_SPREAD G_GetWeaponSpread(WP_AKIMBO_SILENCEDCOLT)
 
 #define MP40_SPREAD        G_GetWeaponSpread(WP_MP40)
-#define    MP40_DAMAGE        G_GetWeaponDamage(WP_MP40) // JPW
+#define    MP40_DAMAGE     G_GetWeaponDamage(WP_MP40)    // JPW
 #define THOMPSON_SPREAD    G_GetWeaponSpread(WP_THOMPSON)
-#define    THOMPSON_DAMAGE    G_GetWeaponDamage(WP_THOMPSON) // JPW
+#define    THOMPSON_DAMAGE G_GetWeaponDamage(WP_THOMPSON)    // JPW
 #define STEN_SPREAD        G_GetWeaponSpread(WP_STEN)
-#define    STEN_DAMAGE        G_GetWeaponDamage(WP_STEN) // JPW
+#define    STEN_DAMAGE     G_GetWeaponDamage(WP_STEN)    // JPW
 
 #define GARAND_SPREAD    G_GetWeaponSpread(WP_GARAND)
-#define    GARAND_DAMAGE    G_GetWeaponDamage(WP_GARAND) // JPW
+#define    GARAND_DAMAGE G_GetWeaponDamage(WP_GARAND)    // JPW
 
 #define KAR98_SPREAD    G_GetWeaponSpread(WP_KAR98)
-#define    KAR98_DAMAGE    G_GetWeaponDamage(WP_KAR98)
+#define    KAR98_DAMAGE G_GetWeaponDamage(WP_KAR98)
 
 #define CARBINE_SPREAD    G_GetWeaponSpread(WP_CARBINE)
-#define    CARBINE_DAMAGE    G_GetWeaponDamage(WP_CARBINE)
+#define    CARBINE_DAMAGE G_GetWeaponDamage(WP_CARBINE)
 
-#define    KAR98_GREN_DAMAGE    G_GetWeaponDamage(WP_GREN_KAR98)
+#define    KAR98_GREN_DAMAGE G_GetWeaponDamage(WP_GREN_KAR98)
 
 #define MOBILE_MG42_SPREAD    G_GetWeaponSpread(WP_MOBILE_MG42)
-#define    MOBILE_MG42_DAMAGE    G_GetWeaponDamage(WP_MOBILE_MG42)
+#define    MOBILE_MG42_DAMAGE G_GetWeaponDamage(WP_MOBILE_MG42)
 
-#define FG42_SPREAD        G_GetWeaponSpread(WP_FG42)
-#define    FG42_DAMAGE        G_GetWeaponDamage(WP_FG42) // JPW
+#define FG42_SPREAD    G_GetWeaponSpread(WP_FG42)
+#define    FG42_DAMAGE G_GetWeaponDamage(WP_FG42)        // JPW
 
 #define FG42SCOPE_SPREAD    G_GetWeaponSpread(WP_FG42SCOPE)
-#define    FG42SCOPE_DAMAGE    G_GetWeaponDamage(WP_FG42SCOPE) // JPW
-#define K43_SPREAD    G_GetWeaponSpread(WP_K43)
-#define    K43_DAMAGE    G_GetWeaponDamage(WP_K43)
+#define    FG42SCOPE_DAMAGE G_GetWeaponDamage(WP_FG42SCOPE)    // JPW
+#define K43_SPREAD          G_GetWeaponSpread(WP_K43)
+#define    K43_DAMAGE       G_GetWeaponDamage(WP_K43)
 
-#define GARANDSCOPE_SPREAD    G_GetWeaponSpread(WP_GARAND_SCOPE)
-#define GARANDSCOPE_DAMAGE    G_GetWeaponDamage(WP_GARAND_SCOPE)
+#define GARANDSCOPE_SPREAD G_GetWeaponSpread(WP_GARAND_SCOPE)
+#define GARANDSCOPE_DAMAGE G_GetWeaponDamage(WP_GARAND_SCOPE)
 
-#define K43SCOPE_SPREAD    G_GetWeaponSpread(WP_K43_SCOPE)
+#define K43SCOPE_SPREAD G_GetWeaponSpread(WP_K43_SCOPE)
 #define K43SCOPE_DAMAGE G_GetWeaponDamage(WP_K43_SCOPE)
 
 void RubbleFlagCheck(gentity_t *ent, trace_t tr)

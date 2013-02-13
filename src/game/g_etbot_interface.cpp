@@ -52,11 +52,11 @@ BotEntity m_EntityHandles[MAX_GENTITIES];
 
 // utils partly taken from id code
 #define WC_WEAPON_TIME_LEFT level.time - ps->classWeaponTime
-#define WC_SOLDIER_TIME        level.soldierChargeTime[team - TEAM_AXIS]
+#define WC_SOLDIER_TIME     level.soldierChargeTime[team - TEAM_AXIS]
 #define WC_ENGINEER_TIME    level.engineerChargeTime[team - TEAM_AXIS]
 #define WC_FIELDOPS_TIME    level.lieutenantChargeTime[team - TEAM_AXIS]
-#define WC_MEDIC_TIME        level.medicChargeTime[team - TEAM_AXIS]
-#define WC_COVERTOPS_TIME    level.covertopsChargeTime[team - TEAM_AXIS]
+#define WC_MEDIC_TIME       level.medicChargeTime[team - TEAM_AXIS]
+#define WC_COVERTOPS_TIME   level.covertopsChargeTime[team - TEAM_AXIS]
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -1125,8 +1125,8 @@ static void ReTransmitWeapons(const gentity_t *bot)
     }
 }
 
-#define MAX_SMOKE_RADIUS 320.0
-#define MAX_SMOKE_RADIUS_TIME 10000.0
+#define MAX_SMOKE_RADIUS         320.0
+#define MAX_SMOKE_RADIUS_TIME    10000.0
 #define UNAFFECTED_BY_SMOKE_DIST SQR(100)
 
 gentity_t *Bot_EntInvisibleBySmokeBomb(vec3_t start, vec3_t end)

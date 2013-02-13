@@ -177,11 +177,11 @@ struct tag
 
 /**************************************************************/
 
-#define TAG_INTERNAL        (1 << 30)
-#define TAG_INTERNAL_MASK    (~TAG_INTERNAL)
+#define TAG_INTERNAL      (1 << 30)
+#define TAG_INTERNAL_MASK (~TAG_INTERNAL)
 
-#define INTERNTAG_TAG        (1 << 29)    /* based off tag, not bone */
-#define INTERNTAG_TAG_MASK    (~INTERNTAG_TAG)
+#define INTERNTAG_TAG      (1 << 29)      /* based off tag, not bone */
+#define INTERNTAG_TAG_MASK (~INTERNTAG_TAG)
 
 typedef struct interntag_s interntag_t;
 typedef struct mdm_s mdm_t;
@@ -252,10 +252,10 @@ static hit_t *hits     = NULL;
 static int    mdx_bones_max = 0;
 static vec3_t *mdx_bones    = NULL;
 
-#define INDEXTOQHANDLE(idx)        (qhandle_t)((idx) + 1)
+#define INDEXTOQHANDLE(idx) (qhandle_t)((idx) + 1)
 // Index may be NULL sometimes, so just default to the first model (FIXME: This is a HACK.)
-#define QHANDLETOINDEX(qh)        ((qh >= 1) ? ((int)(qh) - 1) : 0)
-#define QHANDLETOINDEX_SAFE(qh, old)    ((qh >= 1) ? (int)(qh) - 1 : QHANDLETOINDEX(old))
+#define QHANDLETOINDEX(qh)           ((qh >= 1) ? ((int)(qh) - 1) : 0)
+#define QHANDLETOINDEX_SAFE(qh, old) ((qh >= 1) ? (int)(qh) - 1 : QHANDLETOINDEX(old))
 
 /**************************************************************/
 /* free allocated memory */
@@ -1741,15 +1741,15 @@ int trap_R_LerpTag(orientation_t *tag, /*const*/ grefEntity_t *refent, const cha
 /**************************************************************/
 /* Animations/Player stuff */
 
-#define SWING_RIGHT    1
-#define SWING_LEFT    2
+#define SWING_RIGHT 1
+#define SWING_LEFT  2
 
 /*
 ==================
 mdx_SwingAngles, adapted from CG_SwingAngles
 ==================
 */
-#define SERVER_FRAMETIME    (1000 / 20)
+#define SERVER_FRAMETIME (1000 / 20)
 static void mdx_SwingAngles(float destination, float swingTolerance, float clampTolerance,
                             float speed, float *angle, qboolean *swinging)
 {
@@ -1834,7 +1834,7 @@ static void mdx_SwingAngles(float destination, float swingTolerance, float clamp
 mdx_PlayerAngles, adapted from CG_PlayerAngles
 ===============
 */
-#define SWINGSPEED    0.1    /* Cheat protected, so we don't care if it matches. */
+#define SWINGSPEED 0.1       /* Cheat protected, so we don't care if it matches. */
 
 void mdx_PlayerAngles(gentity_t *ent, vec3_t legsAngles, vec3_t torsoAngles, vec3_t headAngles, qboolean doswing)
 {
@@ -2038,7 +2038,7 @@ void mdx_PlayerAngles(gentity_t *ent, vec3_t legsAngles, vec3_t torsoAngles, vec
 
 /* Adapted from CG_RunLerpFrameRate */
 /* I'd rather not duplicate this much code.... */
-#define CROUCHING(anim)    ((anim) && ((anim)->movetype & ((1 << ANIM_MT_IDLECR) | (1 << ANIM_MT_WALKCR) | (1 << ANIM_MT_WALKCRBK))))
+#define CROUCHING(anim) ((anim) && ((anim)->movetype & ((1 << ANIM_MT_IDLECR) | (1 << ANIM_MT_WALKCR) | (1 << ANIM_MT_WALKCRBK))))
 
 static void mdx_SetLerpFrame(gentity_t *ent, glerpFrame_t *lf, int newAnimation, bg_character_t *character)
 {
@@ -2122,11 +2122,11 @@ static void mdx_RunLerpFrame(gentity_t *ent, glerpFrame_t *lf, int newAnimation,
 
     qboolean done = qfalse;       // break out if we would loop forever
 
-#define    ANIM_SCALEMAX_LOW    1.1
-#define    ANIM_SCALEMAX_HIGH    1.6
+#define    ANIM_SCALEMAX_LOW  1.1
+#define    ANIM_SCALEMAX_HIGH 1.6
 
-#define    ANIM_SPEEDMAX_LOW    100
-#define    ANIM_SPEEDMAX_HIGH    20
+#define    ANIM_SPEEDMAX_LOW  100
+#define    ANIM_SPEEDMAX_HIGH 20
 
     isLadderAnim = lf->animation && (lf->animation->flags & ANIMFL_LADDERANIM);
 

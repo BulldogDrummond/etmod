@@ -42,77 +42,77 @@ typedef void (*BotPolyFunc)(int color, int numPoints, float *points);
 #define BLOCKINGFLAG_MOVER (~0x7fffffff)
 
 // debug line colors
-#define LINECOLOR_NONE      -1
-#define LINECOLOR_RED       1 //0xf2f2f0f0L
-#define LINECOLOR_GREEN     2 //0xd0d1d2d3L
-#define LINECOLOR_BLUE      3 //0xf3f3f1f1L
-#define LINECOLOR_YELLOW    4 //0xdcdddedfL
-#define LINECOLOR_ORANGE    5 //0xe0e1e2e3L
+#define LINECOLOR_NONE   -1
+#define LINECOLOR_RED    1    //0xf2f2f0f0L
+#define LINECOLOR_GREEN  2    //0xd0d1d2d3L
+#define LINECOLOR_BLUE   3    //0xf3f3f1f1L
+#define LINECOLOR_YELLOW 4    //0xdcdddedfL
+#define LINECOLOR_ORANGE 5    //0xe0e1e2e3L
 
 // Print types
-#define PRT_MESSAGE         1
-#define PRT_WARNING         2
-#define PRT_ERROR           3
-#define PRT_FATAL           4
-#define PRT_EXIT            5
+#define PRT_MESSAGE 1
+#define PRT_WARNING 2
+#define PRT_ERROR   3
+#define PRT_FATAL   4
+#define PRT_EXIT    5
 
 // console message types
-#define CMS_NORMAL          0
-#define CMS_CHAT            1
+#define CMS_NORMAL 0
+#define CMS_CHAT   1
 
 // botlib error codes
-#define BLERR_NOERROR                    0    // no error
-#define BLERR_LIBRARYNOTSETUP            1    // library not setup
-#define BLERR_LIBRARYALREADYSETUP        2    // BotSetupLibrary: library already setup
-#define BLERR_INVALIDCLIENTNUMBER        3    // invalid client number
-#define BLERR_INVALIDENTITYNUMBER        4    // invalid entity number
-#define BLERR_NOAASFILE                  5    // BotLoadMap: no AAS file available
-#define BLERR_CANNOTOPENAASFILE          6    // BotLoadMap: cannot open AAS file
-#define BLERR_CANNOTSEEKTOAASFILE        7    // BotLoadMap: cannot seek to AAS file
-#define BLERR_CANNOTREADAASHEADER        8    // BotLoadMap: cannot read AAS header
-#define BLERR_WRONGAASFILEID             9    // BotLoadMap: incorrect AAS file id
-#define BLERR_WRONGAASFILEVERSION       10    // BotLoadMap: incorrect AAS file version
-#define BLERR_CANNOTREADAASLUMP         11    // BotLoadMap: cannot read AAS file lump
-#define BLERR_NOBSPFILE                 12    // BotLoadMap: no BSP file available
-#define BLERR_CANNOTOPENBSPFILE         13    // BotLoadMap: cannot open BSP file
-#define BLERR_CANNOTSEEKTOBSPFILE       14    // BotLoadMap: cannot seek to BSP file
-#define BLERR_CANNOTREADBSPHEADER       15    // BotLoadMap: cannot read BSP header
-#define BLERR_WRONGBSPFILEID            16    // BotLoadMap: incorrect BSP file id
-#define BLERR_WRONGBSPFILEVERSION       17    // BotLoadMap: incorrect BSP file version
-#define BLERR_CANNOTREADBSPLUMP         18    // BotLoadMap: cannot read BSP file lump
-#define BLERR_AICLIENTNOTSETUP          19    // BotAI: client not setup
-#define BLERR_AICLIENTALREADYSETUP      20    // BotSetupClient: client already setup
-#define BLERR_AIMOVEINACTIVECLIENT      21    // BotMoveClient: cannot move inactive client
-#define BLERR_AIMOVETOACTIVECLIENT      22    // BotMoveClient: cannot move to active client
-#define BLERR_AICLIENTALREADYSHUTDOWN   23    // BotShutdownClient: client not setup
-#define BLERR_AIUPDATEINACTIVECLIENT    24    // BotUpdateClient: called for inactive client
-#define BLERR_AICMFORINACTIVECLIENT     25    // BotConsoleMessage: called for inactive client
-#define BLERR_SETTINGSINACTIVECLIENT    26    // BotClientSettings: called for inactive client
-#define BLERR_CANNOTLOADICHAT           27    // BotSetupClient: cannot load initial chats
-#define BLERR_CANNOTLOADITEMWEIGHTS     28    // BotSetupClient: cannot load item weights
-#define BLERR_CANNOTLOADITEMCONFIG      29    // BotSetupLibrary: cannot load item config
-#define BLERR_CANNOTLOADWEAPONWEIGHTS   30    // BotSetupClient: cannot load weapon weights
-#define BLERR_CANNOTLOADWEAPONCONFIG    31    // BotSetupLibrary: cannot load weapon config
-#define BLERR_INVALIDSOUNDINDEX         32    // BotAddSound: invalid sound index value
+#define BLERR_NOERROR                 0       // no error
+#define BLERR_LIBRARYNOTSETUP         1       // library not setup
+#define BLERR_LIBRARYALREADYSETUP     2       // BotSetupLibrary: library already setup
+#define BLERR_INVALIDCLIENTNUMBER     3       // invalid client number
+#define BLERR_INVALIDENTITYNUMBER     4       // invalid entity number
+#define BLERR_NOAASFILE               5       // BotLoadMap: no AAS file available
+#define BLERR_CANNOTOPENAASFILE       6       // BotLoadMap: cannot open AAS file
+#define BLERR_CANNOTSEEKTOAASFILE     7       // BotLoadMap: cannot seek to AAS file
+#define BLERR_CANNOTREADAASHEADER     8       // BotLoadMap: cannot read AAS header
+#define BLERR_WRONGAASFILEID          9       // BotLoadMap: incorrect AAS file id
+#define BLERR_WRONGAASFILEVERSION     10      // BotLoadMap: incorrect AAS file version
+#define BLERR_CANNOTREADAASLUMP       11      // BotLoadMap: cannot read AAS file lump
+#define BLERR_NOBSPFILE               12      // BotLoadMap: no BSP file available
+#define BLERR_CANNOTOPENBSPFILE       13      // BotLoadMap: cannot open BSP file
+#define BLERR_CANNOTSEEKTOBSPFILE     14      // BotLoadMap: cannot seek to BSP file
+#define BLERR_CANNOTREADBSPHEADER     15      // BotLoadMap: cannot read BSP header
+#define BLERR_WRONGBSPFILEID          16      // BotLoadMap: incorrect BSP file id
+#define BLERR_WRONGBSPFILEVERSION     17      // BotLoadMap: incorrect BSP file version
+#define BLERR_CANNOTREADBSPLUMP       18      // BotLoadMap: cannot read BSP file lump
+#define BLERR_AICLIENTNOTSETUP        19      // BotAI: client not setup
+#define BLERR_AICLIENTALREADYSETUP    20      // BotSetupClient: client already setup
+#define BLERR_AIMOVEINACTIVECLIENT    21      // BotMoveClient: cannot move inactive client
+#define BLERR_AIMOVETOACTIVECLIENT    22      // BotMoveClient: cannot move to active client
+#define BLERR_AICLIENTALREADYSHUTDOWN 23      // BotShutdownClient: client not setup
+#define BLERR_AIUPDATEINACTIVECLIENT  24      // BotUpdateClient: called for inactive client
+#define BLERR_AICMFORINACTIVECLIENT   25      // BotConsoleMessage: called for inactive client
+#define BLERR_SETTINGSINACTIVECLIENT  26      // BotClientSettings: called for inactive client
+#define BLERR_CANNOTLOADICHAT         27      // BotSetupClient: cannot load initial chats
+#define BLERR_CANNOTLOADITEMWEIGHTS   28      // BotSetupClient: cannot load item weights
+#define BLERR_CANNOTLOADITEMCONFIG    29      // BotSetupLibrary: cannot load item config
+#define BLERR_CANNOTLOADWEAPONWEIGHTS 30      // BotSetupClient: cannot load weapon weights
+#define BLERR_CANNOTLOADWEAPONCONFIG  31      // BotSetupLibrary: cannot load weapon config
+#define BLERR_INVALIDSOUNDINDEX       32      // BotAddSound: invalid sound index value
 
 // action flags
-#define ACTION_ATTACK            1
-#define ACTION_USE               2
-#define ACTION_RESPAWN           4
-#define ACTION_JUMP              8
-#define ACTION_MOVEUP            8
-#define ACTION_CROUCH           16
-#define ACTION_MOVEDOWN         16
-#define ACTION_MOVEFORWARD      32
-#define ACTION_MOVEBACK         64
-#define ACTION_MOVELEFT        128
-#define ACTION_MOVERIGHT       256
-#define ACTION_DELAYEDJUMP     512
-#define ACTION_TALK           1024
-#define ACTION_GESTURE        2048
-#define ACTION_WALK           4096
-#define ACTION_RELOAD         8192
-#define ACTION_PRONE         16384
+#define ACTION_ATTACK      1
+#define ACTION_USE         2
+#define ACTION_RESPAWN     4
+#define ACTION_JUMP        8
+#define ACTION_MOVEUP      8
+#define ACTION_CROUCH      16
+#define ACTION_MOVEDOWN    16
+#define ACTION_MOVEFORWARD 32
+#define ACTION_MOVEBACK    64
+#define ACTION_MOVELEFT    128
+#define ACTION_MOVERIGHT   256
+#define ACTION_DELAYEDJUMP 512
+#define ACTION_TALK        1024
+#define ACTION_GESTURE     2048
+#define ACTION_WALK        4096
+#define ACTION_RELOAD      8192
+#define ACTION_PRONE       16384
 
 // the bot input, will be converted to an usercmd_t
 typedef struct bot_input_s

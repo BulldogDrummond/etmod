@@ -17,9 +17,9 @@
 
 #define MAX_SHRUBBOT_LEVELS 32
 // tjw: some nutters !setlevel every player in sight
-#define MAX_SHRUBBOT_ADMINS 32768
-#define MAX_SHRUBBOT_BANS 1024
-#define MAX_SHRUBBOT_FLAGS 64
+#define MAX_SHRUBBOT_ADMINS   32768
+#define MAX_SHRUBBOT_BANS     1024
+#define MAX_SHRUBBOT_FLAGS    64
 #define MAX_SHRUBBOT_COMMANDS 64
 #define MAX_SHRUBBOT_WARNINGS 1024
 
@@ -47,20 +47,20 @@
  * $ - can do !admintest <other player>
  * ~ - can read and send adminchat
  */
-#define SBF_IMMUNITY '1'
-#define SBF_NOCENSORFLOOD '2'
-#define SBF_STEALTH '3'
-#define SBF_SPEC_ALLCHAT '4'
+#define SBF_IMMUNITY        '1'
+#define SBF_NOCENSORFLOOD   '2'
+#define SBF_STEALTH         '3'
+#define SBF_SPEC_ALLCHAT    '4'
 #define SBF_FORCETEAMCHANGE '5'
-#define SBF_UNACCOUNTABLE '6'
-#define SBF_NO_VOTE_LIMIT '7'
-#define SBF_CAN_PERM_BAN '8'
-#define SBF_TEAMFTSHRUBCMD '9'
-#define SBF_ACTIVITY '0'
-#define SBF_IMMUTABLE '!'
-#define SBF_INCOGNITO '@'
+#define SBF_UNACCOUNTABLE   '6'
+#define SBF_NO_VOTE_LIMIT   '7'
+#define SBF_CAN_PERM_BAN    '8'
+#define SBF_TEAMFTSHRUBCMD  '9'
+#define SBF_ACTIVITY        '0'
+#define SBF_IMMUTABLE       '!'
+#define SBF_INCOGNITO       '@'
 #define SBF_ADMINTEST_OTHER '$'
-#define SBF_ADMINCHAT '~'
+#define SBF_ADMINCHAT       '~'
 // pheno: can rename himself regardless of g_maxNameChanges limit
 #define SBF_NO_RENAME_LIMIT '&'
 
@@ -69,9 +69,9 @@
 
 // expires field seems to be offset by (30 years - 54 hours)...  go figure
 #define SHRUBBOT_BAN_EXPIRE_OFFSET 946490400
-#define SHRUBBOT_MAX_LOL_NADES 16
-#define SHRUBBOT_MAX_SHOWBANS 30
-#define SHRUBBOT_KICK_LENGTH 120
+#define SHRUBBOT_MAX_LOL_NADES     16
+#define SHRUBBOT_MAX_SHOWBANS      30
+#define SHRUBBOT_KICK_LENGTH       120
 
 struct g_shrubbot_cmd
 {

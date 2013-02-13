@@ -351,7 +351,7 @@ const char *BG_ClassLetterForNumber(int classNum)
     }
 }
 
-#define to_char(n)        ((n) + '0')
+#define to_char(n) ((n) + '0')
 
 // kw: this function was unused,
 //     It's now used and changed to allow more.

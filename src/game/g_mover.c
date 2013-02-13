@@ -285,8 +285,8 @@ qboolean G_TryPushingEntity(gentity_t *check, gentity_t *pusher, vec3_t move, ve
     gentity_t *block;
     vec3_t    matrix[3], transpose[3];
     float     x, fx, y, fy, z, fz;
-#define    JITTER_INC    4
-#define    JITTER_MAX    (check->r.maxs[0] / 2.0)
+#define    JITTER_INC 4
+#define    JITTER_MAX (check->r.maxs[0] / 2.0)
 
     // EF_MOVER_STOP will just stop when contacting another entity
     // instead of pushing it, but entities can still ride on top of it
@@ -2116,7 +2116,7 @@ Blocked_DoorRotate
 ================
 */
 
-#define DOORPUSHBACK    16
+#define DOORPUSHBACK 16
 
 void Blocked_DoorRotate(gentity_t *ent, gentity_t *other)
 {
@@ -3033,9 +3033,9 @@ TRAIN
 ===============================================================================
 */
 
-#define TRAIN_START_ON        1
-#define TRAIN_TOGGLE        2
-#define TRAIN_BLOCK_STOPS    4
+#define TRAIN_START_ON    1
+#define TRAIN_TOGGLE      2
+#define TRAIN_BLOCK_STOPS 4
 
 /*
 ===============
@@ -5460,7 +5460,7 @@ func_constructible_underconstructionthink
 ==============
 */
 //#define CONSTRUCT_PREDECAY_TIME    3000    // if not under construction for this duration, start decaying
-#define CONSTRUCT_PREDECAY_TIME    30000    // if not under construction for this duration, start decaying
+#define CONSTRUCT_PREDECAY_TIME 30000       // if not under construction for this duration, start decaying
 void func_constructible_underconstructionthink(gentity_t *ent)
 {
     if (level.time - ent->lastHintCheckTime >= CONSTRUCT_PREDECAY_TIME)

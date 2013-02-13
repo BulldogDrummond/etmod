@@ -11,15 +11,15 @@
 #include "g_local.h"
 #include "menudef.h"    // For vote options
 
-#define T_FFA    0x01
-#define T_1V1    0x02
-#define T_SP    0x04
-#define T_TDM    0x08
-#define T_CTF    0x10
-#define T_WLF    0x20
-#define T_WSW    0x40
-#define T_WCP    0x80
-#define T_WCH    0x100
+#define T_FFA 0x01
+#define T_1V1 0x02
+#define T_SP  0x04
+#define T_TDM 0x08
+#define T_CTF 0x10
+#define T_WLF 0x20
+#define T_WSW 0x40
+#define T_WCP 0x80
+#define T_WCH 0x100
 
 static const char *ACTIVATED   = "ACTIVATED";
 static const char *DEACTIVATED = "DEACTIVATED";

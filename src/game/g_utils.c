@@ -448,7 +448,7 @@ G_PickTarget
 Selects a random entity from among the targets
 =============
 */
-#define MAXCHOICES    32
+#define MAXCHOICES 32
 
 gentity_t *G_PickTarget(char *targetname)
 {

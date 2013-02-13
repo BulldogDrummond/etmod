@@ -10,10 +10,10 @@
 
 #include "g_local.h"
 
-#define    MAX_WORLD_HEIGHT            MAX_MAP_SIZE    // maximum world height
-#define    MIN_WORLD_HEIGHT            -MAX_MAP_SIZE    // minimum world height
+#define    MAX_WORLD_HEIGHT MAX_MAP_SIZE               // maximum world height
+#define    MIN_WORLD_HEIGHT -MAX_MAP_SIZE               // minimum world height
 
-#define TRACEMAP_SIZE                256
+#define TRACEMAP_SIZE 256
 
 typedef struct tracemap_s
 {

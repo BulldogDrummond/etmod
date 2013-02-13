@@ -11,7 +11,7 @@
 #include "g_local.h"
 #include "g_etbot_interface.h"
 
-#define    MISSILE_PRESTEP_TIME    50
+#define    MISSILE_PRESTEP_TIME 50
 
 extern void gas_think(gentity_t *gas);
 extern void gas_touch(gentity_t *gas, gentity_t *other, trace_t *trace);
@@ -1081,19 +1081,19 @@ int G_PredictMissile(gentity_t *ent, int duration, vec3_t endPos, qboolean allow
 //=============================================================================
 
 // copied from cg_flamethrower.c
-#define    FLAME_START_SIZE        1.0
-#define    FLAME_START_MAX_SIZE    100.0    // when the flame is spawned, it should endevour to reach this size
-#define    FLAME_START_SPEED        1200.0    // speed of flame as it leaves the nozzle
-#define    FLAME_MIN_SPEED            60.0
+#define    FLAME_START_SIZE     1.0
+#define    FLAME_START_MAX_SIZE 100.0       // when the flame is spawned, it should endevour to reach this size
+#define    FLAME_START_SPEED    1200.0        // speed of flame as it leaves the nozzle
+#define    FLAME_MIN_SPEED      60.0
 
 // these are calculated (don't change)
-#define    FLAME_LENGTH            (FLAMETHROWER_RANGE + 50.0)    // NOTE: only modify the range, since this should always reflect that range
+#define    FLAME_LENGTH (FLAMETHROWER_RANGE + 50.0)               // NOTE: only modify the range, since this should always reflect that range
 
-#define    FLAME_LIFETIME            (int)((FLAME_LENGTH / FLAME_START_SPEED) * 1000)    // life duration in milliseconds
-#define    FLAME_FRICTION_PER_SEC    (2.0f * FLAME_START_SPEED)
-#define    GET_FLAME_SIZE_SPEED(x)    (((float)x / FLAME_LIFETIME) / 0.3)    // x is the current sizeMax
+#define    FLAME_LIFETIME         (int)((FLAME_LENGTH / FLAME_START_SPEED) * 1000)       // life duration in milliseconds
+#define    FLAME_FRICTION_PER_SEC (2.0f * FLAME_START_SPEED)
+#define    GET_FLAME_SIZE_SPEED(x) (((float)x / FLAME_LIFETIME) / 0.3)       // x is the current sizeMax
 
-#define    FLAME_THRESHOLD    50
+#define    FLAME_THRESHOLD 50
 
 void G_BurnTarget(gentity_t *self, gentity_t *body, qboolean directhit)
 {
@@ -2340,11 +2340,11 @@ gentity_t *fire_grenade(gentity_t *self, vec3_t start, vec3_t dir, int grenadeWP
 //=============================================================================
 
 // gabriel - Party panzer constants
-#define PP_DAMAGE_NONE            0
-#define PP_DAMAGE_FULL            1
-#define PP_DAMAGE_PROPORTIONAL    2
+#define PP_DAMAGE_NONE         0
+#define PP_DAMAGE_FULL         1
+#define PP_DAMAGE_PROPORTIONAL 2
 
-#define PP_SPACING                0.025
+#define PP_SPACING 0.025
 
 /*
 =================

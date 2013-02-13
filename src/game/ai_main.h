@@ -20,83 +20,83 @@
 
 #define CTF
 
-#define BOT_DEBUG_FOLLOW_PLAYER       11
+#define BOT_DEBUG_FOLLOW_PLAYER 11
 
 // Tweak bot speeds
-#define NORMALIZED_MOVEMENT_SPEED    255
+#define NORMALIZED_MOVEMENT_SPEED 255
 
-#define MAX_ITEMS                    256
-#define MAX_BOTAIWAYPOINTS           128
+#define MAX_ITEMS          256
+#define MAX_BOTAIWAYPOINTS 128
 
 // bot flags
-#define BFL_STRAFERIGHT                1    // strafe to the right
-#define BFL_ATTACKED                   2    // bot has attacked last ai frame
-#define BFL_ATTACKJUMPED               4    // bot jumped during attack last frame
-#define BFL_AIMATENEMY                 8    // bot aimed at the enemy this frame
-#define BFL_AVOIDRIGHT                16    // avoid obstacles by going to the right
-#define BFL_IDEALVIEWSET              32    // bot has ideal view angles set
-#define BFL_MISCFLAG                  64    // different uses for each ainode
-#define BFL_DISMOUNT_MG42            128    // wanting to dismount mg42
-#define BFL_SPRINT                   256    // sprint
-#define BFL_FIXED_MOVEMENT_AUTONOMY  512    // player has set movement autonomy
+#define BFL_STRAFERIGHT             1       // strafe to the right
+#define BFL_ATTACKED                2       // bot has attacked last ai frame
+#define BFL_ATTACKJUMPED            4       // bot jumped during attack last frame
+#define BFL_AIMATENEMY              8       // bot aimed at the enemy this frame
+#define BFL_AVOIDRIGHT              16      // avoid obstacles by going to the right
+#define BFL_IDEALVIEWSET            32      // bot has ideal view angles set
+#define BFL_MISCFLAG                64      // different uses for each ainode
+#define BFL_DISMOUNT_MG42           128     // wanting to dismount mg42
+#define BFL_SPRINT                  256     // sprint
+#define BFL_FIXED_MOVEMENT_AUTONOMY 512     // player has set movement autonomy
 #define BFL_FIXED_WEAPON_AUTONOMY   1024    // player has set weapon autonomy
 #define BFL_BATTLE_MODE             2048    // bot is in combat mode
 #define BFL_SNIPING                 4096    // bot is sniping
 #define BFL_SCRIPTED_LEADER         8192    // leader is enforce via scripting
 
 // long term goal types
-#define LTG_TEAMHELP                   1    // help a team mate
-#define LTG_TEAMACCOMPANY              2    // accompany a team mate
-#define LTG_DEFENDKEYAREA              3    // defend a key area
-#define LTG_GETFLAG                    4    // get the enemy flag
-#define LTG_RUSHBASE                   5    // rush to the base
-#define LTG_RETURNFLAG                 6    // return the flag
-#define LTG_CAMP                       7    // camp somewhere
-#define LTG_CAMPORDER                  8    // ordered to camp somewhere
-#define LTG_PATROL                     9    // patrol
-#define LTG_GETITEM                   10    // get an item
-#define LTG_KILL                      11    // kill someone
+#define LTG_TEAMHELP      1                 // help a team mate
+#define LTG_TEAMACCOMPANY 2                 // accompany a team mate
+#define LTG_DEFENDKEYAREA 3                 // defend a key area
+#define LTG_GETFLAG       4                 // get the enemy flag
+#define LTG_RUSHBASE      5                 // rush to the base
+#define LTG_RETURNFLAG    6                 // return the flag
+#define LTG_CAMP          7                 // camp somewhere
+#define LTG_CAMPORDER     8                 // ordered to camp somewhere
+#define LTG_PATROL        9                 // patrol
+#define LTG_GETITEM       10                // get an item
+#define LTG_KILL          11                // kill someone
 
 // some goal dedication times
-#define TEAM_HELP_TIME                60    // 1 minute teamplay help time
-#define TEAM_ACCOMPANY_TIME          600    // 10 minutes teamplay accompany time
-#define TEAM_DEFENDKEYAREA_TIME      240    // 4 minutes ctf defend base time
-#define TEAM_CAMP_TIME               600    // 10 minutes camping time
-#define TEAM_PATROL_TIME             600    // 10 minutes patrolling time
-#define TEAM_LEAD_TIME               600    // 10 minutes taking the lead
-#define TEAM_GETITEM_TIME             60    // 1 minute
-#define TEAM_KILL_SOMEONE            180    // 3 minute to kill someone
-#define CTF_GETFLAG_TIME             240    // 4 minutes ctf get flag time
-#define CTF_RUSHBASE_TIME            120    // 2 minutes ctf rush base time
-#define CTF_RETURNFLAG_TIME          180    // 3 minutes to return the flag
-#define CTF_ROAM_TIME                 60    // 1 minute ctf roam time
+#define TEAM_HELP_TIME          60          // 1 minute teamplay help time
+#define TEAM_ACCOMPANY_TIME     600         // 10 minutes teamplay accompany time
+#define TEAM_DEFENDKEYAREA_TIME 240         // 4 minutes ctf defend base time
+#define TEAM_CAMP_TIME          600         // 10 minutes camping time
+#define TEAM_PATROL_TIME        600         // 10 minutes patrolling time
+#define TEAM_LEAD_TIME          600         // 10 minutes taking the lead
+#define TEAM_GETITEM_TIME       60          // 1 minute
+#define TEAM_KILL_SOMEONE       180         // 3 minute to kill someone
+#define CTF_GETFLAG_TIME        240         // 4 minutes ctf get flag time
+#define CTF_RUSHBASE_TIME       120         // 2 minutes ctf rush base time
+#define CTF_RETURNFLAG_TIME     180         // 3 minutes to return the flag
+#define CTF_ROAM_TIME           60          // 1 minute ctf roam time
 
 // patrol flags
-#define PATROL_LOOP                    1
-#define PATROL_REVERSE                 2
-#define PATROL_BACK                    4
+#define PATROL_LOOP    1
+#define PATROL_REVERSE 2
+#define PATROL_BACK    4
 
 // copied from the aas file header
-#define PRESENCE_NONE                  1
-#define PRESENCE_NORMAL                2
-#define PRESENCE_CROUCH                4
+#define PRESENCE_NONE   1
+#define PRESENCE_NORMAL 2
+#define PRESENCE_CROUCH 4
 
 // misc defines
-#define BOT_FLAG_CARRIER_DEFENDERS     3
-#define MAX_BOTLEADER_DIST          2048
-#define MAX_BOTLEADER_TRAVEL        1000
+#define BOT_FLAG_CARRIER_DEFENDERS 3
+#define MAX_BOTLEADER_DIST         2048
+#define MAX_BOTLEADER_TRAVEL       1000
 
 // group formations
-#define BOT_FORM_SINGLEFILE            0
-#define BOT_FORM_DOUBLEFILE            1
-#define BOT_FORM_PATROL_LINE           2
-#define BOT_FORM_SEEK_COVER            3
-#define BOT_FORM_NUM                   4
+#define BOT_FORM_SINGLEFILE  0
+#define BOT_FORM_DOUBLEFILE  1
+#define BOT_FORM_PATROL_LINE 2
+#define BOT_FORM_SEEK_COVER  3
+#define BOT_FORM_NUM         4
 
-#define BOT_FOLLOW_BEHIND              0
-#define BOT_FOLLOW_LEFT                1
-#define BOT_FOLLOW_RIGHT               2
-#define BOT_FOLLOW_NUM                 3
+#define BOT_FOLLOW_BEHIND 0
+#define BOT_FOLLOW_LEFT   1
+#define BOT_FOLLOW_RIGHT  2
+#define BOT_FOLLOW_NUM    3
 
 struct bot_state_s;
 
@@ -122,46 +122,46 @@ typedef struct
 } bot_chat_t;
 
 // scripting defines
-#define BOT_MAX_SCRIPT_ITEMS         512    // per character
-#define BOT_MAX_SCRIPT_EVENTS        128    // per character
-#define BOT_SIZE_STRING_POOL       16384
+#define BOT_MAX_SCRIPT_ITEMS  512           // per character
+#define BOT_MAX_SCRIPT_EVENTS 128           // per character
+#define BOT_SIZE_STRING_POOL  16384
 
 // flags
-#define BSFL_FIRST_CALL                1
-#define BSFL_LOGGING                   2
-#define BSFL_MOUNT_MG42                4
-#define BSFL_FORCED_MOVEMENT_AUTONOMY  8    // scripting has enforced movement autonomy
+#define BSFL_FIRST_CALL               1
+#define BSFL_LOGGING                  2
+#define BSFL_MOUNT_MG42               4
+#define BSFL_FORCED_MOVEMENT_AUTONOMY 8     // scripting has enforced movement autonomy
 #define BSFL_FORCED_WEAPON_AUTONOMY   16    // scripting has enforced weapon autonomy
 
 // flags that make bots crouch/prone through scripts
-#define BSFL_CROUCH                   32
-#define BSFL_PRONE                    64
+#define BSFL_CROUCH 32
+#define BSFL_PRONE  64
 //#define BSFL_TALK                  128    // flag to make bot play talk animation
 
 // frame flags (stay resident until next script frame)
-#define BSFFL_MOVETOTARGET             1
-#define BSFFL_FOLLOW_LEADER            2
-#define BSFFL_DIRECTMOVE               4    // move directly towards marker
+#define BSFFL_MOVETOTARGET  1
+#define BSFFL_FOLLOW_LEADER 2
+#define BSFFL_DIRECTMOVE    4               // move directly towards marker
 
 // Force us to stand still
-#define BSFFL_STAND                    8
+#define BSFFL_STAND 8
 
 // movement autonomy
-#define BMA_NOVALUE                   -1
-#define BMA_LOW                        0
-#define BMA_MEDIUM                     1
-#define BMA_HIGH                       2
-#define NUM_BMA                        3
+#define BMA_NOVALUE -1
+#define BMA_LOW     0
+#define BMA_MEDIUM  1
+#define BMA_HIGH    2
+#define NUM_BMA     3
 
 // weapon autonomy
-#define BWA_NOVALUE                   -1
-#define BWA_LOW                        0
-#define BWA_MEDIUM                     1
-#define BWA_HIGH                       2
-#define NUM_BWA                        3
+#define BWA_NOVALUE -1
+#define BWA_LOW     0
+#define BWA_MEDIUM  1
+#define BWA_HIGH    2
+#define NUM_BWA     3
 
 // How many people can each bot be scripted to watch?
-#define MAX_PEOPLE_TO_WATCH            8
+#define MAX_PEOPLE_TO_WATCH 8
 
 // script autonomy values
 typedef enum

@@ -12,42 +12,42 @@
 #define __BE_AAS_H__
 
 #ifndef MAX_AAS_WORLDS
-#define MAX_AAS_WORLDS        1  // one for each bounding box type
+#define MAX_AAS_WORLDS 1         // one for each bounding box type
 
 #ifndef MAX_STRINGFIELD
-#define MAX_STRINGFIELD      80
+#define MAX_STRINGFIELD 80
 #endif /* ifndef MAX_STRINGFIELD */
 
 //travel flags
-#define TFL_INVALID                  0x0000001    // traveling temporary not possible
-#define TFL_WALK                     0x0000002    // walking
-#define TFL_CROUCH                   0x0000004    // crouching
-#define TFL_BARRIERJUMP              0x0000008    // jumping onto a barrier
-#define TFL_JUMP                     0x0000010    // jumping
-#define TFL_LADDER                   0x0000020    // climbing a ladder
-#define TFL_WALKOFFLEDGE             0x0000080    // walking of a ledge
-#define TFL_SWIM                     0x0000100    // swimming
-#define TFL_WATERJUMP                0x0000200    // jumping out of the water
-#define TFL_TELEPORT                 0x0000400    // teleporting
-#define TFL_ELEVATOR                 0x0000800    // elevator
-#define TFL_ROCKETJUMP               0x0001000    // rocket jumping
-#define TFL_BFGJUMP                  0x0002000    // bfg jumping
-#define TFL_GRAPPLEHOOK              0x0004000    // grappling hook
-#define TFL_DOUBLEJUMP               0x0008000    // double jump
-#define TFL_RAMPJUMP                 0x0010000    // ramp jump
-#define TFL_STRAFEJUMP               0x0020000    // strafe jump
-#define TFL_JUMPPAD                  0x0040000    // jump pad
-#define TFL_AIR                      0x0080000    // travel through air
-#define TFL_WATER                    0x0100000    // travel through water
-#define TFL_SLIME                    0x0200000    // travel through slime
-#define TFL_LAVA                     0x0400000    // travel through lava
-#define TFL_DONOTENTER               0x0800000    // travel through donotenter area
-#define TFL_FUNCBOB                  0x1000000    // func bobbing
-#define TFL_DONOTENTER_LARGE         0x2000000    // travel through donotenter area
-#define TFL_TEAM_AXIS                0x4000000    // travel through axis-only areas
-#define TFL_TEAM_ALLIES              0x8000000    // travel through allies-only areas
-#define TFL_TEAM_AXIS_DISGUISED      0x10000000   // travel through axis+DISGUISED areas
-#define TFL_TEAM_ALLIES_DISGUISED    0x2000000    // travel through allies+DISGUISED areas
+#define TFL_INVALID               0x0000001       // traveling temporary not possible
+#define TFL_WALK                  0x0000002       // walking
+#define TFL_CROUCH                0x0000004       // crouching
+#define TFL_BARRIERJUMP           0x0000008       // jumping onto a barrier
+#define TFL_JUMP                  0x0000010       // jumping
+#define TFL_LADDER                0x0000020       // climbing a ladder
+#define TFL_WALKOFFLEDGE          0x0000080       // walking of a ledge
+#define TFL_SWIM                  0x0000100       // swimming
+#define TFL_WATERJUMP             0x0000200       // jumping out of the water
+#define TFL_TELEPORT              0x0000400       // teleporting
+#define TFL_ELEVATOR              0x0000800       // elevator
+#define TFL_ROCKETJUMP            0x0001000       // rocket jumping
+#define TFL_BFGJUMP               0x0002000       // bfg jumping
+#define TFL_GRAPPLEHOOK           0x0004000       // grappling hook
+#define TFL_DOUBLEJUMP            0x0008000       // double jump
+#define TFL_RAMPJUMP              0x0010000       // ramp jump
+#define TFL_STRAFEJUMP            0x0020000       // strafe jump
+#define TFL_JUMPPAD               0x0040000       // jump pad
+#define TFL_AIR                   0x0080000       // travel through air
+#define TFL_WATER                 0x0100000       // travel through water
+#define TFL_SLIME                 0x0200000       // travel through slime
+#define TFL_LAVA                  0x0400000       // travel through lava
+#define TFL_DONOTENTER            0x0800000       // travel through donotenter area
+#define TFL_FUNCBOB               0x1000000       // func bobbing
+#define TFL_DONOTENTER_LARGE      0x2000000       // travel through donotenter area
+#define TFL_TEAM_AXIS             0x4000000       // travel through axis-only areas
+#define TFL_TEAM_ALLIES           0x8000000       // travel through allies-only areas
+#define TFL_TEAM_AXIS_DISGUISED   0x10000000      // travel through axis+DISGUISED areas
+#define TFL_TEAM_ALLIES_DISGUISED 0x2000000       // travel through allies+DISGUISED areas
 
 #define TFL_TEAM_FLAGS (TFL_TEAM_AXIS | TFL_TEAM_ALLIES | \
                         TFL_TEAM_AXIS_DISGUISED | TFL_TEAM_ALLIES_DISGUISED)
@@ -109,20 +109,20 @@ typedef struct aas_entityinfo_s
 } aas_entityinfo_t;
 
 //client movement prediction stop events, stop as soon as:
-#define SE_NONE                  0
-#define SE_HITGROUND             1    // the ground is hit
-#define SE_LEAVEGROUND           2    // there's no ground
-#define SE_ENTERWATER            4    // water is entered
-#define SE_ENTERSLIME            8    // slime is entered
-#define SE_ENTERLAVA            16    // lava is entered
-#define SE_HITGROUNDDAMAGE      32    // the ground is hit with damage
-#define SE_GAP                  64    // there's a gap
-#define SE_TOUCHJUMPPAD        128    // touching a jump pad area
-#define SE_TOUCHTELEPORTER     256    // touching teleporter
-#define SE_ENTERAREA           512    // the given stoparea is entered
-#define SE_HITGROUNDAREA      1024    // a ground face in the area is hit
-#define SE_HITENT             2048    // hit specified entity
-#define SE_STUCK              4096
+#define SE_NONE            0
+#define SE_HITGROUND       1          // the ground is hit
+#define SE_LEAVEGROUND     2          // there's no ground
+#define SE_ENTERWATER      4          // water is entered
+#define SE_ENTERSLIME      8          // slime is entered
+#define SE_ENTERLAVA       16         // lava is entered
+#define SE_HITGROUNDDAMAGE 32         // the ground is hit with damage
+#define SE_GAP             64         // there's a gap
+#define SE_TOUCHJUMPPAD    128        // touching a jump pad area
+#define SE_TOUCHTELEPORTER 256        // touching teleporter
+#define SE_ENTERAREA       512        // the given stoparea is entered
+#define SE_HITGROUNDAREA   1024       // a ground face in the area is hit
+#define SE_HITENT          2048       // hit specified entity
+#define SE_STUCK           4096
 
 #ifndef BSPTRACE
 

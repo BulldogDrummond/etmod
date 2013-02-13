@@ -4329,8 +4329,8 @@ void ExitLevel(void)
                 (curMapVotes == highMapVote &&
                  ((!(g_mapVoteFlags.integer & MAPVOTE_TIE_LEASTPLAYED) &&
                    curMapAge < highMapAge) ||
-                          ((g_mapVoteFlags.integer & MAPVOTE_TIE_LEASTPLAYED) &&
-                          curMapAge > highMapAge))))
+                  ((g_mapVoteFlags.integer & MAPVOTE_TIE_LEASTPLAYED) &&
+                   curMapAge > highMapAge))))
             {
                 nextMap     = level.sortedMaps[i];
                 highMapVote = curMapVotes;
@@ -6288,7 +6288,7 @@ ubgipqeurbgpiqjefgpkeiueripgberipgubreugqeirpqgbipeqygbibgpibqpebiqgefpi\
 mgbqepigjbriqpirbgipvbiqpgvbpqiegvbiepqbgqiebgipqgjebiperqbgpiqebpireqbg\
 ipqbgipjqfebzipjgbqipqervbgiyreqvbgipqertvgbiprqbgipgbipertqjgbipubriuqi\
 pjgpifjbqzpiebgipuerqbgpibuergpijfebgqiepgbiupreqbgpqegjfebzpigu4ebrigpq\
-uebrgpiebrpgibqeripgubeqrpigubqifejbgipegbrtibgurepqgbn%i"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           , level.time)
+uebrgpiebrpgibqeripgubeqrpigubqifejbgipegbrtibgurepqgbn%i", level.time)
                              );
     }
 #endif

@@ -10,7 +10,7 @@
 
 #include "g_local.h"
 
-#define        GENERIC_DAMAGE    6
+#define        GENERIC_DAMAGE 6
 
 int snd_chaircreak;
 int snd_chairthrow;
@@ -4088,15 +4088,15 @@ void SP_props_statueBRUSH(gentity_t *self)
 // Lockers
 //////////////////////////////////////////////////
 
-#define LOCKER_ANIM_USEEND        5
-#define LOCKER_ANIM_DEATHSTART    6
-#define LOCKER_ANIM_DEATHEND    11
+#define LOCKER_ANIM_USEEND     5
+#define LOCKER_ANIM_DEATHSTART 6
+#define LOCKER_ANIM_DEATHEND   11
 
 //////////////////////////////////////////////////
 void init_locker(gentity_t *ent);
 void props_locker_death(gentity_t *ent, gentity_t *inflictor, gentity_t *attacker, int damage, int mod);
 //////////////////////////////////////////////////
-#define MAX_LOCKER_DEBRIS        5
+#define MAX_LOCKER_DEBRIS 5
 
 int locker_debris_model[MAX_LOCKER_DEBRIS];
 //////////////////////////////////////////////////

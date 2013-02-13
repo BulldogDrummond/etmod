@@ -812,7 +812,7 @@ Returns qfalse if the client is dropped
 #define CIT_PROTECTED_SHRUBBOT_ADMIN (G_shrubbot_permission(ent, SBF_ACTIVITY) && \
                                       ((client->sess.sessionTeam == TEAM_SPECTATOR) || \
                                        ((client->sess.sessionTeam == TEAM_AXIS || client->sess.sessionTeam == TEAM_ALLIES) && \
-      !(g_inactivityOptions.integer & IO_FORCE_MOVING_TO_SPECTATORS))))
+                                        !(g_inactivityOptions.integer & IO_FORCE_MOVING_TO_SPECTATORS))))
 
 qboolean ClientInactivityTimer(gclient_t *client)
 {

@@ -42,13 +42,13 @@
 #define etpro_MDX_h 1
 
 /* This should be somewhere else... it's an etpro cvar, not related to etpro_mdx.* */
-#define REALHEAD_HEAD        1
+#define REALHEAD_HEAD 1
 
-#define REALHEAD_BONEHITS    128
+#define REALHEAD_BONEHITS 128
 
-#define REALHEAD_DEBUG_HEAD    256
-#define REALHEAD_DEBUG_LEGS    512
-#define REALHEAD_DEBUG_BODY    1024
+#define REALHEAD_DEBUG_HEAD 256
+#define REALHEAD_DEBUG_LEGS 512
+#define REALHEAD_DEBUG_BODY 1024
 
 /* cut down refEntity_t w/ only stuff needed for player bone calculation */
 /* Used only by game code - not engine */

@@ -10,17 +10,17 @@
 
 #include "g_local.h"
 
-#define M_FFA       0x01
-#define M_1V1       0x02
-#define M_SP        0x04
-#define M_TEAM      0x08
-#define M_CTF       0x10
-#define M_WOLF      0x20
-#define M_WSW       0x40
-#define M_WCP       0x80
-#define M_WCPH      0x100
+#define M_FFA  0x01
+#define M_1V1  0x02
+#define M_SP   0x04
+#define M_TEAM 0x08
+#define M_CTF  0x10
+#define M_WOLF 0x20
+#define M_WSW  0x40
+#define M_WCP  0x80
+#define M_WCPH 0x100
 
-#define M_ALL       M_FFA | M_1V1 | M_SP | M_SP | M_TEAM | M_CTF | M_WOLF | M_WSW | M_WCP | M_WCPH
+#define M_ALL M_FFA | M_1V1 | M_SP | M_SP | M_TEAM | M_CTF | M_WOLF | M_WSW | M_WCP | M_WCPH
 
 typedef struct
 {

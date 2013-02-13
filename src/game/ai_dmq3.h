@@ -20,9 +20,9 @@
 
 // Penalties and bonuses used in choosing targets
 #define BOT_TARGET_ALREADY_TARGETTED_PENALTY (5)
-#define BOT_TARGET_PERSISTENT_ENEMY_BONUS (-2)
-#define BOT_TARGET_SHOT_ME_BONUS (-9)
-#define BOT_TARGET_VISUAL_BONUS (-2)
+#define BOT_TARGET_PERSISTENT_ENEMY_BONUS    (-2)
+#define BOT_TARGET_SHOT_ME_BONUS             (-9)
+#define BOT_TARGET_VISUAL_BONUS              (-2)
 
 // STRUCT BotTarget
 typedef struct BotTarget_s
@@ -286,16 +286,16 @@ qboolean BotMoveWhileFiring(int weapon);
 qboolean ChangeBotAlertState(bot_state_t *bs, aistateEnum_t newAlertState, qboolean force);
 
 //CTF flags
-#define CTF_FLAG_NONE       0
-#define CTF_FLAG_RED        1
-#define CTF_FLAG_BLUE       2
+#define CTF_FLAG_NONE 0
+#define CTF_FLAG_RED  1
+#define CTF_FLAG_BLUE 2
 //CTF skins
-#define CTF_SKIN_REDTEAM    "red"
-#define CTF_SKIN_BLUETEAM   "blue"
+#define CTF_SKIN_REDTEAM  "red"
+#define CTF_SKIN_BLUETEAM "blue"
 //CTF teams
-#define CTF_TEAM_NONE        0
-#define CTF_TEAM_AXIS        1
-#define CTF_TEAM_ALLIES      2
+#define CTF_TEAM_NONE   0
+#define CTF_TEAM_AXIS   1
+#define CTF_TEAM_ALLIES 2
 
 extern int gametype;
 extern int gameskill;

@@ -25,18 +25,18 @@
 
 // the "gameversion" client command will print this plus compile date
 #ifndef PRE_RELEASE_DEMO
-#define GAMEVERSION            "etmod"
+#define GAMEVERSION "etmod"
 #else
 //#define GAMEVERSION            "You look like you need a monkey!"
-#define GAMEVERSION            "ettest"
+#define GAMEVERSION "ettest"
 #endif // PRE_RELEASE_DEMO
 
-#define BODY_QUEUE_SIZE        8
+#define BODY_QUEUE_SIZE 8
 
-#define    EVENT_VALID_MSEC    300
-#define    CARNAGE_REWARD_TIME    3000
+#define EVENT_VALID_MSEC    300
+#define CARNAGE_REWARD_TIME 3000
 
-#define    INTERMISSION_DELAY_TIME    1000
+#define INTERMISSION_DELAY_TIME 1000
 
 #define MG42_MULTIPLAYER_HEALTH 350                // JPW NERVE
 
@@ -47,36 +47,36 @@
 //#define BODY_TIME(t) ((g_gametype.integer != GT_SINGLE_PLAYER || g_gametype.integer == GT_COOP) ? 10000 : (t) == TEAM_AXIS ? 20000 : 30000)
 #define BODY_TIME(t) ((t) == TEAM_AXIS ? 20000 : 20000)
 
-#define MAX_MG42_HEAT            1500.f
+#define MAX_MG42_HEAT 1500.f
 
 // gentity->flags
-#define    FL_GODMODE                0x00000010
-#define    FL_NOTARGET                0x00000020
-#define    FL_TEAMSLAVE            0x00000400    // not the first on the team
-#define FL_NO_KNOCKBACK            0x00000800
-#define FL_DROPPED_ITEM            0x00001000
-#define FL_NO_BOTS                0x00002000    // spawn point not for bot use
-#define FL_NO_HUMANS            0x00004000    // spawn point just for bots
-#define    FL_AI_GRENADE_KICK        0x00008000    // an AI has already decided to kick this grenade
+#define FL_GODMODE         0x00000010
+#define FL_NOTARGET        0x00000020
+#define FL_TEAMSLAVE       0x00000400         // not the first on the team
+#define FL_NO_KNOCKBACK    0x00000800
+#define FL_DROPPED_ITEM    0x00001000
+#define FL_NO_BOTS         0x00002000           // spawn point not for bot use
+#define FL_NO_HUMANS       0x00004000         // spawn point just for bots
+#define FL_AI_GRENADE_KICK 0x00008000           // an AI has already decided to kick this grenade
 // Rafael
-#define FL_NOFATIGUE            0x00010000    // cheat flag no fatigue
+#define FL_NOFATIGUE 0x00010000               // cheat flag no fatigue
 
-#define FL_TOGGLE                0x00020000    //----(SA)    ent is toggling (doors use this for ex.)
-#define FL_KICKACTIVATE            0x00040000    //----(SA)    ent has been activated by a kick (doors use this too for ex.)
-#define    FL_SOFTACTIVATE            0x00000040    //----(SA)    ent has been activated while 'walking' (doors use this too for ex.)
-#define    FL_DEFENSE_GUARD        0x00080000    // warzombie defense pose
+#define FL_TOGGLE        0x00020000            //----(SA)    ent is toggling (doors use this for ex.)
+#define FL_KICKACTIVATE  0x00040000              //----(SA)    ent has been activated by a kick (doors use this too for ex.)
+#define FL_SOFTACTIVATE  0x00000040              //----(SA)    ent has been activated while 'walking' (doors use this too for ex.)
+#define FL_DEFENSE_GUARD 0x00080000           // warzombie defense pose
 
-#define    FL_BLANK                0x00100000
-#define    FL_BLANK2                0x00200000
-#define    FL_NO_MONSTERSLICK        0x00400000
-#define    FL_NO_HEADCHECK            0x00800000
+#define FL_BLANK           0x00100000
+#define FL_BLANK2          0x00200000
+#define FL_NO_MONSTERSLICK 0x00400000
+#define FL_NO_HEADCHECK    0x00800000
 
-#define    FL_NODRAW                0x01000000
+#define FL_NODRAW 0x01000000
 
-#define TKFL_MINES                0x00000001
-#define TKFL_AIRSTRIKE            0x00000002
-#define TKFL_MORTAR                0x00000004
-#define TKFL_DYNAMITE            0x00000008
+#define TKFL_MINES     0x00000001
+#define TKFL_AIRSTRIKE 0x00000002
+#define TKFL_MORTAR    0x00000004
+#define TKFL_DYNAMITE  0x00000008
 
 // movers are things like doors, plats, buttons, etc
 typedef enum
@@ -99,31 +99,31 @@ typedef enum
 } moverState_t;
 
 // door AI sound ranges
-#define HEAR_RANGE_DOOR_LOCKED        128    // really close since this is a cruel check
-#define HEAR_RANGE_DOOR_KICKLOCKED    512
-#define HEAR_RANGE_DOOR_OPEN        256
-#define HEAR_RANGE_DOOR_KICKOPEN    768
+#define HEAR_RANGE_DOOR_LOCKED     128       // really close since this is a cruel check
+#define HEAR_RANGE_DOOR_KICKLOCKED 512
+#define HEAR_RANGE_DOOR_OPEN       256
+#define HEAR_RANGE_DOOR_KICKOPEN   768
 
 // DHM - Nerve :: Worldspawn spawnflags to indicate if a gametype is not supported
-#define NO_GT_WOLF        1
-#define NO_STOPWATCH    2
-#define NO_CHECKPOINT    4
-#define NO_LMS            8
+#define NO_GT_WOLF    1
+#define NO_STOPWATCH  2
+#define NO_CHECKPOINT 4
+#define NO_LMS        8
 
 #define MAX_CONSTRUCT_STAGES 3
 
-#define ALLOW_AXIS_TEAM            1
-#define ALLOW_ALLIED_TEAM        2
-#define ALLOW_DISGUISED_CVOPS    4
+#define ALLOW_AXIS_TEAM       1
+#define ALLOW_ALLIED_TEAM     2
+#define ALLOW_DISGUISED_CVOPS 4
 
 // RF, different types of dynamic area flags
-#define    AAS_AREA_ENABLED                    0x0000
-#define    AAS_AREA_DISABLED                    0x0001
-#define    AAS_AREA_AVOID                        0x0010
-#define    AAS_AREA_TEAM_AXIS                    0x0020
-#define    AAS_AREA_TEAM_ALLIES                0x0040
-#define    AAS_AREA_TEAM_AXIS_DISGUISED        0x0080
-#define    AAS_AREA_TEAM_ALLIES_DISGUISED        0x0100
+#define AAS_AREA_ENABLED               0x0000
+#define AAS_AREA_DISABLED              0x0001
+#define AAS_AREA_AVOID                 0x0010
+#define AAS_AREA_TEAM_AXIS             0x0020
+#define AAS_AREA_TEAM_ALLIES           0x0040
+#define AAS_AREA_TEAM_AXIS_DISGUISED   0x0080
+#define AAS_AREA_TEAM_ALLIES_DISGUISED 0x0100
 
 //============================================================================
 
@@ -153,11 +153,11 @@ typedef struct
 } g_script_stack_item_t;
 //
 // Gordon: need to up this, forest has a HUGE script for the tank.....
-//#define    G_MAX_SCRIPT_STACK_ITEMS    128
-//#define    G_MAX_SCRIPT_STACK_ITEMS    176
+//#define G_MAX_SCRIPT_STACK_ITEMS    128
+//#define G_MAX_SCRIPT_STACK_ITEMS    176
 // RF, upped this again for the tank
 // Gordon: and again...
-#define    G_MAX_SCRIPT_STACK_ITEMS    196
+#define G_MAX_SCRIPT_STACK_ITEMS 196
 //
 typedef struct
 {
@@ -180,9 +180,9 @@ typedef struct
 } g_script_event_define_t;
 //
 // Script Flags
-#define    SCFL_GOING_TO_MARKER    0x1
-#define    SCFL_ANIMATING            0x2
-#define SCFL_FIRST_CALL            0x4
+#define SCFL_GOING_TO_MARKER 0x1
+#define SCFL_ANIMATING       0x2
+#define SCFL_FIRST_CALL      0x4
 //
 // Scripting Status (NOTE: this MUST NOT contain any pointer vars)
 typedef struct
@@ -196,7 +196,7 @@ typedef struct
     char *animatingParams;           // Gordon: read 8 lines up for why i love this code ;)
 } g_script_status_t;
 //
-#define    G_MAX_SCRIPT_ACCUM_BUFFERS 10
+#define G_MAX_SCRIPT_ACCUM_BUFFERS 10
 //
 void G_Script_ScriptEvent(gentity_t *ent, char *eventStr, char *params);
 //====================================================================
@@ -211,7 +211,7 @@ typedef struct g_constructible_stats_s
     int duration;
 } g_constructible_stats_t;
 
-#define NUM_CONSTRUCTIBLE_CLASSES    3
+#define NUM_CONSTRUCTIBLE_CLASSES 3
 
 extern g_constructible_stats_t g_constructible_classes[NUM_CONSTRUCTIBLE_CLASSES];
 
@@ -220,9 +220,9 @@ int G_GetWeaponClassForMOD(meansOfDeath_t mod);
 
 //====================================================================
 
-#define MAX_NETNAME            36
+#define MAX_NETNAME 36
 
-#define    CFOFS(x) ((int)&(((gclient_t *)0)->x))
+#define CFOFS(x) ((int)&(((gclient_t *)0)->x))
 
 #define MAX_COMMANDER_TEAM_SOUNDS 16
 
@@ -608,8 +608,8 @@ typedef struct
 
 // the auto following clients don't follow a specific client
 // number, but instead follow the first two active players
-#define    FOLLOW_ACTIVE1    -1
-#define    FOLLOW_ACTIVE2    -2
+#define FOLLOW_ACTIVE1 -1
+#define FOLLOW_ACTIVE2 -2
 
 // OSP - weapon stat counters
 typedef struct
@@ -743,14 +743,14 @@ typedef struct
 } clientSession_t;
 
 //
-#define    MAX_VOTE_COUNT        3
+#define MAX_VOTE_COUNT 3
 
-#define PICKUP_ACTIVATE    0    // pickup items only when using "+activate"
+#define PICKUP_ACTIVATE 0       // pickup items only when using "+activate"
 #define PICKUP_TOUCH    1    // pickup items when touched
 #define PICKUP_FORCE    2    // pickup the next item when touched (and reset to PICKUP_ACTIVATE when done)
 
 // OSP -- multiview handling
-#define MULTIVIEW_MAXVIEWS    16
+#define MULTIVIEW_MAXVIEWS 16
 typedef struct
 {
     qboolean fActive;
@@ -767,11 +767,11 @@ typedef struct ipFilter_s
 #define MAX_COMPLAINTIPS 5
 
 // josh: constants for zinx' antiwarp
-#define LAG_MAX_COMMANDS 512
-#define LAG_MAX_DELTA 75
+#define LAG_MAX_COMMANDS       512
+#define LAG_MAX_DELTA          75
 #define LAG_MAX_DROP_THRESHOLD 800
 #define LAG_MIN_DROP_THRESHOLD (LAG_MAX_DROP_THRESHOLD - 200)
-#define LAG_DECAY 1.02f
+#define LAG_DECAY              1.02f
 
 // client data that stays across multiple respawns, but is cleared
 // on each level change or team change at ClientBegin()
@@ -937,7 +937,7 @@ typedef struct
 //#define SOLDIERKILL_MAXTIME 60000
 
 #define LT_SPECIAL_PICKUP_MOD    3        // JPW NERVE # of times (minus one for modulo) LT must drop ammo before scoring a point
-#define MEDIC_SPECIAL_PICKUP_MOD    4    // JPW NERVE same thing for medic
+#define MEDIC_SPECIAL_PICKUP_MOD 4       // JPW NERVE same thing for medic
 
 // Gordon: debris test
 typedef struct debrisChunk_s
@@ -949,7 +949,7 @@ typedef struct debrisChunk_s
     char targetname[32];
 } debrisChunk_t;
 
-#define MAX_DEBRISCHUNKS        256
+#define MAX_DEBRISCHUNKS 256
 // ===================
 
 // this structure is cleared on each ClientSpawn(),
@@ -1142,13 +1142,13 @@ typedef struct limbo_cam_s
 #define MAX_LIMBO_CAMS 32
 
 // this structure is cleared as each map is entered
-#define    MAX_SPAWN_VARS            64
-#define    MAX_SPAWN_VARS_CHARS    2048
-#define VOTE_MAXSTRING            256        // Same value as MAX_STRING_TOKENS
+#define MAX_SPAWN_VARS       64
+#define MAX_SPAWN_VARS_CHARS 2048
+#define VOTE_MAXSTRING       256             // Same value as MAX_STRING_TOKENS
 
 // tjw: increased from 8 to 10 for compatability with maps that relied on
 //      it before Project: Bug Fix #055
-#define    MAX_SCRIPT_ACCUM_BUFFERS    10
+#define MAX_SCRIPT_ACCUM_BUFFERS 10
 
 #define MAX_BUFFERED_CONFIGSTRINGS 128
 
@@ -1459,11 +1459,11 @@ typedef struct
     int flags;
 } field_t;
 
-#define        G_SpawnString(key, def, out) G_SpawnStringExt(key, def, out, __FILE__, __LINE__)
-#define        G_SpawnFloat(key, def, out) G_SpawnFloatExt(key, def, out, __FILE__, __LINE__)
-#define        G_SpawnInt(key, def, out) G_SpawnIntExt(key, def, out, __FILE__, __LINE__)
-#define        G_SpawnVector(key, def, out) G_SpawnVectorExt(key, def, out, __FILE__, __LINE__)
-#define        G_SpawnVector2D(key, def, out) G_SpawnVector2DExt(key, def, out, __FILE__, __LINE__)
+#define G_SpawnString(key, def, out)   G_SpawnStringExt(key, def, out, __FILE__, __LINE__)
+#define G_SpawnFloat(key, def, out)    G_SpawnFloatExt(key, def, out, __FILE__, __LINE__)
+#define G_SpawnInt(key, def, out)      G_SpawnIntExt(key, def, out, __FILE__, __LINE__)
+#define G_SpawnVector(key, def, out)   G_SpawnVectorExt(key, def, out, __FILE__, __LINE__)
+#define G_SpawnVector2D(key, def, out) G_SpawnVector2DExt(key, def, out, __FILE__, __LINE__)
 
 qboolean    G_SpawnStringExt(const char *key, const char *defaultString, char **out, const char *file, int line);      // spawn string returns a temporary reference, you must CopyString() if you want to keep it
 qboolean    G_SpawnFloatExt(const char *key, const char *defaultString, float *out, const char *file, int line);
@@ -1663,12 +1663,12 @@ gentity_t *G_BuildLeg(gentity_t *ent);
 qboolean IsFFReflectable(int mod);
 
 // damage flags
-#define DAMAGE_RADIUS                0x00000001    // damage was indirect
-#define DAMAGE_HALF_KNOCKBACK        0x00000002    // Gordon: do less knockback
-#define DAMAGE_NO_KNOCKBACK            0x00000008    // do not affect velocity, just view angles
-#define DAMAGE_NO_PROTECTION        0x00000020  // armor, shields, invulnerability, and godmode have no effect
-#define DAMAGE_NO_TEAM_PROTECTION    0x00000010  // armor, shields, invulnerability, and godmode have no effect
-#define DAMAGE_DISTANCEFALLOFF        0x00000040    // distance falloff
+#define DAMAGE_RADIUS             0x00000001       // damage was indirect
+#define DAMAGE_HALF_KNOCKBACK     0x00000002       // Gordon: do less knockback
+#define DAMAGE_NO_KNOCKBACK       0x00000008         // do not affect velocity, just view angles
+#define DAMAGE_NO_PROTECTION      0x00000020    // armor, shields, invulnerability, and godmode have no effect
+#define DAMAGE_NO_TEAM_PROTECTION 0x00000010     // armor, shields, invulnerability, and godmode have no effect
+#define DAMAGE_DISTANCEFALLOFF    0x00000040        // distance falloff
 
 //
 // g_missile.c
@@ -2018,7 +2018,7 @@ extern gentity_t        g_entities[];       //DAJ was explicit set to MAX_ENTITI
 extern g_campaignInfo_t g_campaigns[];
 extern int              saveGamePending;
 
-#define    FOFS(x) ((int)&(((gentity_t *)0)->x))
+#define FOFS(x) ((int)&(((gentity_t *)0)->x))
 
 extern vmCvar_t g_OmniBotPath;
 extern vmCvar_t g_OmniBotEnable;
@@ -2648,11 +2648,11 @@ void G_AdjustSingleClientPosition(gentity_t *ent, int time, gentity_t *debugger)
 void G_ReAdjustSingleClientPosition(gentity_t *ent);
 void G_PredictPmove(gentity_t *ent, float frametime);
 
-#define BODY_VALUE(ENT) ENT->watertype
-#define BODY_TEAM(ENT) ENT->s.modelindex
-#define BODY_CLASS(ENT) ENT->s.modelindex2
+#define BODY_VALUE(ENT)     ENT->watertype
+#define BODY_TEAM(ENT)      ENT->s.modelindex
+#define BODY_CLASS(ENT)     ENT->s.modelindex2
 #define BODY_CHARACTER(ENT) ENT->s.onFireStart
-#define BODY_WEAPON(ENT) ENT->s.nextWeapon
+#define BODY_WEAPON(ENT)    ENT->s.nextWeapon
 
 //g_buddy_list.c
 
@@ -2776,39 +2776,39 @@ void G_PrintClientSpammyCenterPrint(int entityNum, char *text);
 void aagun_fire(gentity_t *other);
 
 // Match settings
-#define PAUSE_NONE        0x00    // Match is NOT paused.
-#define PAUSE_UNPAUSING    0x01    // Pause is about to expire
+#define PAUSE_NONE      0x00      // Match is NOT paused.
+#define PAUSE_UNPAUSING 0x01       // Pause is about to expire
 
 // HRESULTS
-#define G_OK            0
-#define G_INVALID        -1
-#define G_NOTFOUND    -2
+#define G_OK       0
+#define G_INVALID  -1
+#define G_NOTFOUND -2
 
-#define AP(x) trap_SendServerCommand(-1, x)                    // Print to all
-#define CP(x) trap_SendServerCommand(ent - g_entities, x)        // Print to an ent
+#define AP(x)     trap_SendServerCommand(-1, x)                // Print to all
+#define CP(x)     trap_SendServerCommand(ent - g_entities, x)    // Print to an ent
 #define CPx(x, y) trap_SendServerCommand(x, y)                // Print to id = x
-#define SP(x) G_shrubbot_print(ent, x)
-#define SPC(x) G_shrubbot_print_chat(ent, x)
+#define SP(x)     G_shrubbot_print(ent, x)
+#define SPC(x)    G_shrubbot_print_chat(ent, x)
 
 // tjw: like SP() only uses buffering to reduce client commands
-#define SBP(x) G_shrubbot_buffer_print(ent, x)
+#define SBP(x)      G_shrubbot_buffer_print(ent, x)
 #define SBP_begin() G_shrubbot_buffer_begin()
-#define SBP_end() G_shrubbot_buffer_end(ent)
+#define SBP_end()   G_shrubbot_buffer_end(ent)
 
-#define PAUSE_NONE        0x00    // Match is NOT paused.
-#define PAUSE_UNPAUSING    0x01    // Pause is about to expire
+#define PAUSE_NONE      0x00      // Match is NOT paused.
+#define PAUSE_UNPAUSING 0x01       // Pause is about to expire
 
-#define ZSF_COMP        0x01    // Have comp settings loaded for current gametype?
+#define ZSF_COMP 0x01           // Have comp settings loaded for current gametype?
 
-#define HELP_COLUMNS    4
+#define HELP_COLUMNS 4
 
-#define CMD_DEBOUNCE    5000    // 5s between cmds
+#define CMD_DEBOUNCE 5000       // 5s between cmds
 
-#define EOM_WEAPONSTATS    0x01    // Dump of player weapon stats at end of match.
-#define EOM_MATCHINFO    0x02    // Dump of match stats at end of match.
+#define EOM_WEAPONSTATS 0x01       // Dump of player weapon stats at end of match.
+#define EOM_MATCHINFO   0x02     // Dump of match stats at end of match.
 
-#define AA_STATSALL        0x01    // Client AutoAction: Dump ALL player stats
-#define AA_STATSTEAM    0x02    // Client AutoAction: Dump TEAM player stats
+#define AA_STATSALL  0x01          // Client AutoAction: Dump ALL player stats
+#define AA_STATSTEAM 0x02       // Client AutoAction: Dump TEAM player stats
 
 // "Delayed Print" ent enumerations
 typedef enum
@@ -3075,22 +3075,22 @@ extern g_shrubbot_level_t *g_shrubbot_levels[MAX_SHRUBBOT_LEVELS];
 extern g_shrubbot_admin_t *g_shrubbot_admins[MAX_SHRUBBOT_ADMINS];
 extern g_shrubbot_ban_t   *g_shrubbot_bans[MAX_SHRUBBOT_BANS];
 
-#define CH_KNIFE_DIST           64      // from g_weapon.c
-#define CH_LADDER_DIST          100
-#define CH_WATER_DIST           100
-#define CH_BREAKABLE_DIST       64
-#define CH_DOOR_DIST            96
-#define CH_ACTIVATE_DIST        96
-#define CH_EXIT_DIST            256
-#define CH_FRIENDLY_DIST        1024
-#define CH_REVIVE_DIST          64
-#define CH_MAX_DIST        1024    // use the largest value from above
-#define CH_MAX_DIST_ZOOM        8192    // max dist for zooming hints
+#define CH_KNIFE_DIST     64            // from g_weapon.c
+#define CH_LADDER_DIST    100
+#define CH_WATER_DIST     100
+#define CH_BREAKABLE_DIST 64
+#define CH_DOOR_DIST      96
+#define CH_ACTIVATE_DIST  96
+#define CH_EXIT_DIST      256
+#define CH_FRIENDLY_DIST  1024
+#define CH_REVIVE_DIST    64
+#define CH_MAX_DIST       1024     // use the largest value from above
+#define CH_MAX_DIST_ZOOM  8192          // max dist for zooming hints
 
 // tjw: g_XPSave flags
-#define XPSF_ENABLE            1  // enable XP Save on disconnect
-#define XPSF_NR_MAPRESET    2  // no reset on map restarts
-#define XPSF_NR_EVER        4  // no reset ever
+#define XPSF_ENABLE      1        // enable XP Save on disconnect
+#define XPSF_NR_MAPRESET 2     // no reset on map restarts
+#define XPSF_NR_EVER     4     // no reset ever
 // call ClientDisconnect() on clients with the same GUID as the connecting
 // client even if sv_wwwDlDisconnected is enabled.
 #define XPSF_WIPE_DUP_GUID    8
@@ -3223,43 +3223,43 @@ extern g_shrubbot_ban_t   *g_shrubbot_bans[MAX_SHRUBBOT_BANS];
 #define OBIT_SERVER_ONLY 3
 
 // Josh: g_logOptions flags, only for GUIDs now (no WeaponStatsDMG or TStats)
-#define LOGOPTS_OBIT_CHAT    1 // Server puts obituaries in chat.
-#define LOGOPTS_ADR_COUNT    2 // Adrenaline Countdown
-#define LOGOPTS_DIS_TAPCON    4 // Disable the tap-out confirmation dialog box
+#define LOGOPTS_OBIT_CHAT   1  // Server puts obituaries in chat.
+#define LOGOPTS_ADR_COUNT   2  // Adrenaline Countdown
+#define LOGOPTS_DIS_TAPCON  4   // Disable the tap-out confirmation dialog box
 #define LOGOPTS_BAN_CONN    8 // Display connection attempts by banned players
-#define LOGOPTS_REPORT_GIBS    16 // Report $victim was gibbed by $attacker
-#define LOGOPTS_OMIT_ITEMS    32 // Omit "Item" lines from logfile
-#define LOGOPTS_GUID    128 // Log the GUIDs, had other functionality in shrubet
-#define LOGOPTS_PRIVMSG 256 // log all private messages
-#define LOGOPTS_REALTIME 512 // real time stamps in log (dvl)
-#define LOGOPTS_TK_WEAPON 2048 // print out how you TK'ed
+#define LOGOPTS_REPORT_GIBS 16    // Report $victim was gibbed by $attacker
+#define LOGOPTS_OMIT_ITEMS  32   // Omit "Item" lines from logfile
+#define LOGOPTS_GUID        128 // Log the GUIDs, had other functionality in shrubet
+#define LOGOPTS_PRIVMSG     256 // log all private messages
+#define LOGOPTS_REALTIME    512 // real time stamps in log (dvl)
+#define LOGOPTS_TK_WEAPON   2048 // print out how you TK'ed
 
 // Josh: g_censorPenalty flags
-#define CNSRPNLTY_KILL 1        // Gibs unless CNSRPNLTY_NOGIB
-#define CNSRPNLTY_KICK 2        // Kick if the word is in their name
-#define CNSRPNLTY_NOGIB 4        // Won't GIB, only kill
+#define CNSRPNLTY_KILL    1     // Gibs unless CNSRPNLTY_NOGIB
+#define CNSRPNLTY_KICK    2     // Kick if the word is in their name
+#define CNSRPNLTY_NOGIB   4      // Won't GIB, only kill
 #define CNSRPNLTY_TMPMUTE 8 // Muted the next g_censorMuteTime.integer seconds
-#define CNSRPNLTY_XP 16            // forty - #127 g_censorXP.integer
-#define CNSRPNLTY_BURN 32        // forty - #127 Burn a potty mouth
+#define CNSRPNLTY_XP      16       // forty - #127 g_censorXP.integer
+#define CNSRPNLTY_BURN    32     // forty - #127 Burn a potty mouth
 
 //Josh: g_skills flags
 #define SKILLS_MINES 1
-#define SKILLS_FLAK 2
+#define SKILLS_FLAK  2
 #define SKILLS_ADREN 4
 
 //Josh: g_killRating flags
 //      if any flag is set, killrating is calculated
-#define KILL_RATING_ENABLE 1    // Kill rating will be calculated
+#define KILL_RATING_ENABLE  1   // Kill rating will be calculated
 #define KILL_RATING_VISIBLE 2 // /killrating will work, end of game killers too
 #define KILL_RATING_DATASET 4 // print kill rating info with guids
 
 //Josh: g_playerRating flags
 //      if any flag is set, playerrating is calculated
-#define PLAYER_RATING_ENABLE 1 // calculate player ratings
-#define PLAYER_RATING_VISIBLE 2 // end of game overals shown, plus /playerrating works
+#define PLAYER_RATING_ENABLE     1 // calculate player ratings
+#define PLAYER_RATING_VISIBLE    2 // end of game overals shown, plus /playerrating works
 #define PLAYER_RATING_SCOREBOARD 4 // XP = player rating instead on scoreboard
-#define PLAYER_RATING_DEBUG 8 // Print out extra info when running the model.
-#define PLAYER_RATING_DATASET 16 // Print extra info on map end
+#define PLAYER_RATING_DEBUG      8 // Print out extra info when running the model.
+#define PLAYER_RATING_DATASET    16 // Print extra info on map end
 // tjw: track player rating changes on a per-skill basis
 #define PLAYER_RATING_SKILLS 32
 
@@ -3271,25 +3271,25 @@ extern wordDictionary censorNamesDictionary;
 #define SLASHKILL_HALFCHARGE 1
 #define SLASHKILL_ZEROCHARGE 2
 #define SLASHKILL_SAMECHARGE 4
-#define SLASHKILL_NOFROZEN 8 // pheno: no selfkill in frozen state
-#define SLASHKILL_NOPOISON 16
+#define SLASHKILL_NOFROZEN   8 // pheno: no selfkill in frozen state
+#define SLASHKILL_NOPOISON   16
 
 // matt
 // used when mapvoting is enabled
-#define MAPVOTE_TIE_LEASTPLAYED 1
+#define MAPVOTE_TIE_LEASTPLAYED  1
 #define MAPVOTE_ALT_INTERMISSION 2
-#define MAPVOTE_MULTI_VOTE 4
-#define MAPVOTE_NO_RANDOMIZE 8
-#define MAPVOTE_NEXTMAP_VOTEMAP 16
+#define MAPVOTE_MULTI_VOTE       4
+#define MAPVOTE_NO_RANDOMIZE     8
+#define MAPVOTE_NEXTMAP_VOTEMAP  16
 
 void G_createClusterNade(gentity_t *ent, int numNades);
 void G_MakePip(gentity_t *vic);
 
-#define MSGPOS_CHAT 0
-#define MSGPOS_CENTER 1
+#define MSGPOS_CHAT        0
+#define MSGPOS_CENTER      1
 #define MSGPOS_LEFT_BANNER 2
-#define MSGPOS_BANNER 3
-#define MSGPOS_CONSOLE 4
+#define MSGPOS_BANNER      3
+#define MSGPOS_CONSOLE     4
 
 qboolean G_FlingClient(gentity_t *vic, int flingType);
 void G_touchKnife(gentity_t *ent, gentity_t *other, trace_t *trace);
@@ -3298,51 +3298,51 @@ void G_IntermissionMapVote(gentity_t *ent);
 
 // forty - airstrike block
 #define ASBLOCK_ANNOUNCE 1
-#define ASBLOCK_EASY 2
+#define ASBLOCK_EASY     2
 // Not implemented but reserving since it's in the shrub docs
-#define ASBLOCK_PLAY_SOUND 4
+#define ASBLOCK_PLAY_SOUND         4
 #define ASBLOCK_LVL3_FDOPS_NOBLOCK 8
-#define ASBLOCK_TEAMMATE_NOBLOCK 16
-#define ASBLOCK_GIVE_XP 32
+#define ASBLOCK_TEAMMATE_NOBLOCK   16
+#define ASBLOCK_GIVE_XP            32
 
 // forty - sudden death dynamite and dynamite chaining.
-#define DYNO_SUDDENDEATH 1
-#define DYNO_CHAIN 2
+#define DYNO_SUDDENDEATH    1
+#define DYNO_CHAIN          2
 #define DYNO_NO_TEAM_DISARM 8
 
 // Perro - g_dmg flags for advanced combat options
-#define COMBAT_USE_HITLOC 1
+#define COMBAT_USE_HITLOC  1
 #define COMBAT_USE_ALTDIST 2
 #define COMBAT_USE_CCBONUS 4
-#define COMBAT_USE_BFALL 8
-#define COMBAT_USE_IRUPG 16
+#define COMBAT_USE_BFALL   8
+#define COMBAT_USE_IRUPG   16
 #define COMBAT_USE_ALTSPRD 32
-#define COMBAT_NOSPEC_DMG 64 // Prevent specs from dealing damage
+#define COMBAT_NOSPEC_DMG  64 // Prevent specs from dealing damage
 // #define COMBAT_DAMAGE_OWN_VEHICLES 128 // future use
 
 // Perro - g_reflectFFWeapons bitmask definitions
-#define        REFLECT_FF_BULLETS 1
-#define        REFLECT_FF_GRENADES 2
-#define        REFLECT_FF_KNIVES    4
-#define        REFLECT_FF_PANZER    8
-#define        REFLECT_FF_FLAMER    16
-#define        REFLECT_FF_MORTAR    32
-#define        REFLECT_FF_SATCHEL    64
-#define        REFLECT_FF_BOMBS    128
-#define        REFLECT_FF_DYNAMITE    256
-#define        REFLECT_FF_LANDMINES 512
+#define REFLECT_FF_BULLETS   1
+#define REFLECT_FF_GRENADES  2
+#define REFLECT_FF_KNIVES    4
+#define REFLECT_FF_PANZER    8
+#define REFLECT_FF_FLAMER    16
+#define REFLECT_FF_MORTAR    32
+#define REFLECT_FF_SATCHEL   64
+#define REFLECT_FF_BOMBS     128
+#define REFLECT_FF_DYNAMITE  256
+#define REFLECT_FF_LANDMINES 512
 
 // Perro- g_friendlyfireOpts masks
-#define        FFOPTS_MINE_OVERRIDE 1
-#define        FFOPTS_ALLOW_BOOSTING 2
-#define        FFOPTS_NO_FRIENDLY_MINES 4
-#define        FFOPTS_FF_MOVERS 8
+#define FFOPTS_MINE_OVERRIDE     1
+#define FFOPTS_ALLOW_BOOSTING    2
+#define FFOPTS_NO_FRIENDLY_MINES 4
+#define FFOPTS_FF_MOVERS         8
 
 // tjw: g_shuffle_rating
-#define SHUFR_XP    1
-#define SHUFR_XPRATE    2
-#define SHUFR_KRATING    3
-#define SHUFR_PRATING    4
+#define SHUFR_XP      1
+#define SHUFR_XPRATE  2
+#define SHUFR_KRATING 3
+#define SHUFR_PRATING 4
 #define SHUFR_PROB    5
 
 // tjw: g_XPDecay
@@ -3363,18 +3363,18 @@ void G_IntermissionMapVote(gentity_t *ent);
 #define XPDF_NO_LW_DECAY 128
 
 // Dens: g_spreeOptions
-#define SPREE_SHOW_SPREES 1 // Fast enabling/disabling of killingsprees
-#define SPREE_SHOW_ENDS 2 // Fast enabling/disabling of spree ends
-#define SPREE_SHOW_KILLS 4 // Fast enabling/disabling of multikills
-#define SPREE_SHOW_ACTIVE_INGAME 8 // Show current + highest sprees ingame
+#define SPREE_SHOW_SPREES              1 // Fast enabling/disabling of killingsprees
+#define SPREE_SHOW_ENDS                2 // Fast enabling/disabling of spree ends
+#define SPREE_SHOW_KILLS               4 // Fast enabling/disabling of multikills
+#define SPREE_SHOW_ACTIVE_INGAME       8 // Show current + highest sprees ingame
 #define SPREE_SHOW_ACTIVE_INTERMISSION 16 // Show current + highest sprees at map end
-#define SPREE_SUICIDE_ENDS 32 // /kill ends a killingspree
-#define SPREE_TEAMCHANGE_ENDS 64 // teamswitching ends a killingspree
-#define SPREE_MULTIKILL_WAIT 128 // Wait g_multikillTime millisecs before displaying them
-#define SPREE_NO_BOTS 256 // Don't count killing bots for a spree/multikill
+#define SPREE_SUICIDE_ENDS             32 // /kill ends a killingspree
+#define SPREE_TEAMCHANGE_ENDS          64 // teamswitching ends a killingspree
+#define SPREE_MULTIKILL_WAIT           128 // Wait g_multikillTime millisecs before displaying them
+#define SPREE_NO_BOTS                  256 // Don't count killing bots for a spree/multikill
 #define SPREE_SHOW_RECORD_INTERMISSION 512 // Show the map and overal spree record in intermission
-#define SPREE_SAVE_RECORD_RESTART 1024 // Also store the record at the places defined by
-#define SPREE_SHOW_REVIVES 2048 //
+#define SPREE_SAVE_RECORD_RESTART      1024 // Also store the record at the places defined by
+#define SPREE_SHOW_REVIVES             2048 //
 // XPSF_STORE_AT_RESTART. This results in extra serverload at that times when this flag is disabled
 
 // Dens: g_spoofOptions
@@ -3404,10 +3404,10 @@ void G_IntermissionMapVote(gentity_t *ent);
 // #define SPOOFOPT_USERINFOCHECK 256 // Dens: not optional anymore in 0.9.0
 
 // Dens: g_warningOptions
-#define WARNOP_LINK_GUID 1
-#define WARNOP_LINK_IP 2
-#define WARNOP_REMOVE_OLDEST 4
-#define WARNOP_KICK 8
+#define WARNOP_LINK_GUID         1
+#define WARNOP_LINK_IP           2
+#define WARNOP_REMOVE_OLDEST     4
+#define WARNOP_KICK              8
 #define WARNOP_SLASHWARN_COMMAND 16
 
 // Dens: autotempban
@@ -3416,11 +3416,11 @@ void G_IntermissionMapVote(gentity_t *ent);
 #define TEMPBAN_SHRUB_WARN 4
 
 // Dens: g_damageBonusOpts
-#define DMGBONUS_NO_ENGI 1 // Do less damage when no engi in your team
-#define DMGBONUS_NEAR_ENGI 2 // Do extra damage when near an engi
-#define DMGBONUS_CUMULATIVE 4 // When multiple bonusses found, do count them all instead of just reducing damage once
+#define DMGBONUS_NO_ENGI     1 // Do less damage when no engi in your team
+#define DMGBONUS_NEAR_ENGI   2 // Do extra damage when near an engi
+#define DMGBONUS_CUMULATIVE  4 // When multiple bonusses found, do count them all instead of just reducing damage once
 #define DMGBONUS_CHECK_ENEMY 8 // Also check the other team (do more damage when no engi in other team, etc.)
-#define DMGBONUS_DEBUG 16 // Print a lot of debug info
+#define DMGBONUS_DEBUG       16 // Print a lot of debug info
 
 // pheno: g_headshot
 // only headshots

@@ -11,17 +11,17 @@
 #include "g_local.h"
 #include "g_etbot_interface.h"
 
-#define RESPAWN_SP            -1
-#define    RESPAWN_KEY            4
-#define    RESPAWN_ARMOR        25
-#define    RESPAWN_TEAM_WEAPON    30
-#define    RESPAWN_HEALTH        35
+#define RESPAWN_SP             -1
+#define    RESPAWN_KEY         4
+#define    RESPAWN_ARMOR       25
+#define    RESPAWN_TEAM_WEAPON 30
+#define    RESPAWN_HEALTH      35
 #define    RESPAWN_AMMO        40
 #define    RESPAWN_HOLDABLE    60
-#define    RESPAWN_MEGAHEALTH    120
-#define    RESPAWN_POWERUP        120
+#define    RESPAWN_MEGAHEALTH  120
+#define    RESPAWN_POWERUP     120
 #define RESPAWN_PARTIAL        998        // for multi-stage ammo/health
-#define RESPAWN_PARTIAL_DONE 999    // for multi-stage ammo/health
+#define RESPAWN_PARTIAL_DONE   999  // for multi-stage ammo/health
 
 //======================================================================
 
@@ -1137,7 +1137,7 @@ void Touch_Item(gentity_t *ent, gentity_t *other, trace_t *trace)
     if (ent->item->giType == IT_HEALTH &&
         (g_medics.integer & MEDIC_NOSELFPACK ||
          (g_medics.integer & MEDIC_NOSELFPACKPOISON &&
-              other->client->pmext.poisoned)  ||
+          other->client->pmext.poisoned)  ||
          (level.time - other->client->lasthurt_time) < g_medicSelfhealTime.integer) &&
         ent->parent &&
         ent->parent->client &&

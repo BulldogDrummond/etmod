@@ -135,15 +135,15 @@ qboolean OnSameTeam(gentity_t *ent1, gentity_t *ent2)
 }
 
 // JPW NERVE moved these up
-#define WCP_ANIM_NOFLAG                0
-#define WCP_ANIM_RAISE_AXIS            1
-#define WCP_ANIM_RAISE_AMERICAN        2
-#define WCP_ANIM_AXIS_RAISED        3
-#define WCP_ANIM_AMERICAN_RAISED    4
-#define WCP_ANIM_AXIS_TO_AMERICAN    5
-#define WCP_ANIM_AMERICAN_TO_AXIS    6
-#define WCP_ANIM_AXIS_FALLING        7
-#define WCP_ANIM_AMERICAN_FALLING    8
+#define WCP_ANIM_NOFLAG           0
+#define WCP_ANIM_RAISE_AXIS       1
+#define WCP_ANIM_RAISE_AMERICAN   2
+#define WCP_ANIM_AXIS_RAISED      3
+#define WCP_ANIM_AMERICAN_RAISED  4
+#define WCP_ANIM_AXIS_TO_AMERICAN 5
+#define WCP_ANIM_AMERICAN_TO_AXIS 6
+#define WCP_ANIM_AXIS_FALLING     7
+#define WCP_ANIM_AMERICAN_FALLING 8
 // jpw
 
 /*
@@ -828,7 +828,7 @@ SelectRandomDeathmatchSpawnPoint
 go to a random point that doesn't telefrag
 ================
 */
-#define    MAX_TEAM_SPAWN_POINTS    256
+#define    MAX_TEAM_SPAWN_POINTS 256
 gentity_t *SelectRandomTeamSpawnPoint(int teamstate, team_t team, int spawnObjective)
 {
     gentity_t *spot;
@@ -1353,10 +1353,10 @@ void SP_team_WOLF_objective(gentity_t *ent)
 }
 
 // DHM - Nerve :: Capture and Hold Checkpoint flag
-#define SPAWNPOINT    1
-#define CP_HOLD        2
-#define AXIS_ONLY    4
-#define ALLIED_ONLY    8
+#define SPAWNPOINT  1
+#define CP_HOLD     2
+#define AXIS_ONLY   4
+#define ALLIED_ONLY 8
 
 void checkpoint_touch(gentity_t *self, gentity_t *other, trace_t *trace);
 

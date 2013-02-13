@@ -29,7 +29,7 @@ PM_SlideMove
 Returns qtrue if the velocity was clipped in some way
 ==================
 */
-#define    MAX_CLIP_PLANES    5
+#define    MAX_CLIP_PLANES 5
 qboolean    PM_SlideMove(qboolean gravity)
 {
     int     bumpcount, numbumps, extrabumps;

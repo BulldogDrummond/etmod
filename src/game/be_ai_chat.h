@@ -11,16 +11,16 @@
 #ifndef __BE_AI_CHAT_H__
 #define __BE_AI_CHAT_H__
 
-#define MAX_MESSAGE_SIZE        150    // limit in game dll
-#define MAX_CHATTYPE_NAME        32
-#define MAX_MATCHVARIABLES        8
+#define MAX_MESSAGE_SIZE   150         // limit in game dll
+#define MAX_CHATTYPE_NAME  32
+#define MAX_MATCHVARIABLES 8
 
-#define CHAT_GENDERLESS           0
-#define CHAT_GENDERFEMALE         1
-#define CHAT_GENDERMALE           2
+#define CHAT_GENDERLESS   0
+#define CHAT_GENDERFEMALE 1
+#define CHAT_GENDERMALE   2
 
-#define CHAT_ALL                  0
-#define CHAT_TEAM                 1
+#define CHAT_ALL  0
+#define CHAT_TEAM 1
 
 // console message
 typedef struct bot_consolemessage_s

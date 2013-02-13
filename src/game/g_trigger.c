@@ -1093,7 +1093,7 @@ void SP_gas(gentity_t *self)
 
 // DHM - Nerve :: Multiplayer triggers
 
-#define RED_FLAG 1
+#define RED_FLAG  1
 #define BLUE_FLAG 2
 
 void Bot_Util_SendTrigger(gentity_t *_ent, gentity_t *_activator, const char *_tagname, const char *_action);
@@ -1595,10 +1595,10 @@ Players in this field will see a message saying that they are near an objective.
   "track"        Mandatory, this is the text that is appended to "You are near "
   "shortname"    Short name to show on command centre
 */
-#define    AXIS_OBJECTIVE        1
-#define ALLIED_OBJECTIVE    2
-#define MESSAGE_OVERRIDE    4
-#define TANK                8
+#define    AXIS_OBJECTIVE 1
+#define ALLIED_OBJECTIVE  2
+#define MESSAGE_OVERRIDE  4
+#define TANK              8
 
 void SP_trigger_objective_info(gentity_t *ent)
 {

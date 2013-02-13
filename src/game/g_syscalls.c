@@ -442,8 +442,8 @@ sfxHandle_t    trap_RegisterSound(const char *sample, qboolean compressed)
 #ifdef DEBUG
 //#define FAKELAG
 #ifdef FAKELAG
-#define    MAX_USERCMD_BACKUP    256
-#define    MAX_USERCMD_MASK    (MAX_USERCMD_BACKUP - 1)
+#define    MAX_USERCMD_BACKUP 256
+#define    MAX_USERCMD_MASK   (MAX_USERCMD_BACKUP - 1)
 
 static usercmd_t cmds[MAX_CLIENTS][MAX_USERCMD_BACKUP];
 static int       cmdNumber[MAX_CLIENTS];

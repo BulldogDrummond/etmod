@@ -11,10 +11,10 @@
 #ifndef _G_SETTINGS_H
 #define _G_SETTINGS_H
 
-#define MAX_KILLSPREES 32
-#define MAX_KS_ENDS 32
-#define MAX_MULTIKILLS 16
-#define MAX_BANNERS 32
+#define MAX_KILLSPREES   32
+#define MAX_KS_ENDS      32
+#define MAX_MULTIKILLS   16
+#define MAX_BANNERS      32
 #define MAX_REVIVESPREES 8
 
 typedef struct

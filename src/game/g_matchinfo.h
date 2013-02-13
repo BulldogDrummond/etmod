@@ -1,7 +1,7 @@
 #ifndef _G_MATCAHINFO_H
 #define _G_MATCHINFO_H
 
-#define MAX_QUEUED_MATCHES 10
+#define MAX_QUEUED_MATCHES    10
 #define MAX_PLAYERS_PER_MATCH 64
 
 typedef struct

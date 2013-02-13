@@ -11,22 +11,22 @@
 #ifndef __BE_AI_GOAL_H__
 #define __BE_AI_GOAL_H__
 
-#define MAX_AVOIDGOALS            64
-#define MAX_GOALSTACK              8
+#define MAX_AVOIDGOALS 64
+#define MAX_GOALSTACK  8
 
-#define GFL_NONE                   0
-#define GFL_ITEM                   1
-#define GFL_ROAM                   2
-#define GFL_NOSLOWAPPROACH         4
-#define GFL_DEFEND_CLOSE           8
-#define GFL_LEADER                16
-#define GFL_DEBUGPATH             32
+#define GFL_NONE           0
+#define GFL_ITEM           1
+#define GFL_ROAM           2
+#define GFL_NOSLOWAPPROACH 4
+#define GFL_DEFEND_CLOSE   8
+#define GFL_LEADER         16
+#define GFL_DEBUGPATH      32
 
 // bot goal urgency
-#define BGU_LOW                    0
-#define BGU_MEDIUM                 1
-#define BGU_HIGH                   2
-#define BGU_MAXIMUM                3
+#define BGU_LOW     0
+#define BGU_MEDIUM  1
+#define BGU_HIGH    2
+#define BGU_MAXIMUM 3
 
 // bot goal
 typedef struct bot_goal_s

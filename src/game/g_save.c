@@ -696,7 +696,7 @@ void ReadField(fileHandle_t f, saveField_t *field, byte *base)
 
 //=========================================================
 
-#define SAVE_ENCODE_COUNT_BYTES        1
+#define SAVE_ENCODE_COUNT_BYTES 1
 
 /*
 ===============

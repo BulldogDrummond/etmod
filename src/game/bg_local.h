@@ -12,18 +12,18 @@
 #ifndef __BG_LOCAL_H__
 #define __BG_LOCAL_H__
 
-#define    MIN_WALK_NORMAL   0.7    // can't walk on very steep slopes
+#define    MIN_WALK_NORMAL 0.7      // can't walk on very steep slopes
 
-#define    STEPSIZE           18
+#define    STEPSIZE 18
 
-#define    JUMP_VELOCITY     270
+#define    JUMP_VELOCITY 270
 
-#define    TIMER_LAND        130
-#define    TIMER_GESTURE     (34 * 66 + 50)
+#define    TIMER_LAND    130
+#define    TIMER_GESTURE (34 * 66 + 50)
 
-#define DOUBLE_TAP_DELAY     400
+#define DOUBLE_TAP_DELAY 400
 
-#define MAX_MG42_HEAT       1500.f
+#define MAX_MG42_HEAT 1500.f
 
 // all of the locals will be zeroed before each
 // pmove, just to make damn sure we don't have

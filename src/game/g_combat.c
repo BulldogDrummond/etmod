@@ -2943,7 +2943,7 @@ void G_RailTrail(vec_t *start, vec_t *end)
     temp->s.dmgFlags = 0;
 }
 
-#define MASK_CAN_DAMAGE        (CONTENTS_SOLID | CONTENTS_BODY)
+#define MASK_CAN_DAMAGE (CONTENTS_SOLID | CONTENTS_BODY)
 
 qboolean CanDamage(gentity_t *targ, vec3_t origin)
 {

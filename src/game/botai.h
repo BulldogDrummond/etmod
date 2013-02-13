@@ -12,29 +12,29 @@
 #define __BOTAI_H__
 
 // debug line colors
-#define LINECOLOR_NONE          -1
-#define LINECOLOR_RED            1
-#define LINECOLOR_GREEN          2
-#define LINECOLOR_BLUE           3
-#define LINECOLOR_YELLOW         4
-#define LINECOLOR_ORANGE         5
+#define LINECOLOR_NONE   -1
+#define LINECOLOR_RED    1
+#define LINECOLOR_GREEN  2
+#define LINECOLOR_BLUE   3
+#define LINECOLOR_YELLOW 4
+#define LINECOLOR_ORANGE 5
 
 // Print types
-#define PRT_MESSAGE              1
-#define PRT_WARNING              2
-#define PRT_ERROR                3
-#define PRT_FATAL                4
-#define PRT_EXIT                 5
+#define PRT_MESSAGE 1
+#define PRT_WARNING 2
+#define PRT_ERROR   3
+#define PRT_FATAL   4
+#define PRT_EXIT    5
 
 // console message types
-#define CMS_NORMAL               0
-#define CMS_CHAT                 1
+#define CMS_NORMAL 0
+#define CMS_CHAT   1
 
 // some max values
-#define MAX_NETNAME             36
-#define MAX_CLIENTSKINNAME     128
-#define MAX_FILEPATH           144
-#define MAX_CHARACTERNAME      144
+#define MAX_NETNAME        36
+#define MAX_CLIENTSKINNAME 128
+#define MAX_FILEPATH       144
+#define MAX_CHARACTERNAME  144
 
 #ifndef BSPTRACE
 

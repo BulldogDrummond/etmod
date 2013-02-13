@@ -97,11 +97,11 @@ int          numPathCorners;
 pathCorner_t pathCorners[MAX_PATH_CORNERS];
 
 // these defines are matched with the character torso animations
-#define DELAY_LOW        100    // machineguns, tesla, spear, flame
-#define DELAY_HIGH        100    // mauser, garand
-#define DELAY_PISTOL    100    // colt, luger, sp5, cross
-#define DELAY_SHOULDER    50    // rl
-#define DELAY_THROW        250    // grenades, dynamite
+#define DELAY_LOW      100      // machineguns, tesla, spear, flame
+#define DELAY_HIGH     100       // mauser, garand
+#define DELAY_PISTOL   100     // colt, luger, sp5, cross
+#define DELAY_SHOULDER 50       // rl
+#define DELAY_THROW    250        // grenades, dynamite
 
 // Arnout: the new loadout for WolfXP
 int weapBanksMultiPlayer[MAX_WEAP_BANKS_MP][MAX_WEAPS_IN_BANK_MP] =
@@ -3241,7 +3241,7 @@ qboolean BG_CanUseWeapon(int classNum, int teamNum, weapon_t weapon)
     return qfalse;
 }
 
-#define AMMOFORWEAP    BG_FindAmmoForWeapon(item->giTag)
+#define AMMOFORWEAP BG_FindAmmoForWeapon(item->giTag)
 /*
 ================
 BG_CanItemBeGrabbed
@@ -5769,7 +5769,7 @@ int Q_vsnprintf(char *dest, int size, const char *fmt, va_list argptr)
 
 #undef vsnprintf
     ret = vsnprintf(dest, size, fmt, argptr);
-#define vsnprintf    use_idStr_vsnPrintf
+#define vsnprintf use_idStr_vsnPrintf
     dest[size - 1] = '\0';
     if (ret < 0 || ret >= size)
     {

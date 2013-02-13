@@ -15,21 +15,21 @@
 
 #include "bg_local.h"
 
-#define PM_GameType g_gametype.integer
-#define PM_UW_SYRINGE (g_weapons.integer & WPF_UNDERWATER_SYRINGE)
-#define PM_UW_PLIERS (g_weapons.integer & WPF_UNDERWATER_PLIERS)
-#define PM_CORPSE_SPIN g_spinCorpse.integer
-#define PM_DOUBLE_JUMP (g_misc.integer & MISC_DOUBLE_JUMP)
+#define PM_GameType           g_gametype.integer
+#define PM_UW_SYRINGE         (g_weapons.integer & WPF_UNDERWATER_SYRINGE)
+#define PM_UW_PLIERS          (g_weapons.integer & WPF_UNDERWATER_PLIERS)
+#define PM_CORPSE_SPIN        g_spinCorpse.integer
+#define PM_DOUBLE_JUMP        (g_misc.integer & MISC_DOUBLE_JUMP)
 #define PM_DOUBLE_JUMP_HEIGHT g_doubleJumpHeight.value
-#define PM_GARAND_RELOADS (g_weapons.integer & WPF_GARAND_RELOADS)
-#define PM_STAMINA_RECHARGE g_staminaRecharge.value // Perro
-#define PM_JUMP_STAMINA (g_misc.integer & MISC_JUMP_STAMINA)
-#define PM_TRACEHEAD (g_misc.integer & MISC_TRACEHEAD)
-#define PM_MEDIC_NOSELFADREN (g_medics.integer & MEDIC_NOSELFADREN)
-#define PM_TRACE_ALL (g_misc.integer & MISC_TRACE_ALL)
-#define PM_OLD_PRONE (g_misc.integer & MISC_OLD_PRONE)
-#define PM_MG_RELOADS (g_mg42.integer & MG_RELOADS)
-#define PM_PANZER_LEVEL_UP g_panzerLevelUp.integer
+#define PM_GARAND_RELOADS     (g_weapons.integer & WPF_GARAND_RELOADS)
+#define PM_STAMINA_RECHARGE   g_staminaRecharge.value // Perro
+#define PM_JUMP_STAMINA       (g_misc.integer & MISC_JUMP_STAMINA)
+#define PM_TRACEHEAD          (g_misc.integer & MISC_TRACEHEAD)
+#define PM_MEDIC_NOSELFADREN  (g_medics.integer & MEDIC_NOSELFADREN)
+#define PM_TRACE_ALL          (g_misc.integer & MISC_TRACE_ALL)
+#define PM_OLD_PRONE          (g_misc.integer & MISC_OLD_PRONE)
+#define PM_MG_RELOADS         (g_mg42.integer & MG_RELOADS)
+#define PM_PANZER_LEVEL_UP    g_panzerLevelUp.integer
 
 #define PM_IsSinglePlayerGame() (PM_GameType == GT_SINGLE_PLAYER || PM_GameType == GT_COOP)
 
@@ -4007,10 +4007,10 @@ PM_AdjustAimSpreadScale
 ==============
 */
 //#define    AIMSPREAD_DECREASE_RATE        300.0f
-#define    AIMSPREAD_DECREASE_RATE        200.0f        // (SA) when I made the increase/decrease floats (so slower weapon recover could happen for scoped weaps) the average rate increased significantly
-#define    AIMSPREAD_INCREASE_RATE        800.0f
-#define    AIMSPREAD_VIEWRATE_MIN        30.0f        // degrees per second
-#define    AIMSPREAD_VIEWRATE_RANGE    120.0f        // degrees per second
+#define    AIMSPREAD_DECREASE_RATE  200.0f              // (SA) when I made the increase/decrease floats (so slower weapon recover could happen for scoped weaps) the average rate increased significantly
+#define    AIMSPREAD_INCREASE_RATE  800.0f
+#define    AIMSPREAD_VIEWRATE_MIN   30.0f             // degrees per second
+#define    AIMSPREAD_VIEWRATE_RANGE 120.0f           // degrees per second
 
 void PM_AdjustAimSpreadScale(void)
 {
@@ -4160,7 +4160,7 @@ void PM_AdjustAimSpreadScale(void)
 
 #define weaponstateFiring (pm->ps->weaponstate == WEAPON_FIRING || pm->ps->weaponstate == WEAPON_FIRINGALT)
 
-#define GRENADE_DELAY    250
+#define GRENADE_DELAY 250
 
 /*
 ==============
@@ -4170,11 +4170,11 @@ Generates weapon events and modifes the weapon counter
 ==============
 */
 
-#define VENOM_LOW_IDLE    WEAP_IDLE1
-#define VENOM_HI_IDLE    WEAP_IDLE2
-#define VENOM_RAISE        WEAP_ATTACK1
-#define VENOM_ATTACK    WEAP_ATTACK2
-#define VENOM_LOWER        WEAP_ATTACK_LASTSHOT
+#define VENOM_LOW_IDLE WEAP_IDLE1
+#define VENOM_HI_IDLE  WEAP_IDLE2
+#define VENOM_RAISE    WEAP_ATTACK1
+#define VENOM_ATTACK   WEAP_ATTACK2
+#define VENOM_LOWER    WEAP_ATTACK_LASTSHOT
 
 //#define DO_WEAPON_DBG 1
 
@@ -5804,7 +5804,7 @@ static void PM_Weapon(void)
 PM_Animate
 ================
 */
-#define MYTIMER_SALUTE     1133    // 17 frames, 15 fps
+#define MYTIMER_SALUTE   1133      // 17 frames, 15 fps
 #define MYTIMER_DISMOUNT 667    // 10 frames, 15 fps
 
 /*
@@ -5858,9 +5858,9 @@ static void PM_DropTimers(void)
     }
 }
 
-#define LEAN_MAX    28.0f
-#define LEAN_TIME_TO    200.0f    // time to get to/from full lean
-#define LEAN_TIME_FR    300.0f    // time to get to/from full lean
+#define LEAN_MAX     28.0f
+#define LEAN_TIME_TO 200.0f       // time to get to/from full lean
+#define LEAN_TIME_FR 300.0f       // time to get to/from full lean
 
 /*
 ==============
@@ -6454,7 +6454,7 @@ void PM_CheckLadderMove(void)
     vec3_t  flatforward;
     trace_t trace;
     float   tracedist;
-    #define    TRACE_LADDER_DIST    48.0
+    #define    TRACE_LADDER_DIST 48.0
     qboolean wasOnLadder;
 
     if (pm->ps->pm_time)

@@ -127,7 +127,7 @@ SelectNearestDeathmatchSpawnPoint
 Find the spot that we DON'T want to use
 ================
 */
-#define    MAX_SPAWN_POINTS    128
+#define    MAX_SPAWN_POINTS 128
 gentity_t *SelectNearestDeathmatchSpawnPoint(vec3_t from)
 {
     gentity_t *spot;
@@ -161,7 +161,7 @@ SelectRandomDeathmatchSpawnPoint
 go to a random point that doesn't telefrag
 ================
 */
-#define    MAX_SPAWN_POINTS    128
+#define    MAX_SPAWN_POINTS 128
 gentity_t *SelectRandomDeathmatchSpawnPoint(void)
 {
     gentity_t *spot;
@@ -3565,7 +3565,7 @@ gentity_t *SelectSpawnPointFromList(char *list, vec3_t spawn_origin, vec3_t spaw
 {
     char      *pStr, *token;
     gentity_t *spawnPoint = NULL, *trav;
-    #define    MAX_SPAWNPOINTFROMLIST_POINTS    16
+    #define    MAX_SPAWNPOINTFROMLIST_POINTS 16
     int valid[MAX_SPAWNPOINTFROMLIST_POINTS];
     int numValid;
 

@@ -2198,18 +2198,18 @@ void SP_mg42(gentity_t *self)
     }
 }
 
-#define FLAK_SPREAD 100
+#define FLAK_SPREAD    100
 #define    FLAK_DAMAGE 36
 
-#define GUN1_IDLE    0
-#define GUN2_IDLE    4
-#define GUN3_IDLE    8
-#define GUN4_IDLE    12
+#define GUN1_IDLE 0
+#define GUN2_IDLE 4
+#define GUN3_IDLE 8
+#define GUN4_IDLE 12
 
-#define GUN1_LASTFIRE    3
-#define GUN2_LASTFIRE    7
-#define GUN3_LASTFIRE    11
-#define GUN4_LASTFIRE    15
+#define GUN1_LASTFIRE 3
+#define GUN2_LASTFIRE 7
+#define GUN3_LASTFIRE 11
+#define GUN4_LASTFIRE 15
 
 void Flak_Animate(gentity_t *ent)
 {

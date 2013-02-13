@@ -624,7 +624,7 @@ qboolean G_SendScore_Add(gentity_t *ent, int i, char *buf, int bufsize)
     else if (respawnsLeft == 0 &&
              ((cl->ps.pm_flags & PMF_LIMBO) ||
               (level.intermissiontime &&
-          g_entities[level.sortedClients[i]].health <= 0)))
+               g_entities[level.sortedClients[i]].health <= 0)))
     {
 
         respawnsLeft = -2;

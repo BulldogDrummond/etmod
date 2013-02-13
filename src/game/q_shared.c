@@ -1329,7 +1329,7 @@ previous strings
 char *QDECL va(char *format, ...)
 {
     va_list argptr;
-    #define    MAX_VA_STRING    32000
+    #define    MAX_VA_STRING 32000
     static char temp_buffer[MAX_VA_STRING];
     static char string[MAX_VA_STRING];           // in case va is called by nested functions
     static int  index = 0;
