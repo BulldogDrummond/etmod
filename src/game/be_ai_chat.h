@@ -25,10 +25,10 @@
 // console message
 typedef struct bot_consolemessage_s
 {
-    int    handle;
-    float  time;                               // message time
-    int    type;                               // message type
-    char   message[MAX_MESSAGE_SIZE];          // message
+    int handle;
+    float time;                                // message time
+    int type;                                  // message type
+    char message[MAX_MESSAGE_SIZE];            // message
     struct bot_consolemessage_s *prev, *next;  // prev and next in list
 } bot_consolemessage_t;
 
@@ -36,15 +36,15 @@ typedef struct bot_consolemessage_s
 typedef struct bot_matchvariable_s
 {
     char *ptr;
-    int  length;
+    int length;
 } bot_matchvariable_t;
 
 // returned to AI when a match is found
 typedef struct bot_match_s
 {
-    char                string[MAX_MESSAGE_SIZE];
-    int                 type;
-    int                 subtype;
+    char string[MAX_MESSAGE_SIZE];
+    int type;
+    int subtype;
     bot_matchvariable_t variables[MAX_MATCHVARIABLES];
 } bot_match_t;
 
@@ -73,7 +73,7 @@ int BotNextConsoleMessage(int chatstate, bot_consolemessage_t *cm);
 int BotNumConsoleMessages(int chatstate);
 
 // enters a chat message of the given type
-void BotInitialChat(int chatstate, char *type, int mcontext, char *var0, 
+void BotInitialChat(int chatstate, char *type, int mcontext, char *var0,
                     char *var1, char *var2, char *var3, char *var4,
                     char *var5, char *var6, char *var7);
 
@@ -120,4 +120,3 @@ void BotSetChatGender(int chatstate, int gender);
 void BotSetChatName(int chatstate, char *name);
 
 #endif
-

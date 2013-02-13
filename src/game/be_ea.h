@@ -18,7 +18,7 @@ void EA_UseItem(int client, char *it);
 void EA_DropItem(int client, char *it);
 void EA_UseInv(int client, char *inv);
 void EA_DropInv(int client, char *inv);
-void EA_Command(int client, char *command );
+void EA_Command(int client, char *command);
 
 // regular elementary actions
 void EA_SelectWeapon(int client, int weapon);
@@ -52,4 +52,3 @@ int EA_Setup(void);
 void EA_Shutdown(void);
 
 #endif
-

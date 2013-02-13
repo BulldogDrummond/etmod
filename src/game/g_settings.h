@@ -17,7 +17,8 @@
 #define MAX_BANNERS 32
 #define MAX_REVIVESPREES 8
 
-typedef struct {
+typedef struct
+{
     int number;
     char message[MAX_STRING_CHARS];
     char position[8];
@@ -26,7 +27,8 @@ typedef struct {
     char play[7];
 } g_killingSpree_t;
 
-typedef struct {
+typedef struct
+{
     int number;
     char message[MAX_STRING_CHARS];
     char position[8];
@@ -50,7 +52,8 @@ typedef struct {
     char wkplay[7];
 } g_ks_end_t;
 
-typedef struct {
+typedef struct
+{
     int number;
     char message[MAX_STRING_CHARS];
     char position[8];
@@ -59,13 +62,15 @@ typedef struct {
     char play[7];
 } g_multiKill_t;
 
-typedef struct {
+typedef struct
+{
     char message[MAX_CVAR_VALUE_STRING];
     int wait;
     char position[8];
 } g_banner_t;
 
-typedef struct {
+typedef struct
+{
     int number;
     char message[MAX_STRING_CHARS];
     char position[8];
@@ -84,4 +89,3 @@ void G_check_revive_spree(gentity_t *ent, int number);
 int G_highest_multikill(gentity_t *ent);
 
 #endif /* ifndef _G_SETTINGS_H */
-

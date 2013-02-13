@@ -13,7 +13,6 @@
 
 void G_InitThreads(void);
 
-int create_thread(void *(*thread_function)(void *),void *arguments);
+int create_thread(void *(*thread_function)(void *), void *arguments);
 
 #endif
-

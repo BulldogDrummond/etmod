@@ -16,4 +16,3 @@ int GeneticParentsAndChildSelection(int numranks, float *ranks,
                                     int *child);
 
 #endif
-

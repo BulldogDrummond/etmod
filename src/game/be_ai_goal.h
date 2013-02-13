@@ -32,14 +32,14 @@
 typedef struct bot_goal_s
 {
     vec3_t origin;      // origin of the goal
-    int    areanum;     // area number of the goal
+    int areanum;        // area number of the goal
     vec3_t mins, maxs;  // mins and maxs of the goal
-    int    entitynum;   // number of the goal entity
-    int    number;      // goal number
-    int    flags;       // goal flags
-    int    iteminfo;    // item information
-    int    urgency;     // how urgent is the goal? allow  exit autonomy range to reach goal?
-    int    goalEndTime; // When is the shortest time this can end?
+    int entitynum;      // number of the goal entity
+    int number;         // goal number
+    int flags;          // goal flags
+    int iteminfo;       // item information
+    int urgency;        // how urgent is the goal? allow  exit autonomy range to reach goal?
+    int goalEndTime;    // When is the shortest time this can end?
 } bot_goal_t;
 
 // reset the whole goal state, but keep the item weights
@@ -132,4 +132,3 @@ int BotSetupGoalAI(qboolean singleplayer);
 void BotShutdownGoalAI(void);
 
 #endif
-

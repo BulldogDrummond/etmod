@@ -16,7 +16,7 @@
 #ifndef _SHA1_H_
 #define _SHA1_H_
 
-/* 
+/*
  *  This structure will hold context information for the hashing
  *  operation
  */
@@ -39,9 +39,8 @@ typedef struct SHA1Context
  */
 void SHA1Reset(SHA1Context *);
 int SHA1Result(SHA1Context *);
-void SHA1Input( SHA1Context *,
-                const unsigned char *,
-                unsigned);
+void SHA1Input(SHA1Context *,
+               const unsigned char *,
+               unsigned);
 
 #endif
-

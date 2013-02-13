@@ -227,8 +227,8 @@ int TeamPlayIsOn(void);
 // Set up our danger spots
 void BotFindEnemies
 (
-    bot_state_t *bs, 
-    int *dangerSpots, 
+    bot_state_t *bs,
+    int *dangerSpots,
     int *dangerSpotCount
 );
 
@@ -310,4 +310,3 @@ extern bot_goal_t ctf_redflag;
 extern bot_goal_t ctf_blueflag;
 
 #endif
-

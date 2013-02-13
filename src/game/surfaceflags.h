@@ -80,4 +80,3 @@
 #define SURF_LANDMINE            0x80000000    // ydnar: ok to place landmines on this surface
 
 #endif
-

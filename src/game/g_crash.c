@@ -24,17 +24,18 @@
     #define GLIBC_21
 #endif
 
-extern char *strsignal (int __sig) __THROW;
+extern char *strsignal(int __sig) __THROW;
 
 //use sigaction instead.
-__sighandler_t INTHandler (int signal, struct sigcontext ctx);
+__sighandler_t INTHandler(int signal, struct sigcontext ctx);
 void CrashHandler(int signal, siginfo_t *siginfo, ucontext_t *ctx);
-void (*OldHandler)(int signal);
+void             (*OldHandler)(int signal);
 struct sigaction oldact[NSIG];
 
 int segvloop = 0;
 
-void installcrashhandler() {
+void installcrashhandler()
+{
 
     struct sigaction act;
 
@@ -50,21 +51,25 @@ void installcrashhandler() {
     sigaction(SIGBUS, &act, &oldact[SIGBUS]);
 }
 
-void restorecrashhandler() {
+void restorecrashhandler()
+{
     sigaction(SIGSEGV, &oldact[SIGSEGV], NULL);
 }
 
-void installinthandler() {
+void installinthandler()
+{
     // Trap Ctrl-C
     signal(SIGINT, (void *)INTHandler);
 }
 
-void linux_siginfo(int signal, siginfo_t *siginfo) {
+void linux_siginfo(int signal, siginfo_t *siginfo)
+{
     G_LogPrintf("Signal: %s (%d)\n", strsignal(signal), signal);
     G_LogPrintf("Siginfo: %p\n", siginfo);
-    if(siginfo) {
+    if (siginfo)
+    {
         G_LogPrintf("Code: %d\n", siginfo->si_code);
-        G_LogPrintf("Faulting Memory Ref/Instruction: %p\n",siginfo->si_addr);
+        G_LogPrintf("Faulting Memory Ref/Instruction: %p\n", siginfo->si_addr);
     }
 }
 
@@ -72,46 +77,63 @@ void linux_siginfo(int signal, siginfo_t *siginfo) {
 //      glibc 2.3.3 only  (it also won't build on earlier glibc 2.3
 //      versions).
 //      We're only doing glibc 2.1.3 release builds anyway.
-void linux_dsoinfo() {
+void linux_dsoinfo()
+{
     struct link_map *linkmap = NULL;
-    ElfW(Ehdr)      * ehdr = (ElfW(Ehdr) *)0x08048000;
+    ElfW(Ehdr)      * ehdr = (ElfW(Ehdr) *) 0x08048000;
     ElfW(Phdr)      * phdr;
-    ElfW(Dyn)       *dyn;
-    struct r_debug  *rdebug = NULL;
+    ElfW(Dyn)       * dyn;
+    struct r_debug *rdebug = NULL;
 
     phdr = (ElfW(Phdr) *)((char *)ehdr + ehdr->e_phoff);
 
-    while (phdr++<(ElfW(Phdr) *)((char *)phdr + (ehdr->e_phnum * sizeof(ElfW(Phdr)))))
+    while (phdr++ < (ElfW(Phdr) *)((char *)phdr + (ehdr->e_phnum * sizeof(ElfW(Phdr)))))
+    {
         if (phdr->p_type == PT_DYNAMIC)
+        {
             break;
+        }
+    }
 
     for (dyn = (ElfW(Dyn) *)phdr->p_vaddr; dyn->d_tag != DT_NULL; dyn++)
-        if (dyn->d_tag == DT_DEBUG) {
+    {
+        if (dyn->d_tag == DT_DEBUG)
+        {
             rdebug = (void *)dyn->d_un.d_ptr;
             break;
         }
+    }
 
     linkmap = rdebug->r_map;
 
     // rewind to top item.
-    while(linkmap->l_prev)
-        linkmap=linkmap->l_prev;
+    while (linkmap->l_prev)
+    {
+        linkmap = linkmap->l_prev;
+    }
 
     G_LogPrintf("DSO Information:\n");
 
-    while(linkmap) {
-        if(linkmap->l_addr) {
-            if(strcmp(linkmap->l_name,"")==0)
+    while (linkmap)
+    {
+        if (linkmap->l_addr)
+        {
+            if (strcmp(linkmap->l_name, "") == 0)
+            {
                 G_LogPrintf("0x%08x\t(unknown)\n", linkmap->l_addr);
+            }
             else
+            {
                 G_LogPrintf("0x%08x\t%s\n", linkmap->l_addr, linkmap->l_name);
+            }
 
         }
-        linkmap=linkmap->l_next;
+        linkmap = linkmap->l_next;
     }
 }
 
-void linux_backtrace(ucontext_t *ctx) {
+void linux_backtrace(ucontext_t *ctx)
+{
 
     // See <asm/sigcontext.h>
 
@@ -126,25 +148,25 @@ void linux_backtrace(ucontext_t *ctx) {
 
     int i;
 
-    char **strings;
-    void *array[1024];
+    char   **strings;
+    void   *array[1024];
     size_t size = (size_t)backtrace(array, 1024);
 
     //Set the actual calling address for accurate stack traces.
     //If we don't do this stack traces are less accurate.
     #ifdef GLIBC_21
-        G_LogPrintf("Stack frames: %Zd entries\n", size-1);
+    G_LogPrintf("Stack frames: %Zd entries\n", size - 1);
     #ifndef __x86_64__
-        array[1] = (void *)ctx->uc_mcontext.gregs[EIP];
+    array[1] = (void *)ctx->uc_mcontext.gregs[EIP];
     #else
-        array[1] = (void *)ctx->uc_mcontext.gregs[RIP];
+    array[1] = (void *)ctx->uc_mcontext.gregs[RIP];
     #endif
     #else
-        G_LogPrintf("Stack frames: %zd entries\n", size-1);
+    G_LogPrintf("Stack frames: %zd entries\n", size - 1);
     #ifndef __x86_64__
-        array[1] = (void *)ctx->uc_mcontext.gregs[REG_EIP];
+    array[1] = (void *)ctx->uc_mcontext.gregs[REG_EIP];
     #else
-        array[1] = (void *)ctx->uc_mcontext.gregs[REG_RIP];
+    array[1] = (void *)ctx->uc_mcontext.gregs[REG_RIP];
     #endif
     #endif
     G_LogPrintf("Backtrace:\n");
@@ -154,32 +176,39 @@ void linux_backtrace(ucontext_t *ctx) {
     //Start at one and climb up.
     //The first entry points back to this function.
     for (i = 1; i < (int)size; i++)
+    {
         G_LogPrintf("(%i) %s\n", i, strings[i]);
+    }
 
     free(strings);
 }
 
-__sighandler_t INTHandler(int signal, struct sigcontext ctx) {
+__sighandler_t INTHandler(int signal, struct sigcontext ctx)
+{
     G_LogPrintf("------------------------------------------------\n");
     G_LogPrintf("Ctrl-C is not the proper way to kill the server.\n");
     G_LogPrintf("------------------------------------------------\n");
     return 0;
 }
 
-void CrashHandler(int signal, siginfo_t *siginfo, ucontext_t *ctx) {
+void CrashHandler(int signal, siginfo_t *siginfo, ucontext_t *ctx)
+{
 
     // we are real cautious here.
     restorecrashhandler();
 
-    if(signal == SIGSEGV)
+    if (signal == SIGSEGV)
+    {
         segvloop++;
+    }
 
-    if(segvloop < 2) {
+    if (segvloop < 2)
+    {
         G_LogPrintf("-8<------- Crash Information ------->8-\n");
         G_LogPrintf("     Please forward to etmod team.     \n");
         G_LogPrintf("---------------------------------------\n");
         G_LogPrintf("Version: %s %s Linux\n", GAMEVERSION, ETMOD_VERSION);
-        G_LogPrintf("Map: %s\n",level.rawmapname);
+        G_LogPrintf("Map: %s\n", level.rawmapname);
         linux_siginfo(signal, siginfo);
         linux_dsoinfo();
         linux_backtrace(ctx);
@@ -187,13 +216,18 @@ void CrashHandler(int signal, siginfo_t *siginfo, ucontext_t *ctx) {
         G_LogPrintf("Attempting to clean up.\n");
         G_ShutdownGame(0);
         // pass control to the default handler.
-        if(signal == SIGSEGV) {
+        if (signal == SIGSEGV)
+        {
             OldHandler = (void *)oldact[SIGSEGV].sa_sigaction;
             (*OldHandler)(signal);
-        } else {
+        }
+        else
+        {
             exit(1);
         }
-    } else {
+    }
+    else
+    {
         // end this madness we are looping.
         G_Error("Recursive segfault. Bailing out.");
         OldHandler = (void *)oldact[SIGSEGV].sa_sigaction;
@@ -204,17 +238,20 @@ void CrashHandler(int signal, siginfo_t *siginfo, ucontext_t *ctx) {
 
 }
 
-void EnableCoreDumps() {
+void EnableCoreDumps()
+{
 }
 
-void DisableCoreDump() {
+void DisableCoreDump()
+{
 }
 
-void EnableStackTrace() {
+void EnableStackTrace()
+{
     installcrashhandler();
 }
 
-void DisableStackTrace() {
+void DisableStackTrace()
+{
     restorecrashhandler();
 }
-

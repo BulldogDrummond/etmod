@@ -11,7 +11,7 @@
 #include "q_shared.h"
 #include "bg_public.h"
 
-#define MAX_ANIMPOOL_SIZE 5*MAX_MODEL_ANIMATIONS
+#define MAX_ANIMPOOL_SIZE 5 * MAX_MODEL_ANIMATIONS
 
 static animation_t animationPool[MAX_ANIMPOOL_SIZE];
 
@@ -22,9 +22,9 @@ void BG_ClearAnimationPool(void)
 
 static qboolean BG_RAG_ParseError(int handle, char *format, ...)
 {
-    int line;
-    char filename[128];
-    va_list argptr;
+    int         line;
+    char        filename[128];
+    va_list     argptr;
     static char string[4096];
 
     va_start(argptr, format);
@@ -32,7 +32,7 @@ static qboolean BG_RAG_ParseError(int handle, char *format, ...)
     va_end(argptr);
 
     filename[0] = '\0';
-    line = 0;
+    line        = 0;
     trap_PC_SourceFileAndLine(handle, filename, &line);
 
     Com_Printf(S_COLOR_RED "ERROR: %s, line %d: %s\n", filename, line, string);
@@ -48,59 +48,71 @@ static qboolean BG_RAG_ParseAnimation(int handle, animation_t *animation)
 
     animation->flags = 0;
 
-    if(!PC_Int_Parse(handle, &animation->firstFrame)) {
+    if (!PC_Int_Parse(handle, &animation->firstFrame))
+    {
         return BG_RAG_ParseError(handle, "expected first frame integer");
     }
 
-    if(!PC_Int_Parse(handle, &animation->numFrames)) {
+    if (!PC_Int_Parse(handle, &animation->numFrames))
+    {
         return BG_RAG_ParseError(handle, "expected length integer");
     }
 
-    if(!PC_Int_Parse(handle, &animation->loopFrames)) {
+    if (!PC_Int_Parse(handle, &animation->loopFrames))
+    {
         return BG_RAG_ParseError(handle, "expected looping integer");
     }
 
-    if(!PC_Int_Parse(handle, &i)) {
+    if (!PC_Int_Parse(handle, &i))
+    {
         return BG_RAG_ParseError(handle, "expected fps integer");
     }
 
-    if(i == 0) {
+    if (i == 0)
+    {
         i = 1;
     }
 
-    animation->frameLerp = 1000 / (float)i;
+    animation->frameLerp   = 1000 / (float)i;
     animation->initialLerp = 1000 / (float)i;
 
-    if(!PC_Int_Parse(handle, &animation->moveSpeed)) {
+    if (!PC_Int_Parse(handle, &animation->moveSpeed))
+    {
         return BG_RAG_ParseError(handle, "expected move speed integer");
     }
 
-    if(!PC_Int_Parse(handle, &animation->animBlend)) {
+    if (!PC_Int_Parse(handle, &animation->animBlend))
+    {
         return BG_RAG_ParseError(handle, "expected transition integer");
     }
 
-    if(!PC_Int_Parse(handle, &i)) {
+    if (!PC_Int_Parse(handle, &i))
+    {
         return BG_RAG_ParseError(handle, "expected reversed integer");
     }
 
-    if(i == 1)
+    if (i == 1)
+    {
         animation->flags |= ANIMFL_REVERSED;
+    }
 
     // calculate the duration
     animation->duration = animation->initialLerp
-                            + animation->frameLerp * animation->numFrames
-                            + animation->animBlend;
+                          + animation->frameLerp * animation->numFrames
+                          + animation->animBlend;
 
     // get the nameHash
     animation->nameHash = BG_StringHashValue(animation->name);
 
     // hacky-ish stuff
-    if(!Q_strncmp(animation->name, "climb", 5)) {
+    if (!Q_strncmp(animation->name, "climb", 5))
+    {
         animation->flags |= ANIMFL_LADDERANIM;
     }
 
-    if(strstr(animation->name, "firing")) {
-        animation->flags |= ANIMFL_FIRINGANIM;
+    if (strstr(animation->name, "firing"))
+    {
+        animation->flags      |= ANIMFL_FIRINGANIM;
         animation->initialLerp = 40;
     }
 
@@ -108,29 +120,35 @@ static qboolean BG_RAG_ParseAnimation(int handle, animation_t *animation)
 }
 
 #ifdef USE_MDXFILE
-static animation_t* BG_RAG_FindFreeAnimation(qhandle_t mdxFile, const char *name)
+static animation_t *BG_RAG_FindFreeAnimation(qhandle_t mdxFile, const char *name)
 #else
-static animation_t* BG_RAG_FindFreeAnimation(const char *mdxFileName, const char *name)
+static animation_t * BG_RAG_FindFreeAnimation(const char *mdxFileName, const char *name)
 #endif // USE_MDXFILE
 {
     int i;
 
-    for(i = 0; i < MAX_ANIMPOOL_SIZE; i++) {
+    for (i = 0; i < MAX_ANIMPOOL_SIZE; i++)
+    {
 #ifdef USE_MDXFILE
-        if(animationPool[i].mdxFile == mdxFile && !Q_stricmp(animationPool[i].name, name)) {
+        if (animationPool[i].mdxFile == mdxFile && !Q_stricmp(animationPool[i].name, name))
+        {
 #else
-        if(*animationPool[i].mdxFileName && !Q_stricmp(animationPool[i].mdxFileName, mdxFileName) && !Q_stricmp(animationPool[i].name, name)) {
+        if (*animationPool[i].mdxFileName && !Q_stricmp(animationPool[i].mdxFileName, mdxFileName) && !Q_stricmp(animationPool[i].name, name))
+        {
 #endif // USE_MDXFILE
             return(&animationPool[i]);
         }
     }
 
-    for(i = 0; i < MAX_ANIMPOOL_SIZE; i++) {
+    for (i = 0; i < MAX_ANIMPOOL_SIZE; i++)
+    {
 #ifdef USE_MDXFILE
-        if(!animationPool[i].mdxFile) {
+        if (!animationPool[i].mdxFile)
+        {
             animationPool[i].mdxFile = mdxFile;
 #else
-        if(!animationPool[i].mdxFileName[0]) {
+        if (!animationPool[i].mdxFileName[0])
+        {
             Q_strncpyz(animationPool[i].mdxFileName, mdxFileName, sizeof(animationPool[i].mdxFileName));
 #endif // USE_MDXFILE
             Q_strncpyz(animationPool[i].name, name, sizeof(animationPool[i].name));
@@ -156,35 +174,43 @@ static qboolean BG_RAG_ParseAnimFile(int handle, animModelInfo_t *animModelInfo)
 
     animation_t *animation;
 
-    if(!trap_PC_ReadToken(handle, &token)) {
+    if (!trap_PC_ReadToken(handle, &token))
+    {
         return BG_RAG_ParseError(handle, "expected mdx filename");
     }
 
 #ifdef USE_MDXFILE
-    if(!(mdxFile = trap_R_RegisterModel(token.string))) {
+    if (!(mdxFile = trap_R_RegisterModel(token.string)))
+    {
         return BG_RAG_ParseError(handle, "failed to load %s", token.string);
     }
 #else
     Q_strncpyz(mdxFileName, token.string, sizeof(mdxFileName));
 #endif // USE_MDXFILE
 
-    if(!trap_PC_ReadToken(handle, &token) || Q_stricmp(token.string, "{")) {
+    if (!trap_PC_ReadToken(handle, &token) || Q_stricmp(token.string, "{"))
+    {
         return BG_RAG_ParseError(handle, "expected '{'");
     }
 
-    while(1) {
-        if(!trap_PC_ReadToken(handle, &token)) {
+    while (1)
+    {
+        if (!trap_PC_ReadToken(handle, &token))
+        {
             return BG_RAG_ParseError(handle, "unexpected EOF");
         }
 
-        if(token.string[0] == '}') {
+        if (token.string[0] == '}')
+        {
             break;
         }
 
 #ifdef USE_MDXFILE
-        if(!(animation = BG_RAG_FindFreeAnimation(mdxFile, token.string))) {
+        if (!(animation = BG_RAG_FindFreeAnimation(mdxFile, token.string)))
+        {
 #else
-        if(!(animation = BG_RAG_FindFreeAnimation(mdxFileName, token.string))) {
+        if (!(animation = BG_RAG_FindFreeAnimation(mdxFileName, token.string)))
+        {
 #endif // USE_MDXFILE
             return BG_RAG_ParseError(handle, "out of animation storage space");
         }
@@ -192,7 +218,8 @@ static qboolean BG_RAG_ParseAnimFile(int handle, animModelInfo_t *animModelInfo)
         Q_strncpyz(animation->name, token.string, sizeof(animation->name));
         Q_strlwr(animation->name);
 
-        if(!BG_RAG_ParseAnimation(handle, animation)) {
+        if (!BG_RAG_ParseAnimation(handle, animation))
+        {
             return qfalse;
         }
 
@@ -203,46 +230,56 @@ static qboolean BG_RAG_ParseAnimFile(int handle, animModelInfo_t *animModelInfo)
     return qtrue;
 }
 
-
 qboolean BG_R_RegisterAnimationGroup(const char *filename, animModelInfo_t *animModelInfo)
 {
     pc_token_t token;
-    int handle;
+    int        handle;
 
     animModelInfo->numAnimations = 0;
-    animModelInfo->footsteps = FOOTSTEP_NORMAL;
-    animModelInfo->gender = GENDER_MALE;
-    animModelInfo->isSkeletal = qtrue;
-    animModelInfo->version = 3;
-    animModelInfo->numHeadAnims = 0;
+    animModelInfo->footsteps     = FOOTSTEP_NORMAL;
+    animModelInfo->gender        = GENDER_MALE;
+    animModelInfo->isSkeletal    = qtrue;
+    animModelInfo->version       = 3;
+    animModelInfo->numHeadAnims  = 0;
 
     handle = trap_PC_LoadSource(filename);
 
-    if(!handle)
+    if (!handle)
+    {
         return qfalse;
+    }
 
-    if(!trap_PC_ReadToken(handle, &token) || Q_stricmp(token.string, "animgroup")) {
+    if (!trap_PC_ReadToken(handle, &token) || Q_stricmp(token.string, "animgroup"))
+    {
         return BG_RAG_ParseError(handle, "expected 'animgroup'");
     }
 
-    if(!trap_PC_ReadToken(handle, &token) || Q_stricmp(token.string, "{")) {
+    if (!trap_PC_ReadToken(handle, &token) || Q_stricmp(token.string, "{"))
+    {
         return BG_RAG_ParseError(handle, "expected '{'");
     }
 
-    while(1) {
-        if(!trap_PC_ReadToken(handle, &token)) {
+    while (1)
+    {
+        if (!trap_PC_ReadToken(handle, &token))
+        {
             break;
         }
 
-        if(token.string[0] == '}') {
+        if (token.string[0] == '}')
+        {
             break;
         }
 
-        if(!Q_stricmp(token.string, "animfile")) {
-            if(!BG_RAG_ParseAnimFile(handle, animModelInfo)) {
+        if (!Q_stricmp(token.string, "animfile"))
+        {
+            if (!BG_RAG_ParseAnimFile(handle, animModelInfo))
+            {
                 return qfalse;
             }
-        } else {
+        }
+        else
+        {
             return BG_RAG_ParseError(handle, "unknown token '%s'", token.string);
         }
     }
@@ -251,4 +288,3 @@ qboolean BG_R_RegisterAnimationGroup(const char *filename, animModelInfo_t *anim
 
     return qtrue;
 }
-

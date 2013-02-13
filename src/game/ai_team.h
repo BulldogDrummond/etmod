@@ -15,7 +15,8 @@
 #ifndef BOT_SHOWTEXT
 #define BOT_SHOWTEXT 2
 
-typedef enum {
+typedef enum
+{
     VCHAT_MEDIC,
     VCHAT_NEEDAMMO,
     VCHAT_NEEDBACKUP,
@@ -36,7 +37,7 @@ typedef struct AI_Team_s
 
 } AI_Team_t;
 
-qboolean BotCheckNeedEngineer(bot_state_t *bs, team_t team );
+qboolean BotCheckNeedEngineer(bot_state_t *bs, team_t team);
 int BotSuggestClass(bot_state_t *bs, team_t team);
 int BotFlagAtBase(int team, gentity_t **returnEnt);
 qboolean BotCheckEmergencyTargets(bot_state_t *bs);
@@ -75,7 +76,7 @@ int BotClosestSeekCoverSpot(bot_state_t *bs);
 int BotSquadGetNextAvailableSeekCoverSpot
 (
     // The info for the bot
-    bot_state_t *bs, 
+    bot_state_t *bs,
     // Moving forwards or backwards?
     qboolean advance,
     // entity id of the player we should check being in a seek_cover_sequence
@@ -92,4 +93,3 @@ int BotGetAdjacentExposedCoverSpot(bot_state_t *bs);
 int BotGetRetreatingCoverSpot(bot_state_t *bs, int retreatTo);
 
 #endif
-

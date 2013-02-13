@@ -40,4 +40,3 @@ void G_DB_XPSave(char *guid, char *name, int time, float skill0, float skill1,
 #endif /* ifdef FEATURE_MYSQL */
 
 #endif /* ifndef _Q_MYSQL_H */
-

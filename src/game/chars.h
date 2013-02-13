@@ -135,4 +135,3 @@
 #define CHARACTERISTIC_AIM_ACCURACY_PRONEMG42        49    //float [0, 1]
 
 #endif
-

@@ -23,47 +23,44 @@
 #include "ai_dmq3.h"
 #include "be_ai_chat.h"
 
-static int        g_numBots;
-static char        g_botInfos[MAX_BOTS][MAX_INFO_STRING];
+static int  g_numBots;
+static char g_botInfos[MAX_BOTS][MAX_INFO_STRING];
 
-
-int                g_numArenas;
-static char        g_arenaInfos[MAX_ARENAS][MAX_INFO_STRING];
-
+int         g_numArenas;
+static char g_arenaInfos[MAX_ARENAS][MAX_INFO_STRING];
 
 #define BOT_BEGIN_DELAY_BASE        2000
 #define BOT_BEGIN_DELAY_INCREMENT    1500
 
 #define BOT_SPAWN_QUEUE_DEPTH    16
 
-typedef struct {
-    int        clientNum;
-    int        spawnTime;
+typedef struct
+{
+    int clientNum;
+    int spawnTime;
 } botSpawnQueue_t;
 
-static int                botBeginDelay;
-static botSpawnQueue_t    botSpawnQueue[BOT_SPAWN_QUEUE_DEPTH];
+static int             botBeginDelay;
+static botSpawnQueue_t botSpawnQueue[BOT_SPAWN_QUEUE_DEPTH];
 
 vmCvar_t bot_minplayers;
 vmCvar_t bot_eventeams;
 vmCvar_t bot_defaultskill;
 
-
 // Mad Doc - TDF
-// for bot debugging purposes only. 
-vmCvar_t    bot_debug;                    // if set, draw "thought bubbles" for crosshair-selected bot
-vmCvar_t    bot_debug_curAINode;        // the text of the current ainode for the bot begin debugged
-vmCvar_t    bot_debug_alertState;        // alert state of the bot being debugged
-vmCvar_t    bot_debug_pos;                // coords of the bot being debugged
-vmCvar_t    bot_debug_weaponAutonomy;    // weapon autonomy of the bot being debugged
-vmCvar_t    bot_debug_movementAutonomy;    // movement autonomy of the bot being debugged
-vmCvar_t    bot_debug_cover_spot;        // What cover spot are we going to?
-vmCvar_t    bot_debug_anim;                // what animation is the bot playing?
+// for bot debugging purposes only.
+vmCvar_t bot_debug;                       // if set, draw "thought bubbles" for crosshair-selected bot
+vmCvar_t bot_debug_curAINode;           // the text of the current ainode for the bot begin debugged
+vmCvar_t bot_debug_alertState;           // alert state of the bot being debugged
+vmCvar_t bot_debug_pos;                   // coords of the bot being debugged
+vmCvar_t bot_debug_weaponAutonomy;       // weapon autonomy of the bot being debugged
+vmCvar_t bot_debug_movementAutonomy;       // movement autonomy of the bot being debugged
+vmCvar_t bot_debug_cover_spot;           // What cover spot are we going to?
+vmCvar_t bot_debug_anim;                   // what animation is the bot playing?
 
-
-extern gentity_t    *podium1;
-extern gentity_t    *podium2;
-extern gentity_t    *podium3;
+extern gentity_t *podium1;
+extern gentity_t *podium2;
+extern gentity_t *podium3;
 
 // TTimo gcc: defined but not used
 #if 0
@@ -72,29 +69,34 @@ extern gentity_t    *podium3;
 G_LoadArenas
 ===============
 */
-static void G_LoadArenas(void) {
+static void G_LoadArenas(void)
+{
 #ifdef QUAKESTUFF
-    int            len;
-    char        *filename;
-    vmCvar_t    arenasFile;
-    fileHandle_t    f;
-    int            n;
-    char        buf[MAX_ARENAS_TEXT];
+    int          len;
+    char         *filename;
+    vmCvar_t     arenasFile;
+    fileHandle_t f;
+    int          n;
+    char         buf[MAX_ARENAS_TEXT];
 
-    trap_Cvar_Register(&arenasFile, "g_arenasFile", "", CVAR_INIT|CVAR_ROM);
-    if(*arenasFile.string) {
+    trap_Cvar_Register(&arenasFile, "g_arenasFile", "", CVAR_INIT | CVAR_ROM);
+    if (*arenasFile.string)
+    {
         filename = arenasFile.string;
     }
-    else {
+    else
+    {
         filename = "scripts/arenas.txt";
     }
 
     len = trap_FS_FOpenFile(filename, &f, FS_READ);
-    if (!f) {
+    if (!f)
+    {
         trap_Printf(va(S_COLOR_RED "file not found: %s\n", filename));
         return;
     }
-    if (len >= MAX_ARENAS_TEXT) {
+    if (len >= MAX_ARENAS_TEXT)
+    {
         trap_Printf(va(S_COLOR_RED "file too large: %s is %i, max allowed is %i", filename, len, MAX_ARENAS_TEXT));
         trap_FS_FCloseFile(f);
         return;
@@ -107,7 +109,8 @@ static void G_LoadArenas(void) {
     g_numArenas = Com_ParseInfos(buf, MAX_ARENAS, g_arenaInfos);
     trap_Printf(va("%i arenas parsed\n", g_numArenas));
 
-    for(n = 0; n < g_numArenas; n++) {
+    for (n = 0; n < g_numArenas; n++)
+    {
         Info_SetValueForKey(g_arenaInfos[n], "num", va("%i", n));
     }
 #endif
@@ -119,11 +122,14 @@ static void G_LoadArenas(void) {
 G_GetArenaInfoByNumber
 ===============
 */
-const char *G_GetArenaInfoByMap(const char *map) {
-    int            n;
+const char *G_GetArenaInfoByMap(const char *map)
+{
+    int n;
 
-    for(n = 0; n < g_numArenas; n++) {
-        if(Q_stricmp(Info_ValueForKey(g_arenaInfos[n], "map"), map) == 0) {
+    for (n = 0; n < g_numArenas; n++)
+    {
+        if (Q_stricmp(Info_ValueForKey(g_arenaInfos[n], "map"), map) == 0)
+        {
             return g_arenaInfos[n];
         }
     }
@@ -138,20 +144,24 @@ const char *G_GetArenaInfoByMap(const char *map) {
 PlayerIntroSound
 =================
 */
-static void PlayerIntroSound(const char *modelAndSkin) {
-    char    model[MAX_QPATH];
-    char    *skin;
+static void PlayerIntroSound(const char *modelAndSkin)
+{
+    char model[MAX_QPATH];
+    char *skin;
 
     Q_strncpyz(model, modelAndSkin, sizeof(model));
     skin = Q_strrchr(model, '/');
-    if (skin) {
+    if (skin)
+    {
         *skin++ = '\0';
     }
-    else {
+    else
+    {
         skin = model;
     }
 
-    if(Q_stricmp(skin, "default") == 0) {
+    if (Q_stricmp(skin, "default") == 0)
+    {
         skin = model;
     }
 
@@ -164,14 +174,24 @@ static void PlayerIntroSound(const char *modelAndSkin) {
 G_AddRandomBot
 ===============
 */
-void G_AddRandomBot(int team) {
-    char    *teamstr;
-    int skill;
+void G_AddRandomBot(int team)
+{
+    char *teamstr;
+    int  skill;
 
     skill = trap_Cvar_VariableIntegerValue("bot_defaultskill");
-    if (team == TEAM_AXIS) teamstr = "red";
-    else if (team == TEAM_ALLIES) teamstr = "blue";
-    else teamstr = "";
+    if (team == TEAM_AXIS)
+    {
+        teamstr = "red";
+    }
+    else if (team == TEAM_ALLIES)
+    {
+        teamstr = "blue";
+    }
+    else
+    {
+        teamstr = "";
+    }
 
     trap_SendConsoleCommand(EXEC_INSERT, va("addbot %i %s %i\n", skill, teamstr, 0));
 /*
@@ -244,20 +264,25 @@ void G_AddRandomBot(int team) {
 G_RemoveRandomBot
 ===============
 */
-int G_RemoveRandomBot(int team) {
-    int i;
-    char netname[36];
-    gclient_t    *cl;
+int G_RemoveRandomBot(int team)
+{
+    int       i;
+    char      netname[36];
+    gclient_t *cl;
 
-    for (i=0 ; i< g_maxclients.integer ; i++) {
+    for (i = 0 ; i < g_maxclients.integer ; i++)
+    {
         cl = level.clients + i;
-        if (cl->pers.connected != CON_CONNECTED) {
+        if (cl->pers.connected != CON_CONNECTED)
+        {
             continue;
         }
-        if (!(g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT)) {
+        if (!(g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT))
+        {
             continue;
         }
-        if (team >= 0 && cl->sess.sessionTeam != team) {
+        if (team >= 0 && cl->sess.sessionTeam != team)
+        {
             continue;
         }
         strcpy(netname, cl->pers.netname);
@@ -273,20 +298,25 @@ int G_RemoveRandomBot(int team) {
 G_CountHumanPlayers
 ===============
 */
-int G_CountHumanPlayers(int team) {
-    int i, num;
-    gclient_t    *cl;
+int G_CountHumanPlayers(int team)
+{
+    int       i, num;
+    gclient_t *cl;
 
     num = 0;
-    for (i=0 ; i< g_maxclients.integer ; i++) {
+    for (i = 0 ; i < g_maxclients.integer ; i++)
+    {
         cl = level.clients + i;
-        if (cl->pers.connected != CON_CONNECTED) {
+        if (cl->pers.connected != CON_CONNECTED)
+        {
             continue;
         }
-        if (g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT) {
+        if (g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT)
+        {
             continue;
         }
-        if (team >= 0 && cl->sess.sessionTeam != team) {
+        if (team >= 0 && cl->sess.sessionTeam != team)
+        {
             continue;
         }
         num++;
@@ -299,29 +329,37 @@ int G_CountHumanPlayers(int team) {
 G_CountBotPlayers
 ===============
 */
-int G_CountBotPlayers(int team) {
-    int i, n, num;
-    gclient_t    *cl;
+int G_CountBotPlayers(int team)
+{
+    int       i, n, num;
+    gclient_t *cl;
 
     num = 0;
-    for (i=0 ; i< g_maxclients.integer ; i++) {
+    for (i = 0 ; i < g_maxclients.integer ; i++)
+    {
         cl = level.clients + i;
-        if (cl->pers.connected != CON_CONNECTED) {
+        if (cl->pers.connected != CON_CONNECTED)
+        {
             continue;
         }
-        if (!(g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT)) {
+        if (!(g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT))
+        {
             continue;
         }
-        if (team >= 0 && cl->sess.sessionTeam != team) {
+        if (team >= 0 && cl->sess.sessionTeam != team)
+        {
             continue;
         }
         num++;
     }
-    for(n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++) {
-        if(!botSpawnQueue[n].spawnTime) {
+    for (n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++)
+    {
+        if (!botSpawnQueue[n].spawnTime)
+        {
             continue;
         }
-        if (botSpawnQueue[n].spawnTime > level.time) {
+        if (botSpawnQueue[n].spawnTime > level.time)
+        {
             continue;
         }
         num++;
@@ -334,45 +372,49 @@ int G_CountBotPlayers(int team) {
 G_CheckMinimumPlayers
 ===============
 */
-void G_CheckMinimumPlayers(void) {
-    int minplayers/*, weakestTeam, strongestTeam*/;
-    int humanplayers[TEAM_NUM_TEAMS], botplayers[TEAM_NUM_TEAMS], players[TEAM_NUM_TEAMS];
+void G_CheckMinimumPlayers(void)
+{
+    int        minplayers /*, weakestTeam, strongestTeam*/;
+    int        humanplayers[TEAM_NUM_TEAMS], botplayers[TEAM_NUM_TEAMS], players[TEAM_NUM_TEAMS];
     static int checkminimumplayers_time = 0;
 
     // wait until the system is ready
-    if (!level.initStaticEnts) return;
+    if (!level.initStaticEnts)
+    {
+        return;
+    }
 
     //only check once each second
-    if (checkminimumplayers_time < level.time && checkminimumplayers_time > level.time - 1000) {
+    if (checkminimumplayers_time < level.time && checkminimumplayers_time > level.time - 1000)
+    {
         return;
     }
 
     // More safety on initial load for MP
-    if(!G_IsSinglePlayerGame() && level.time - level.startTime < 7500) {
+    if (!G_IsSinglePlayerGame() && level.time - level.startTime < 7500)
+    {
         return;
     }
 
     humanplayers[TEAM_AXIS] = G_CountHumanPlayers(TEAM_AXIS);
-    botplayers[TEAM_AXIS] = G_CountBotPlayers(   TEAM_AXIS);
-    players[TEAM_AXIS] = humanplayers[TEAM_AXIS] + botplayers[TEAM_AXIS];
+    botplayers[TEAM_AXIS]   = G_CountBotPlayers(TEAM_AXIS);
+    players[TEAM_AXIS]      = humanplayers[TEAM_AXIS] + botplayers[TEAM_AXIS];
 
     //
     humanplayers[TEAM_ALLIES] = G_CountHumanPlayers(TEAM_ALLIES);
-    botplayers[TEAM_ALLIES] = G_CountBotPlayers(TEAM_ALLIES);
-    players[TEAM_ALLIES] = humanplayers[TEAM_ALLIES] + botplayers[TEAM_ALLIES];
-
+    botplayers[TEAM_ALLIES]   = G_CountBotPlayers(TEAM_ALLIES);
+    players[TEAM_ALLIES]      = humanplayers[TEAM_ALLIES] + botplayers[TEAM_ALLIES];
 
     checkminimumplayers_time = level.time;
     trap_Cvar_Update(&bot_minplayers);
     minplayers = bot_minplayers.integer;
 
-
-    if (minplayers >= g_maxclients.integer / 2) {
-        minplayers = (g_maxclients.integer / 2) -1;
+    if (minplayers >= g_maxclients.integer / 2)
+    {
+        minplayers = (g_maxclients.integer / 2) - 1;
     }
 
-    
-        //
+    //
 /*    if (players[TEAM_AXIS] < minplayers) {
         G_AddRandomBot(TEAM_AXIS);
         return;
@@ -428,17 +470,21 @@ void G_CheckMinimumPlayers(void) {
 G_CheckBotSpawn
 ===============
 */
-void G_CheckBotSpawn(void) {
-    int        n;
+void G_CheckBotSpawn(void)
+{
+    int n;
 //    char    userinfo[MAX_INFO_VALUE];
 
     G_CheckMinimumPlayers();
 
-    for(n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++) {
-        if(!botSpawnQueue[n].spawnTime) {
+    for (n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++)
+    {
+        if (!botSpawnQueue[n].spawnTime)
+        {
             continue;
         }
-        if (botSpawnQueue[n].spawnTime > level.time) {
+        if (botSpawnQueue[n].spawnTime > level.time)
+        {
             continue;
         }
         ClientBegin(botSpawnQueue[n].clientNum);
@@ -446,17 +492,19 @@ void G_CheckBotSpawn(void) {
     }
 }
 
-
 /*
 ===============
 AddBotToSpawnQueue
 ===============
 */
-static void AddBotToSpawnQueue(int clientNum, int delay) {
-    int        n;
+static void AddBotToSpawnQueue(int clientNum, int delay)
+{
+    int n;
 
-    for(n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++) {
-        if(!botSpawnQueue[n].spawnTime) {
+    for (n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++)
+    {
+        if (!botSpawnQueue[n].spawnTime)
+        {
             botSpawnQueue[n].spawnTime = level.time + delay;
             botSpawnQueue[n].clientNum = clientNum;
             return;
@@ -467,26 +515,26 @@ static void AddBotToSpawnQueue(int clientNum, int delay) {
     ClientBegin(clientNum);
 }
 
-
 /*
 ===============
 G_QueueBotBegin
 ===============
 */
-void G_QueueBotBegin(int clientNum) {
+void G_QueueBotBegin(int clientNum)
+{
     AddBotToSpawnQueue(clientNum, botBeginDelay);
     botBeginDelay += BOT_BEGIN_DELAY_INCREMENT;
 }
-
 
 /*
 ===============
 G_BotConnect
 ===============
 */
-qboolean G_BotConnect(int clientNum, qboolean restart) {
-    bot_settings_t    settings;
-    char            userinfo[MAX_INFO_STRING];
+qboolean G_BotConnect(int clientNum, qboolean restart)
+{
+    bot_settings_t settings;
+    char           userinfo[MAX_INFO_STRING];
 
     trap_GetUserinfo(clientNum, userinfo, sizeof(userinfo));
 
@@ -494,7 +542,8 @@ qboolean G_BotConnect(int clientNum, qboolean restart) {
     settings.skill = atoi(Info_ValueForKey(userinfo, "skill"));
     Q_strncpyz(settings.team, Info_ValueForKey(userinfo, "team"), sizeof(settings.team));
 
-    if (!BotAISetupClient(clientNum, &settings)) {
+    if (!BotAISetupClient(clientNum, &settings))
+    {
         trap_DropClient(clientNum, "BotAISetupClient failed", 0);
         return qfalse;
     }
@@ -508,68 +557,124 @@ Bot_GetWeaponForClassAndTeam
 ===============
 */
 // returns the wp_ number for weapon "weaponName", or -1 if weapon not allowed for player/class/team combination
-int Bot_GetWeaponForClassAndTeam(int classNum, int teamNum, const char *weaponName) {
+int Bot_GetWeaponForClassAndTeam(int classNum, int teamNum, const char *weaponName)
+{
     weapon_t weapon = -1;    // start by assuming the weapon is invalid
 
-    if(!Q_stricmp(weaponName, "MP40"))
-        weapon = WP_MP40; 
-    else if(!Q_stricmp(weaponName, "THOMPSON"))
-        weapon =  WP_THOMPSON;
-    else if(!Q_stricmp(weaponName, "KAR98"))
-        weapon =  WP_KAR98;
-    else if(!Q_stricmp(weaponName, "CARBINE"))
-        weapon =  WP_CARBINE;
+    if (!Q_stricmp(weaponName, "MP40"))
+    {
+        weapon = WP_MP40;
+    }
+    else if (!Q_stricmp(weaponName, "THOMPSON"))
+    {
+        weapon = WP_THOMPSON;
+    }
+    else if (!Q_stricmp(weaponName, "KAR98"))
+    {
+        weapon = WP_KAR98;
+    }
+    else if (!Q_stricmp(weaponName, "CARBINE"))
+    {
+        weapon = WP_CARBINE;
+    }
     // Gordon: 25/10/02: adding ability to set pliers
-    else if(!Q_stricmp(weaponName, "PLIERS"))
+    else if (!Q_stricmp(weaponName, "PLIERS"))
+    {
         weapon = WP_PLIERS;
+    }
     else if (!Q_stricmp(weaponName, "DYNAMITE"))
+    {
         weapon = WP_DYNAMITE;
+    }
     else if (!Q_stricmp(weaponName, "LANDMINE"))
+    {
         weapon = WP_LANDMINE;
-    else if(!Q_stricmp(weaponName, "STEN"))
+    }
+    else if (!Q_stricmp(weaponName, "STEN"))
+    {
         weapon = WP_STEN;
-    else if(!Q_stricmp(weaponName, "PANZERFAUST"))
+    }
+    else if (!Q_stricmp(weaponName, "PANZERFAUST"))
+    {
         weapon = WP_PANZERFAUST;
-    else if(!Q_stricmp(weaponName, "MORTAR"))
+    }
+    else if (!Q_stricmp(weaponName, "MORTAR"))
+    {
         weapon = WP_MORTAR;
-    else if(!Q_stricmp(weaponName, "MORTAR_DEPLOYED"))
+    }
+    else if (!Q_stricmp(weaponName, "MORTAR_DEPLOYED"))
+    {
         weapon = WP_MORTAR_SET;
-    else if(!Q_stricmp(weaponName, "FLAMETHROWER"))
+    }
+    else if (!Q_stricmp(weaponName, "FLAMETHROWER"))
+    {
         weapon = WP_FLAMETHROWER;
-    else if(!Q_stricmp(weaponName, "FG42"))
+    }
+    else if (!Q_stricmp(weaponName, "FG42"))
+    {
         weapon = WP_FG42;
-    else if(!Q_stricmp(weaponName, "MOBILE_MG42"))
+    }
+    else if (!Q_stricmp(weaponName, "MOBILE_MG42"))
+    {
         weapon = WP_MOBILE_MG42;
+    }
     else if (!Q_stricmp(weaponName, "SYRINGE"))
+    {
         weapon = WP_MEDIC_SYRINGE;
+    }
     else if (!Q_stricmp(weaponName, "MEDKIT"))
+    {
         weapon = WP_MEDKIT;
-    else if(!Q_stricmp(weaponName, "K43"))
-        weapon = WP_K43; 
-    else if(!Q_stricmp(weaponName, "GARAND"))
+    }
+    else if (!Q_stricmp(weaponName, "K43"))
+    {
+        weapon = WP_K43;
+    }
+    else if (!Q_stricmp(weaponName, "GARAND"))
+    {
         weapon = WP_GARAND;
+    }
     else if (!Q_stricmp(weaponName, "SMOKEBOMB"))
+    {
         weapon = WP_SMOKE_BOMB;
+    }
     else if (!Q_stricmp(weaponName, "SATCHEL"))
+    {
         weapon = WP_SATCHEL;
+    }
     else if (!Q_stricmp(weaponName, "AMMOKIT"))
+    {
         weapon = WP_AMMO;
-
-    else if(!Q_stricmp(weaponName, "NONE"))
+    }
+    else if (!Q_stricmp(weaponName, "NONE"))
+    {
         weapon = WP_NONE;
-    else if(!Q_stricmp(weaponName, "KNIFE"))
+    }
+    else if (!Q_stricmp(weaponName, "KNIFE"))
+    {
         weapon = WP_KNIFE;
-    else if(!Q_stricmp(weaponName, "LUGER"))
+    }
+    else if (!Q_stricmp(weaponName, "LUGER"))
+    {
         weapon = WP_LUGER;
-    else if(!Q_stricmp(weaponName, "COLT"))
+    }
+    else if (!Q_stricmp(weaponName, "COLT"))
+    {
         weapon = WP_COLT;
-    else 
+    }
+    else
+    {
         return -1;
+    }
 
     if (BG_CanUseWeapon(classNum, teamNum, weapon))
+    {
         return weapon;
+    }
     else
+    {
         return -1;
+    }
 }
 
 /*
@@ -587,52 +692,60 @@ Find the next free slot number (for allies bot)
 #if 0 // rain - unused
 static void G_AssignBotSlot(gentity_t *bot)
 {
-    int i;
+    int       i;
     gentity_t *ent;
-    int slotUsed[MAX_SLOT_NUMBER];
+    int       slotUsed[MAX_SLOT_NUMBER];
 
-    for (i=0; i<MAX_SLOT_NUMBER; i++)
+    for (i = 0; i < MAX_SLOT_NUMBER; i++)
+    {
         slotUsed[i] = qfalse;
+    }
 
-    for(i = 0; i < MAX_CLIENTS; i++) 
+    for (i = 0; i < MAX_CLIENTS; i++)
     {
         ent = g_entities + i;
-        if (ent->client && ent != bot && ent->r.svFlags & SVF_BOT 
-            && ent->client->sess.sessionTeam == TEAM_ALLIES) 
+        if (ent->client && ent != bot && ent->r.svFlags & SVF_BOT
+            && ent->client->sess.sessionTeam == TEAM_ALLIES)
         {
             if (ent->client->botSlotNumber > 0)
-                slotUsed[ent->client->botSlotNumber-1] = qtrue;
+            {
+                slotUsed[ent->client->botSlotNumber - 1] = qtrue;
+            }
             else
+            {
                 G_Error("Buddy %s is not assigned to any number", ent->client->pers.netname);
+            }
         }
     }
-    for (i=0; i<MAX_SLOT_NUMBER; i++) 
+    for (i = 0; i < MAX_SLOT_NUMBER; i++)
     {
-            if (!slotUsed[i])
-            {
-                bot->client->botSlotNumber = i+1;    // slot number is non-0
-                return;    
-            }
+        if (!slotUsed[i])
+        {
+            bot->client->botSlotNumber = i + 1;      // slot number is non-0
+            return;
+        }
     }
     G_Error("Maximum number of allies buddies exceeded");
 }
 #endif
 
-static void G_AddBot(const char *name, int skill, const char *team, const char *spawnPoint, int playerClass, int playerWeapon, int characerIndex, const char *respawn, const char *scriptName, int rank, int skills[], qboolean pow) {
+static void G_AddBot(const char *name, int skill, const char *team, const char *spawnPoint, int playerClass, int playerWeapon, int characerIndex, const char *respawn, const char *scriptName, int rank, int skills[], qboolean pow)
+{
 #define    MAX_BOTNAMES 1024
-    int                clientNum;
-    char            *botinfo;
-    gentity_t        *bot;
-    char            *key;
-    char            *s;
-    char            *botname;
+    int       clientNum;
+    char      *botinfo;
+    gentity_t *bot;
+    char      *key;
+    char      *s;
+    char      *botname;
 //    char            *model;
-    char            userinfo[MAX_INFO_STRING];
+    char userinfo[MAX_INFO_STRING];
 
     // get the botinfo from bots.txt
     // CHRUKER: b070 - Was 'wolfbot' but this must match in case
     botinfo = G_GetBotInfoByName("Wolfbot");
-    if (!botinfo) {
+    if (!botinfo)
+    {
         G_Printf(S_COLOR_RED "Error: Bot '%s' not defined\n", name);
         return;
     }
@@ -641,7 +754,8 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
     userinfo[0] = '\0';
 
     botname = Info_ValueForKey(botinfo, "funname");
-    if(!botname[0]) {
+    if (!botname[0])
+    {
         botname = Info_ValueForKey(botinfo, "name");
     }
     Info_SetValueForKey(userinfo, "name", botname);
@@ -650,24 +764,30 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
     Info_SetValueForKey(userinfo, "skill", va("%i", skill));
 
     s = Info_ValueForKey(botinfo, "aifile");
-    if (!*s) {
+    if (!*s)
+    {
         trap_Printf(S_COLOR_RED "Error: bot has no aifile specified\n");
         return;
     }
 
     // have the server allocate a client slot
     clientNum = trap_BotAllocateClient(0);    // Arnout: 0 means no prefered clientslot
-    if (clientNum == -1) {
+    if (clientNum == -1)
+    {
         G_Printf(S_COLOR_RED "Unable to add bot.  All player slots are in use.\n");
         G_Printf(S_COLOR_RED "Start server with more 'open' slots (or check setting of sv_maxclients cvar).\n");
         return;
     }
 
     // initialize the bot settings
-    if(!team || !*team) {
-        if(PickTeam(clientNum) == TEAM_AXIS) {
+    if (!team || !*team)
+    {
+        if (PickTeam(clientNum) == TEAM_AXIS)
+        {
             team = "red";
-        } else {
+        }
+        else
+        {
             team = "blue";
         }
     }
@@ -675,11 +795,13 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
     //Info_SetValueForKey(userinfo, "skill", va("%i", skill));
     Info_SetValueForKey(userinfo, "team", team);
 
-    if(spawnPoint && spawnPoint[0]) {
+    if (spawnPoint && spawnPoint[0])
+    {
         Info_SetValueForKey(userinfo, "spawnPoint", spawnPoint);
     }
 
-    if (scriptName && scriptName[0]) {
+    if (scriptName && scriptName[0])
+    {
         Info_SetValueForKey(userinfo, "scriptName", scriptName);
     }
 
@@ -693,45 +815,59 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
     // END Mad Doc - TDF
 
     key = "wolfbot";
-    if (!Q_stricmp((char *)name, key)) {
+    if (!Q_stricmp((char *)name, key))
+    {
         // read the botnames file, and pick a name that doesnt exist
         fileHandle_t f;
-        int len, i, j, k;
-        qboolean setname = qfalse;
-        char botnames[8192], *pbotnames, *listbotnames[MAX_BOTNAMES], *token, *oldpbotnames;
-        int    lengthbotnames[MAX_BOTNAMES];
+        int          len, i, j, k;
+        qboolean     setname = qfalse;
+        char         botnames[8192], *pbotnames, *listbotnames[MAX_BOTNAMES], *token, *oldpbotnames;
+        int          lengthbotnames[MAX_BOTNAMES];
 
         len = trap_FS_FOpenFile("botfiles/botnames.txt", &f, FS_READ);
 
-        if (len >= 0) {
-            if (len > sizeof(botnames)) {
+        if (len >= 0)
+        {
+            if (len > sizeof(botnames))
+            {
                 G_Error("botfiles/botnames.txt is too big (max = %i)", (int)sizeof(botnames));
             }
             memset(botnames, 0, sizeof(botnames));
             trap_FS_Read(botnames, len, f);
             pbotnames = botnames;
             // read them in
-            i = 0;
+            i            = 0;
             oldpbotnames = pbotnames;
-            while ((token = COM_Parse(&pbotnames))) {
-                if (!token[0]) break;
-                listbotnames[i] = strstr(oldpbotnames, token);
-                lengthbotnames[i] = strlen(token);
+            while ((token = COM_Parse(&pbotnames)))
+            {
+                if (!token[0])
+                {
+                    break;
+                }
+                listbotnames[i]                    = strstr(oldpbotnames, token);
+                lengthbotnames[i]                  = strlen(token);
                 listbotnames[i][lengthbotnames[i]] = 0;
-                oldpbotnames = pbotnames;
-                if (++i == MAX_BOTNAMES) break;
+                oldpbotnames                       = pbotnames;
+                if (++i == MAX_BOTNAMES)
+                {
+                    break;
+                }
             }
             //
-            if (i > 2) {
-                j = rand() % (i-1);    // start at a random spot inthe list
-                for(k = j + 1; k != j; k++) {
-                    if(k == i) {
+            if (i > 2)
+            {
+                j = rand() % (i - 1);    // start at a random spot inthe list
+                for (k = j + 1; k != j; k++)
+                {
+                    if (k == i)
+                    {
                         k = -1;    // gets increased on next loop
                         continue;
                     }
-                    if (ClientFromName(listbotnames[k]) == -1) {
+                    if (ClientFromName(listbotnames[k]) == -1)
+                    {
                         // found an unused name
-                        Info_SetValueForKey(userinfo, "name", listbotnames[k] );
+                        Info_SetValueForKey(userinfo, "name", listbotnames[k]);
                         setname = qtrue;
                         break;
                     }
@@ -741,15 +877,19 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
             trap_FS_FCloseFile(f);
         }
 
-        if (!setname) {
-            Info_SetValueForKey(userinfo, "name", va("wolfbot_%i", clientNum+1) );
+        if (!setname)
+        {
+            Info_SetValueForKey(userinfo, "name", va("wolfbot_%i", clientNum + 1));
         }
-    } else {
+    }
+    else
+    {
         Info_SetValueForKey(userinfo, "name", name);
     }
 
     // if a character was specified, put the index of that character filename in the CS_CHARACTERS table in the userinfo
-    if(characerIndex != -1) {
+    if (characerIndex != -1)
+    {
         Info_SetValueForKey(userinfo, "ch", va("%i", characerIndex));
     }
 
@@ -759,20 +899,22 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
     }*/
 
     // END Mad Doc - TDF
-    
-    bot = &g_entities[ clientNum ];
+
+    bot             = &g_entities[clientNum];
     bot->r.svFlags |= SVF_BOT;
-    if(pow) {
+    if (pow)
+    {
         bot->r.svFlags |= SVF_POW;
     }
-    bot->inuse = qtrue;
+    bot->inuse  = qtrue;
     bot->aiName = bot->client->pers.netname;
 
     // register the userinfo
     trap_SetUserinfo(clientNum, userinfo);
 
     // have it connect to the game as a normal client
-    if ((s = ClientConnect(clientNum, qtrue, qtrue))) {
+    if ((s = ClientConnect(clientNum, qtrue, qtrue)))
+    {
         G_Printf(S_COLOR_RED "Unable to add bot: %s\n", s);
         return;
     }
@@ -781,7 +923,7 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
 
 /*    if(skills) {
         int i;
-        
+
         for(i = 0; i < SK_NUM_SKILLS; i++) {
             bot->client->sess.skill[i] = skills[i];
         }
@@ -789,45 +931,49 @@ static void G_AddBot(const char *name, int skill, const char *team, const char *
     return;
 }
 
-
-
 /*
 ===============
 Svcmd_AddBot_f
 ===============
 */
-void Svcmd_AddBot_f(void) {
-    int                skill;
-    int                delay;
-    char            name[MAX_TOKEN_CHARS];
-    char            string[MAX_TOKEN_CHARS];
-    char            team[MAX_TOKEN_CHARS];
+void Svcmd_AddBot_f(void)
+{
+    int  skill;
+    int  delay;
+    char name[MAX_TOKEN_CHARS];
+    char string[MAX_TOKEN_CHARS];
+    char team[MAX_TOKEN_CHARS];
 
     // are bots enabled?
-    if (!bot_enable.integer) {
+    if (!bot_enable.integer)
+    {
         return;
     }
 
     // name
     trap_Argv(1, name, sizeof(name));    /// read it just so we can check if it's a name (old method)
-    if (name[0] && !Q_stricmp(name, "?")) {
+    if (name[0] && !Q_stricmp(name, "?"))
+    {
         trap_Printf("Usage: Addbot [skill 1-4] [team (RED/BLUE)] [msec delay]\n");
         return;
     }
     // CHRUKER: b070 - Was 'wolfbot' but this must match in case
     Q_strncpyz(name, "Wolfbot", sizeof(name));    // RF, hard code the bots for wolf
-    if (!name[0]) {
+    if (!name[0])
+    {
         trap_Printf("Usage: Addbot [skill 1-4] [team (RED/BLUE)] [msec delay]\n");
         return;
     }
 
     // skill
     trap_Argv(1, string, sizeof(string));
-    if (!string[0]) {
+    if (!string[0])
+    {
         trap_Cvar_Update(&bot_defaultskill);
         skill = bot_defaultskill.integer;
     }
-    else {
+    else
+    {
         skill = atoi(string);
     }
 
@@ -836,10 +982,12 @@ void Svcmd_AddBot_f(void) {
 
     // delay
     trap_Argv(3, string, sizeof(string));
-    if (!string[0]) {
+    if (!string[0])
+    {
         delay = 0;
     }
-    else {
+    else
+    {
         delay = atoi(string);
     }
 
@@ -848,36 +996,52 @@ void Svcmd_AddBot_f(void) {
     // if this was issued during gameplay and we are playing locally,
     // go ahead and load the bot's media immediately
     if (level.time - level.startTime > 1000 &&
-        trap_Cvar_VariableIntegerValue("cl_running")) {
+        trap_Cvar_VariableIntegerValue("cl_running"))
+    {
     }
 }
 
 typedef struct
 {
-    char    *cmd;
-    char    *string;
+    char *cmd;
+    char *string;
     qboolean appendParams;
-    char    *help;
-    int        count;
+    char *help;
+    int count;
 } spawnBotCommand_t;
 
 int G_ClassForString(char *string)
 {
-    if (!Q_stricmp(string, "ANY")) {
+    if (!Q_stricmp(string, "ANY"))
+    {
         return -1;
-    } else if (!Q_stricmp(string, "soldier")) {
+    }
+    else if (!Q_stricmp(string, "soldier"))
+    {
         return PC_SOLDIER;
-    } else if (!Q_stricmp(string, "medic")) {
+    }
+    else if (!Q_stricmp(string, "medic"))
+    {
         return PC_MEDIC;
-    } else if (!Q_stricmp(string, "engineer")) {
+    }
+    else if (!Q_stricmp(string, "engineer"))
+    {
         return PC_ENGINEER;
-    } else if (!Q_stricmp(string, "lieutenant")) { // FIXME: remove from missionpack
+    }
+    else if (!Q_stricmp(string, "lieutenant"))     // FIXME: remove from missionpack
+    {
         return PC_FIELDOPS;
-    } else if (!Q_stricmp(string, "fieldops")) {
+    }
+    else if (!Q_stricmp(string, "fieldops"))
+    {
         return PC_FIELDOPS;
-    } else if (!Q_stricmp(string, "covertops")) {
+    }
+    else if (!Q_stricmp(string, "covertops"))
+    {
         return PC_COVERTOPS;
-    } else {
+    }
+    else
+    {
         G_Error("unknown player class: %s", string);
         return -1;    //shutup compiler
     }
@@ -885,14 +1049,21 @@ int G_ClassForString(char *string)
 
 void G_BotParseCharacterParms(char *characterFile, int *characterInt)
 {
-    if(strlen(characterFile)) {
+    if (strlen(characterFile))
+    {
         int characterIndex = G_CharacterIndex(characterFile);
 
-        if(characterIndex)
+        if (characterIndex)
+        {
             *characterInt = characterIndex;
+        }
         else
+        {
             *characterInt = -1;
-    } else {
+        }
+    }
+    else
+    {
         *characterInt = -1;
     }
 }
@@ -906,64 +1077,64 @@ void G_SpawnBot(const char *text)
 {
     // bot parameters
     // CHRUKER: b073 - Was 'wolfBot' but this must match in case
-    char            name[MAX_TOKEN_CHARS]        = "WolfBot";
+    char name[MAX_TOKEN_CHARS] = "WolfBot";
     //GS  prevent bot health from counting down to 70 (i.e. don't set STAT_MAX_HEALTH = 70)
-    char            skill[MAX_TOKEN_CHARS]        = "4";
-    char            team[MAX_TOKEN_CHARS]        = "";
-    char            pClass[MAX_TOKEN_CHARS]        = "";
-    char            pWeapon[MAX_TOKEN_CHARS]    = "0";
-    char            spawnPoint[MAX_TOKEN_CHARS]    = "";
-    char            respawn[MAX_TOKEN_CHARS]    = "";
+    char skill[MAX_TOKEN_CHARS]      = "4";
+    char team[MAX_TOKEN_CHARS]       = "";
+    char pClass[MAX_TOKEN_CHARS]     = "";
+    char pWeapon[MAX_TOKEN_CHARS]    = "0";
+    char spawnPoint[MAX_TOKEN_CHARS] = "";
+    char respawn[MAX_TOKEN_CHARS]    = "";
     // CHRUKER: b073 - Was 'wolfBot' but this must match in case
-    char            scriptName[MAX_TOKEN_CHARS]    = "WolfBot";
-    char            characterFile[MAX_TOKEN_CHARS]    = "";
+    char scriptName[MAX_TOKEN_CHARS]    = "WolfBot";
+    char characterFile[MAX_TOKEN_CHARS] = "";
 
     // START - Mad Doc - TDF
-    char            rank[MAX_TOKEN_CHARS] = "";
-    char            botSkills[MAX_TOKEN_CHARS] = "";
+    char rank[MAX_TOKEN_CHARS]      = "";
+    char botSkills[MAX_TOKEN_CHARS] = "";
     // END Mad Doc - TDF
 
-    char            pow[MAX_TOKEN_CHARS]        = "no";
-
+    char pow[MAX_TOKEN_CHARS] = "no";
 
     // This is the selection meny index used in SetWolfSpawnWeapons
-    int        weaponSpawnNumber = -1;
+    int weaponSpawnNumber = -1;
 
     // parsing vars
-    char            *token, *pStr, *old_pStr;
-    char            cmd[MAX_TOKEN_CHARS], last_cmd[MAX_TOKEN_CHARS];
-    char            cmd_var[MAX_TOKEN_CHARS];
-    char            string[MAX_TOKEN_CHARS];
-    int                j, pClassInt;
-    int                characterInt, rankNum;
-    int                skills[SK_NUM_SKILLS];
-    qboolean        prisonerOfWar;
-    int                teamNum;
+    char     *token, *pStr, *old_pStr;
+    char     cmd[MAX_TOKEN_CHARS], last_cmd[MAX_TOKEN_CHARS];
+    char     cmd_var[MAX_TOKEN_CHARS];
+    char     string[MAX_TOKEN_CHARS];
+    int      j, pClassInt;
+    int      characterInt, rankNum;
+    int      skills[SK_NUM_SKILLS];
+    qboolean prisonerOfWar;
+    int      teamNum;
 
     // parameters
-    spawnBotCommand_t    params[] =
+    spawnBotCommand_t params[] =
     {
-        {"/name",        name,            qfalse,        "[name]"},
-        {"/skill",        skill,            qfalse,        "[0-4]"},
-        {"/team",        team,            qfalse,        "[AXIS/ALLIES]"},
-        {"/class",        pClass,            qfalse,        "[SOLDIER/MEDIC/LIEUTENANT/ENGINEER/COVERTOPS/FIELDOPS]"}, // FIXME: remove LIEUTENANT from missionpack
-        {"/weapon",        pWeapon,        qfalse,        "[weaponValue]"},
-        {"/spawnpoint",    spawnPoint,        qtrue,        "[targetname]"},
-        {"/respawn",    respawn,        qfalse,        "[ON/OFF]"},
-        {"/scriptName",    scriptName,        qfalse,        "[scriptName]"},
-        {"/character",    characterFile,    qfalse,        "[character]"},
+        { "/name",       name,          qfalse, "[name]"                                                 },
+        { "/skill",      skill,         qfalse, "[0-4]"                                                  },
+        { "/team",       team,          qfalse, "[AXIS/ALLIES]"                                          },
+        { "/class",      pClass,        qfalse, "[SOLDIER/MEDIC/LIEUTENANT/ENGINEER/COVERTOPS/FIELDOPS]" }, // FIXME: remove LIEUTENANT from missionpack
+        { "/weapon",     pWeapon,       qfalse, "[weaponValue]"                                          },
+        { "/spawnpoint", spawnPoint,    qtrue,  "[targetname]"                                           },
+        { "/respawn",    respawn,       qfalse, "[ON/OFF]"                                               },
+        { "/scriptName", scriptName,    qfalse, "[scriptName]"                                           },
+        { "/character",  characterFile, qfalse, "[character]"                                            },
         // START Mad Doc - TDF
-        {"/rank",        rank,            qfalse,        "[rank]"},
-        {"/skills",        botSkills,        qfalse,        "[botskills]"}, // not really to be exposed to script
+        { "/rank",       rank,          qfalse, "[rank]"                                                 },
+        { "/skills",     botSkills,     qfalse, "[botskills]"                                            }, // not really to be exposed to script
         // END Mad Doc - TDF
-        {"/pow",        pow,            qfalse,        "[yes/no]"},
+        { "/pow",        pow,           qfalse, "[yes/no]"                                               },
 
-        {NULL}
+        { NULL }
     };
     // special tables
-    typedef struct {
-        char    *weapon;
-        int        index;
+    typedef struct
+    {
+        char *weapon;
+        int index;
     } spawnBotWeapons_t;
 
     // TAT 1/16/2003 - uninit'ed data here - getting crazy data for the skills
@@ -971,34 +1142,42 @@ void G_SpawnBot(const char *text)
 
     //
     // parse the vars
-    pStr = (char *)text;
+    pStr  = (char *)text;
     token = COM_Parse(&pStr);
     Q_strncpyz(cmd, token, sizeof(cmd));
     // if this is a question mark, show help info
-    if (!Q_stricmp(cmd, "?") || !Q_stricmp(cmd, "/?")) {
+    if (!Q_stricmp(cmd, "?") || !Q_stricmp(cmd, "/?"))
+    {
         G_Printf("Spawns a bot into the game, with the given parameters.\n\nSPAWNBOT [/param [value]] [/param [value]] ...\n\n  where [/param [value]] may consist of:\n\n");
-        for (j=0; params[j].cmd; j++) {
+        for (j = 0; params[j].cmd; j++)
+        {
             G_Printf("  %s %s\n", params[j].cmd, params[j].help);
         }
         return;
     }
     //
     // intitializations
-    for (j=0; params[j].cmd; j++) {
+    for (j = 0; params[j].cmd; j++)
+    {
         params[j].count = 0;
     }
     memset(last_cmd, 0, sizeof(last_cmd));
     pStr = (char *)text;
     //
     // parse each command
-    while (cmd[0]) {
+    while (cmd[0])
+    {
         //
         // build the string up to the next parameter change
         token = COM_Parse(&pStr);
         Q_strncpyz(cmd, token, sizeof(cmd));
-        if (!cmd[0]) break;
+        if (!cmd[0])
+        {
+            break;
+        }
         // if we find an "or", then use the last command
-        if (!Q_stricmp(cmd, "or")) {
+        if (!Q_stricmp(cmd, "or"))
+        {
             // use the last command
             Q_strncpyz(cmd, last_cmd, sizeof(cmd));
         }
@@ -1007,27 +1186,40 @@ void G_SpawnBot(const char *text)
         memset(string, 0, sizeof(string));
         token = COM_Parse(&pStr);
         Q_strncpyz(cmd_var, token, sizeof(cmd_var));
-        if (!cmd_var[0]) break;
-        while (qtrue) {
+        if (!cmd_var[0])
+        {
+            break;
+        }
+        while (qtrue)
+        {
             Q_strcat(string, sizeof(string), cmd_var);
             old_pStr = pStr;
-            token = COM_Parse(&pStr);
+            token    = COM_Parse(&pStr);
             Q_strncpyz(cmd_var, token, sizeof(cmd_var));
-            if (cmd_var[0] && (cmd_var[0] == '/' || !Q_stricmp(cmd_var, "or"))) {
+            if (cmd_var[0] && (cmd_var[0] == '/' || !Q_stricmp(cmd_var, "or")))
+            {
                 pStr = old_pStr;
                 break;
             }
-            if (!cmd_var[0]) break;
+            if (!cmd_var[0])
+            {
+                break;
+            }
             Q_strcat(string, sizeof(string), " ");
         }
         //
         // see if this command exists in the parameters table
-        for (j=0; params[j].cmd; j++) {
-            if (!Q_stricmp(params[j].cmd, cmd)) {
+        for (j = 0; params[j].cmd; j++)
+        {
+            if (!Q_stricmp(params[j].cmd, cmd))
+            {
                 // found a match, if this field already has an entry, then randomly override it
-                if (!params[j].count || (!params[j].appendParams && ((rand()%(++params[j].count)) == 0))) {
+                if (!params[j].count || (!params[j].appendParams && ((rand() % (++params[j].count)) == 0)))
+                {
                     Q_strncpyz(params[j].string, string, sizeof(string));
-                } else if (params[j].appendParams) {
+                }
+                else if (params[j].appendParams)
+                {
                     // append this token
                     Q_strcat(params[j].string, sizeof(string), va(" %s", string));
                 }
@@ -1035,7 +1227,8 @@ void G_SpawnBot(const char *text)
                 break;
             }
         }
-        if (!params[j].cmd) {
+        if (!params[j].cmd)
+        {
             G_Printf("G_SpawnBot: unknown parameter: %s\nFor usage info, use \"spawnbot /?\"\n", cmd);
             return;
         }
@@ -1044,17 +1237,25 @@ void G_SpawnBot(const char *text)
         Q_strncpyz(cmd, cmd_var, sizeof(cmd));
     }
     //
-    if (strlen(pClass)) {
+    if (strlen(pClass))
+    {
         pClassInt = 1 + G_ClassForString(pClass);
-    } else {
+    }
+    else
+    {
         pClassInt = 0;
     }
 
-    if (!Q_stricmp(team, "red") || !Q_stricmp(team, "r") || !Q_stricmp(team, "axis")) {
+    if (!Q_stricmp(team, "red") || !Q_stricmp(team, "r") || !Q_stricmp(team, "axis"))
+    {
         teamNum = TEAM_AXIS;
-    } else if (!Q_stricmp(team, "blue") || !Q_stricmp(team, "b") || !Q_stricmp(team, "allies")) {
+    }
+    else if (!Q_stricmp(team, "blue") || !Q_stricmp(team, "b") || !Q_stricmp(team, "allies"))
+    {
         teamNum = TEAM_ALLIES;
-    } else {
+    }
+    else
+    {
         // pick the team with the least number of players
         teamNum = PickTeam(-1);
     }
@@ -1062,9 +1263,12 @@ void G_SpawnBot(const char *text)
     G_BotParseCharacterParms(characterFile, &characterInt);
 
     // Gordon: 27/11/02
-    if(*pow && !Q_stricmp(pow, "yes")) {
+    if (*pow && !Q_stricmp(pow, "yes"))
+    {
         prisonerOfWar = qtrue;
-    } else {
+    }
+    else
+    {
         prisonerOfWar = qfalse;
     }
 
@@ -1076,7 +1280,7 @@ void G_SpawnBot(const char *text)
     }
     // END Mad Doc - TDF
 
-    // START    Mad Doctor I changes, 8/17/2002. 
+    // START    Mad Doctor I changes, 8/17/2002.
     // If we have a weapon specified, and we have a class specified
     else if (isdigit(pWeapon[0]))
     {
@@ -1084,8 +1288,7 @@ void G_SpawnBot(const char *text)
         weaponSpawnNumber = atoi(pWeapon);
 
     } // if (isdigit(pWeapon[0]))...
-
-    // If we have a weapon specified as a string, and we have a class specified
+      // If we have a weapon specified as a string, and we have a class specified
     else if (pClassInt > 0)
     {
         // Translate the weapon name into a proper weapon index
@@ -1094,11 +1297,12 @@ void G_SpawnBot(const char *text)
 
         // Get default weapon
         if (weaponSpawnNumber == -1)
+        {
             weaponSpawnNumber = BG_GetPlayerClassInfo(teamNum, pClassInt - 1)->classWeapons[0];
-        
-    } // if (Q_stricmp(pWeapon[MAX_TOKEN_CHARS], "0")...
+        }
 
-    // Otherwise, no weapon is selected
+    } // if (Q_stricmp(pWeapon[MAX_TOKEN_CHARS], "0")...
+      // Otherwise, no weapon is selected
     else
     {
         // Just use the default
@@ -1106,28 +1310,27 @@ void G_SpawnBot(const char *text)
 
     } // else...
 
-
     // START Mad Doc - TDF
     rankNum = atoi(rank);
-    if(rankNum) {
+    if (rankNum)
+    {
         rankNum--; // people like to start with 1
-                    // Gordon: coders are people too :(
+                   // Gordon: coders are people too :(
     }
 
     if (botSkills[0])
     {
         // parse the skills out
-        int i;
+        int  i;
         char *pString, *token;
-    
+
         pString = botSkills;
         for (i = 0; i < SK_NUM_SKILLS; i++)
         {
-            token = COM_ParseExt(&pString, qfalse);
+            token     = COM_ParseExt(&pString, qfalse);
             skills[i] = atoi(token);
         }
     }
-
 
     //    {"/botskills",    botSkills,        qfalse,        "[botskills]"}, // not really to be exposed to script
 
@@ -1135,59 +1338,69 @@ void G_SpawnBot(const char *text)
 
     G_AddBot(name, atoi(skill), team, spawnPoint, pClassInt, weaponSpawnNumber, characterInt, respawn, scriptName, rankNum, skills, prisonerOfWar);
 
-// END        Mad Doctor I changes, 8/17/2002. 
+// END        Mad Doctor I changes, 8/17/2002.
 }
-
 
 /*
 ==============
 Svcmd_SpawnBot
 ==============
 */
-void Svcmd_SpawnBot() {
-    char    text[1024];
-    char    cmd[MAX_TOKEN_CHARS];
-    int        i;
+void Svcmd_SpawnBot()
+{
+    char text[1024];
+    char cmd[MAX_TOKEN_CHARS];
+    int  i;
 
     // build the string
     memset(text, 0, sizeof(text));
 
-    for (i=1; i<trap_Argc(); i++) {
+    for (i = 1; i < trap_Argc(); i++)
+    {
         trap_Argv(i, cmd, sizeof(cmd));
         //
         if (i > 1)
+        {
             Q_strcat(text, sizeof(text), " ");
+        }
         //
         if (strchr(cmd, ' '))
+        {
             Q_strcat(text, sizeof(text), "\"");
+        }
         //
         Q_strcat(text, sizeof(text), cmd);
         //
         if (strchr(cmd, ' '))
+        {
             Q_strcat(text, sizeof(text), "\"");
+        }
     }
 
     G_SpawnBot(text);
 }
 
-
-// TDF - Mad Doc 
+// TDF - Mad Doc
 /*
 ==============
 G_RemoveNamedBot - removes the bot named "name"
 ==============
 */
-int G_RemoveNamedBot(char *name) {
-    int i;
-    char netname[36];
-    gclient_t    *cl;
+int G_RemoveNamedBot(char *name)
+{
+    int       i;
+    char      netname[36];
+    gclient_t *cl;
 
-    for (i=0 ; i< g_maxclients.integer ; i++) {
+    for (i = 0 ; i < g_maxclients.integer ; i++)
+    {
         cl = level.clients + i;
-        if (cl->pers.connected != CON_CONNECTED) {
+        if (cl->pers.connected != CON_CONNECTED)
+        {
             continue;
         }
-        if (!(g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT)) {
+        if (!(g_entities[cl->ps.clientNum].r.svFlags & SVF_BOT))
+        {
             continue;
         }
 
@@ -1204,24 +1417,26 @@ int G_RemoveNamedBot(char *name) {
     return qfalse;
 }
 
-
 /*
 TDF - Mad Doc
 ===============
 Svcmd_RemoveBot_f
 ===============
 */
-void Svcmd_RemoveBot_f(void) {
-    char            name[MAX_TOKEN_CHARS];
+void Svcmd_RemoveBot_f(void)
+{
+    char name[MAX_TOKEN_CHARS];
 
     // are bots enabled?
-    if (!bot_enable.integer) {
+    if (!bot_enable.integer)
+    {
         return;
     }
 
     // name
     trap_Argv(1, name, sizeof(name));    /// read it just so we can check if it's a name (old method)
-    if (!name[0]) {
+    if (!name[0])
+    {
         trap_Printf("Usage: Removebot name\n");
         return;
     }
@@ -1229,37 +1444,42 @@ void Svcmd_RemoveBot_f(void) {
     G_RemoveNamedBot(name);
 }
 
-
 /*
 ===============
 G_LoadBots
 ===============
 */
-static void G_LoadBots(void) {
-    int            len;
-    char        *filename;
-    vmCvar_t    botsFile;
-    fileHandle_t    f;
-    char        buf[MAX_BOTS_TEXT];
+static void G_LoadBots(void)
+{
+    int          len;
+    char         *filename;
+    vmCvar_t     botsFile;
+    fileHandle_t f;
+    char         buf[MAX_BOTS_TEXT];
 
-    if (!bot_enable.integer) {
+    if (!bot_enable.integer)
+    {
         return;
     }
 
-    trap_Cvar_Register(&botsFile, "g_botsFile", "", CVAR_INIT|CVAR_ROM);
-    if(*botsFile.string) {
+    trap_Cvar_Register(&botsFile, "g_botsFile", "", CVAR_INIT | CVAR_ROM);
+    if (*botsFile.string)
+    {
         filename = botsFile.string;
     }
-    else {
+    else
+    {
         filename = "scripts/bots.txt";
     }
 
     len = trap_FS_FOpenFile(filename, &f, FS_READ);
-    if (!f) {
+    if (!f)
+    {
         trap_Printf(va(S_COLOR_RED "file not found: %s\n", filename));
         return;
     }
-    if (len >= MAX_BOTS_TEXT) {
+    if (len >= MAX_BOTS_TEXT)
+    {
         trap_Printf(va(S_COLOR_RED "file too large: %s is %i, max allowed is %i", filename, len, MAX_BOTS_TEXT));
         trap_FS_FCloseFile(f);
         return;
@@ -1281,27 +1501,31 @@ static void G_LoadBots(void) {
 G_GetBotInfoByNumber
 ===============
 */
-char *G_GetBotInfoByNumber(int num) {
-    if(num < 0 || num >= g_numBots) {
+char *G_GetBotInfoByNumber(int num)
+{
+    if (num < 0 || num >= g_numBots)
+    {
         trap_Printf(va(S_COLOR_RED "Invalid bot number: %i\n", num));
         return NULL;
     }
     return g_botInfos[num];
 }
 
-
 /*
 ===============
 G_GetBotInfoByName
 ===============
 */
-char *G_GetBotInfoByName(const char *name) {
-    int        n;
-    char    *value;
+char *G_GetBotInfoByName(const char *name)
+{
+    int  n;
+    char *value;
 
-    for (n = 0; n < g_numBots ; n++) {
+    for (n = 0; n < g_numBots ; n++)
+    {
         value = Info_ValueForKey(g_botInfos[n], "name");
-        if (!Q_stricmp(value, name)) {
+        if (!Q_stricmp(value, name))
+        {
             return g_botInfos[n];
         }
     }
@@ -1317,7 +1541,8 @@ void BotCalculateMg42Spots(void);
 G_BotDelayedInit
 =================
 */
-void G_BotDelayedInit(gentity_t *ent) {
+void G_BotDelayedInit(gentity_t *ent)
+{
     G_FreeEntity(ent);
 
     BotBuildStaticEntityCache();
@@ -1335,7 +1560,8 @@ void G_BotDelayedInit(gentity_t *ent) {
 G_InitBots
 ===============
 */
-void G_InitBots(qboolean restart) {
+void G_InitBots(qboolean restart)
+{
     G_LoadBots();
 
     trap_Cvar_Register(&bot_debug, "bot_debug", "0", 0);
@@ -1350,7 +1576,7 @@ void G_InitBots(qboolean restart) {
 }
 
 //============================================================================================
-extern vec3_t    playerMins, playerMaxs;
+extern vec3_t playerMins, playerMaxs;
 /*
 ===============
 BotDropToFloor
@@ -1358,9 +1584,9 @@ BotDropToFloor
 */
 void BotDropToFloor(gentity_t *ent)
 {
-    vec3_t   dest;
-    trace_t     tr;
-    vec3_t    checkMins, checkMaxs;
+    vec3_t  dest;
+    trace_t tr;
+    vec3_t  checkMins, checkMaxs;
 
     //----(SA)    move the bounding box for the check in 1 unit on each side so they can butt up against a wall and not startsolid
     VectorCopy(playerMins, checkMins);
@@ -1378,9 +1604,11 @@ void BotDropToFloor(gentity_t *ent)
     VectorSet(dest, ent->r.currentOrigin[0], ent->r.currentOrigin[1], ent->r.currentOrigin[2] - 4096);
     trap_Trace(&tr, ent->r.currentOrigin, checkMins, checkMaxs, dest, ent->s.number, MASK_PLAYERSOLID);
 
-    if (tr.startsolid) {
+    if (tr.startsolid)
+    {
         // try raising us up some
-        if (fabs(ent->r.currentOrigin[2] - ent->s.origin[2]) < 48) {
+        if (fabs(ent->r.currentOrigin[2] - ent->s.origin[2]) < 48)
+        {
             ent->r.currentOrigin[2] += 4;
             BotDropToFloor(ent);
             return;
@@ -1396,9 +1624,9 @@ void BotDropToFloor(gentity_t *ent)
 // Equivalent of BotDropToFloor for server entities
 void ServerEntityDropToFloor(g_serverEntity_t *ent)
 {
-    vec3_t   dest;
-    trace_t     tr;
-    vec3_t    checkMins, checkMaxs;
+    vec3_t  dest;
+    trace_t tr;
+    vec3_t  checkMins, checkMaxs;
 
     //----(SA)    move the bounding box for the check in 1 unit on each side so they can butt up against a wall and not startsolid
     VectorCopy(playerMins, checkMins);
@@ -1416,9 +1644,11 @@ void ServerEntityDropToFloor(g_serverEntity_t *ent)
     VectorSet(dest, ent->origin[0], ent->origin[1], ent->origin[2] - 4096);
     trap_Trace(&tr, ent->origin, checkMins, checkMaxs, dest, -1, MASK_PLAYERSOLID);
 
-    if (tr.startsolid) {
+    if (tr.startsolid)
+    {
         // try raising us up some
-        if (fabs(ent->origin[2] - ent->origin[2]) < 48) {
+        if (fabs(ent->origin[2] - ent->origin[2]) < 48)
+        {
             ent->origin[2] += 4;
             ServerEntityDropToFloor(ent);
             return;
@@ -1429,7 +1659,6 @@ void ServerEntityDropToFloor(g_serverEntity_t *ent)
 
     VectorCopy(tr.endpos, ent->origin);
 }
-
 
 /*QUAKED ai_marker (1 0.5 0) (-18 -18 -24) (18 18 48) NODROP CROUCHING
 AI marker
@@ -1451,7 +1680,8 @@ void SP_AIMarker_Setup(g_serverEntity_t *ent)
 
 void SP_ai_marker(gentity_t *ent)
 {
-    if (!(ent->spawnflags & 1)) {
+    if (!(ent->spawnflags & 1))
+    {
         BotDropToFloor(ent);
     }
 
@@ -1472,12 +1702,13 @@ NODROP means dont drop it to the ground
 */
 void SP_bot_sniper_spot(gentity_t *ent)
 {
-    if (!(ent->spawnflags & 1)) {
+    if (!(ent->spawnflags & 1))
+    {
         BotDropToFloor(ent);
     }
 
     ent->r.svFlags |= SVF_NOCLIENT;
-    ent->s.eType = ET_SNIPER_HINT;
+    ent->s.eType    = ET_SNIPER_HINT;
 }
 
 /*QUAKED bot_landminespot_spot (1 0.2 0) (-18 -18 -24) (18 18 48) NODROP CROUCHING
@@ -1488,9 +1719,11 @@ NODROP means dont drop it to the ground
   "aiTeam" team to use this spot, if 0, any team can use it 1 = AXIS, 2 = ALLIES
 */
 
-void bot_landminespot_setup(gentity_t* self) {
-    gentity_t* target = G_FindByTargetname(NULL, self->target);
-    if(!target) {
+void bot_landminespot_setup(gentity_t *self)
+{
+    gentity_t *target = G_FindByTargetname(NULL, self->target);
+    if (!target)
+    {
         G_FreeEntity(self);
         return;
     }
@@ -1498,21 +1731,24 @@ void bot_landminespot_setup(gentity_t* self) {
     VectorCopy(target->s.origin, self->s.origin2);
 }
 
-void SP_bot_landminespot_spot(gentity_t* ent) {
+void SP_bot_landminespot_spot(gentity_t *ent)
+{
     // MUST have a target
-    if(!ent->target || !*ent->target) {
+    if (!ent->target || !*ent->target)
+    {
         G_FreeEntity(ent);
         return;
     }
 
-    if (!(ent->spawnflags & 1)) {
+    if (!(ent->spawnflags & 1))
+    {
         BotDropToFloor(ent);
     }
 
     ent->r.svFlags |= SVF_NOCLIENT;
-    ent->s.eType = ET_LANDMINESPOT_HINT;
+    ent->s.eType    = ET_LANDMINESPOT_HINT;
 
-    ent->think = bot_landminespot_setup;
+    ent->think     = bot_landminespot_setup;
     ent->nextthink = level.time + FRAMETIME;
 }
 
@@ -1521,13 +1757,15 @@ Bots will defend this general area when enabled as a goal
 
 NODROP means dont drop it to the ground
 */
-void SP_bot_attractor(gentity_t *ent) {
-    if (!(ent->spawnflags & 1)) {
+void SP_bot_attractor(gentity_t *ent)
+{
+    if (!(ent->spawnflags & 1))
+    {
         BotDropToFloor(ent);
     }
 
     ent->r.svFlags |= SVF_NOCLIENT;
-    ent->s.eType = ET_ATTRACTOR_HINT;
+    ent->s.eType    = ET_ATTRACTOR_HINT;
 }
 
 /*QUAKED bot_jump_source (0.5 0.8 0) (-18 -18 -24) (18 18 40) NODROP
@@ -1601,29 +1839,31 @@ void bot_seek_cover_spot_think(g_serverEntity_t *ent)
     // Don't bother looking for a target if none is specified.  Mad Doctor I
     if (ent->target && (ent->target[0] != 0))
     {
-    //
-    // now find our ->target_ent, if we have multiple targets, then use ->chain
-    trav = NULL;
-    lastTrav = NULL;
-    while ((trav = FindServerEntity(trav, SE_FOFS(name), ent->target)))
-    {
-        if (Q_stricmp(trav->classname, ent->classname))
+        //
+        // now find our ->target_ent, if we have multiple targets, then use ->chain
+        trav     = NULL;
+        lastTrav = NULL;
+        while ((trav = FindServerEntity(trav, SE_FOFS(name), ent->target)))
         {
-            G_Error("bot_seek_cover_spot at %s is targetting a %s", vtos(ent->origin), trav->classname);
+            if (Q_stricmp(trav->classname, ent->classname))
+            {
+                G_Error("bot_seek_cover_spot at %s is targetting a %s", vtos(ent->origin), trav->classname);
+            }
+
+            if (!ent->target_ent)
+            {
+                ent->target_ent = trav;
+                //VectorSubtract(trav->s.origin, ent->s.origin, ent->movedir);
+                //VectorNormalize(ent->movedir);
+            }
+
+            if (lastTrav)
+            {
+                lastTrav->chain = trav;
+            }
+
+            lastTrav = trav;
         }
-
-        if (!ent->target_ent)
-        {
-            ent->target_ent = trav;
-            //VectorSubtract(trav->s.origin, ent->s.origin, ent->movedir);
-            //VectorNormalize(ent->movedir);
-        }
-
-        if (lastTrav)
-            lastTrav->chain = trav;
-
-        lastTrav = trav;
-    }
 
     } // if (ent->target[0] != 0)...
 }
@@ -1645,7 +1885,8 @@ void SP_Seek_Cover_Spawn(gentity_t *ent, int team)
 {
     g_serverEntity_t *svEnt;
 
-    if (!(ent->spawnflags & 1)) {
+    if (!(ent->spawnflags & 1))
+    {
         BotDropToFloor(ent);
     }
 
@@ -1705,7 +1946,9 @@ void bot_seek_cover_sequence_touch(gentity_t *self, gentity_t *other, trace_t *t
     if (self->serverEntity)
     {
         other->teamchain = self;
-    } else {    // stop using seek_cover_spots
+    }
+    else        // stop using seek_cover_spots
+    {
         other->teamchain = NULL;
     }
 }
@@ -1722,7 +1965,7 @@ void bot_seek_cover_sequence_init(gentity_t *ent)
     trav = NULL;
 
     // the first one is different, since we're getting the sequence (a gentity_t) to point at the first spot (a g_serverEntity_t)
-    trav = FindServerEntity(trav, SE_FOFS(name), ent->target);
+    trav              = FindServerEntity(trav, SE_FOFS(name), ent->target);
     ent->serverEntity = trav;
 
     // now we just want serverentities pointing at each other
@@ -1730,7 +1973,7 @@ void bot_seek_cover_sequence_init(gentity_t *ent)
     while ((trav = FindServerEntity(trav, SE_FOFS(name), ent->target)))
     {
         lastTrav->nextServerEntity = trav;
-        lastTrav = trav;
+        lastTrav                   = trav;
     }
     //
     // we didn't find anything
@@ -1744,15 +1987,15 @@ void bot_seek_cover_sequence_init(gentity_t *ent)
 
 extern void InitTrigger(gentity_t *self);    // Arnout: this was missing
 
-void SP_bot_seek_cover_sequence (gentity_t *ent)
+void SP_bot_seek_cover_sequence(gentity_t *ent)
 {
     ent->touch = bot_seek_cover_sequence_touch;
 
-    ent->think = bot_seek_cover_sequence_init;
+    ent->think     = bot_seek_cover_sequence_init;
     ent->nextthink = level.time + 500;
 
     InitTrigger(ent);
-    trap_LinkEntity (ent);
+    trap_LinkEntity(ent);
 }
 
 /*QUAKED bot_landmine_area (0.5 0.7 0.3) ? AXIS_ONLY ALLIED_ONLY
@@ -1765,15 +2008,14 @@ void SP_bot_landmine_area(gentity_t *ent)
 {
     char *spawnString;
 
-    G_SpawnString ("count", "2", &spawnString);
+    G_SpawnString("count", "2", &spawnString);
     ent->count = atoi(spawnString);
 
     trap_SetBrushModel(ent, ent->model);
 
     ent->r.contents = 0;        // replaces the -1 from trap_SetBrushModel
-    ent->r.svFlags = SVF_NOCLIENT;
-    ent->s.eType = ET_LANDMINE_HINT;
+    ent->r.svFlags  = SVF_NOCLIENT;
+    ent->s.eType    = ET_LANDMINE_HINT;
 
-    trap_LinkEntity (ent);
+    trap_LinkEntity(ent);
 }
-

@@ -15,7 +15,8 @@
 #define MAX_MAPSTATS 1024
 #define MAX_DISCONNECTS 1024
 
-typedef struct {
+typedef struct
+{
     char guid[PB_GUID_LENGTH + 1];
     char name[MAX_NAME_LENGTH];
     int time;
@@ -26,7 +27,7 @@ typedef struct {
     float pr_skill[SK_NUM_SKILLS][NUM_SKILL_LEVELS];
     // tjw: lives moved into g_disconnect_t
     //int lives;
-    
+
     // josh: killrating removed, now kill_rating AND kill_variance
     float kill_rating;
     float kill_variance;
@@ -42,7 +43,8 @@ typedef struct {
 
 } g_xpsave_t;
 
-typedef struct {
+typedef struct
+{
     char name[MAX_QPATH];
 
     // rating and variance always allies for 0.8.x
@@ -53,7 +55,8 @@ typedef struct {
     char spreeName[MAX_NETNAME];
 } g_mapstat_t;
 
-typedef struct {
+typedef struct
+{
     // for 0.8.x
     float rating;
     float rating_variance;
@@ -61,7 +64,8 @@ typedef struct {
     float distance_variance;
 } g_serverstat_t;
 
-typedef struct {
+typedef struct
+{
     g_xpsave_t *xpsave;
     int axis_time;
     int allies_time;
@@ -78,7 +82,7 @@ typedef struct {
 
 void G_xpsave_writeconfig();
 void G_xpsave_readconfig();
-qboolean G_xpsave_add(gentity_t *ent,qboolean disconnect);
+qboolean G_xpsave_add(gentity_t *ent, qboolean disconnect);
 qboolean G_xpsave_load(gentity_t *ent);
 g_mapstat_t *G_xpsave_mapstat(char *mapname);
 g_disconnect_t *G_xpsave_disconnect(int i);
@@ -93,4 +97,3 @@ void G_ShowSpreeRecord(qboolean command);
 // pheno
 void G_xpsave_writexp();
 #endif /* ifndef _G_XPSAVE_H */
-
