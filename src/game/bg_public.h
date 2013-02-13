@@ -1443,7 +1443,11 @@ typedef enum hudHeadAnimNumber_s {
 #define    ANIMFL_REVERSED        0x4
 
 typedef struct animation_s {
+#ifdef USE_MDXFILE
     qhandle_t    mdxFile;
+#else
+    char        mdxFileName[MAX_QPATH];
+#endif // USE_MDXFILE
     char        name[MAX_QPATH];
     int            firstFrame;
     int            numFrames;
@@ -2151,6 +2155,7 @@ typedef struct {
 typedef struct bg_character_s {
     char                characterFile[MAX_QPATH];
 
+#ifdef USE_MDXFILE
     qhandle_t            mesh;
     qhandle_t            skin;
 
@@ -2168,6 +2173,7 @@ typedef struct bg_character_s {
     qhandle_t            hudhead;
     qhandle_t            hudheadskin;
     animation_t            hudheadanimations[MAX_HD_ANIMATIONS];
+#endif // USE_MDXFILE
 
     animModelInfo_t*    animModelInfo;
 } bg_character_t;

@@ -55,6 +55,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -finline-functions -fschedule-insns2")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 add_definitions(-DNDEBUG)
+add_definitions(-DUSE_MDXFILE)
+add_definitions(-DNO_BOT_SUPPORT)
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Winline")
 
 # Get the system architecture
@@ -146,6 +148,7 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/game/etmod.h.in" "${CMAKE_CURREN
 # Build
 #-----------------------------------------------------------------
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/game
+	${CMAKE_CURRENT_SOURCE_DIR}/src/botai
 	${CMAKE_CURRENT_SOURCE_DIR}/src/omnibot/Common
 	${CMAKE_CURRENT_SOURCE_DIR}/src/omnibot/ET)
 

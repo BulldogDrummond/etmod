@@ -11,7 +11,10 @@
 #ifndef __G_ETBOT_INTERFACE_H__
 #define __G_ETBOT_INTERFACE_H__
 
+//#include "q_shared.h"
 #include "g_local.h"
+
+//#define NO_BOT_SUPPORT
 
 // IMPORTANT: when changed this has to be copied manually to GAMEVERSION (g_local.h)
 #define OMNIBOT_NAME "Omni-Bot:etmain" //cs: this appears to be unused
