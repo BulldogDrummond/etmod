@@ -15,4 +15,3 @@
 #define ETMOD_VERSION "@ETMOD_VERSION@.@BUILD_NUMBER@"
 
 #endif /* ifndef _ETMOD_H */
-
