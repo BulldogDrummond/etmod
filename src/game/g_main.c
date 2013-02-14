@@ -503,13 +503,6 @@ vmCvar_t g_floodWait;
 vmCvar_t g_fixedphysics;
 vmCvar_t g_fixedphysicsfps;
 
-// forty - #297 - watermarks
-// HOLLEMOD - START
-vmCvar_t g_watermark;
-vmCvar_t g_watermarkFadeAfter;
-vmCvar_t g_watermarkFadeTime;
-// HOLLEMOD - END
-
 // Dens: minimum shrubbot adminlevel
 vmCvar_t g_minConnectLevel;
 
@@ -1079,13 +1072,6 @@ cvarTable_t gameCvarTable[] =
     // forty - fixed physics
     { &g_fixedphysics,                  "g_fixedphysics",                  "0",                                                      CVAR_SYSTEMINFO },
     { &g_fixedphysicsfps,               "g_fixedphysicsfps",               "125",                                                    CVAR_SYSTEMINFO },
-
-    // forty - #297 - watermarks
-    // HOLLEMOD - START
-    { &g_watermark,                     "g_watermark",                     "",                                                       CVAR_SYSTEMINFO,                                          0, qfalse},
-    { &g_watermarkFadeAfter,            "g_watermarkFadeAfter",            "0",                                                      CVAR_SYSTEMINFO,                                          0, qfalse},
-    { &g_watermarkFadeTime,             "g_watermarkFadeTime",             "0",                                                      CVAR_SYSTEMINFO,                                          0, qfalse},
-    // HOLLEMOD - END
 
     // Dens: minimum shrubbot adminlevel
     { &g_minConnectLevel,               "g_minConnectLevel",               "0",                                                      0 },
