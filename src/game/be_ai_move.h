@@ -11,7 +11,7 @@
 #ifndef __BE_AI_MOVE_H__
 #define __BE_AI_MOVE_H__
 
-//movement types
+// movement types
 #define MOVE_WALK       1
 #define MOVE_CROUCH     2
 #define MOVE_JUMP       4
@@ -19,7 +19,7 @@
 #define MOVE_ROCKETJUMP 16
 #define MOVE_BFGJUMP    32
 
-//move flags
+// move flags
 #define MFL_BARRIERJUMP   1                   // bot is performing a barrier jump
 #define MFL_ONGROUND      2                   // bot is in the ground
 #define MFL_SWIMMING      4                   // bot is swimming
@@ -30,7 +30,7 @@
 #define MFL_GRAPPLERESET  128                 // bot has reset the grapple
 #define MFL_WALK          256                 // bot should walk slowly
 
-//move result flags
+// move result flags
 #define MOVERESULT_MOVEMENTVIEW     1         // bot uses view for movement
 #define MOVERESULT_SWIMVIEW         2         // bot uses view for swimming
 #define MOVERESULT_WAITING          4         // bot is waiting for something
@@ -46,8 +46,8 @@
 #define RESULTTYPE_ELEVATORUP       1
 #define RESULTTYPE_INVISIBLEGRAPPLE 2
 
-//structure used to initialize the movement state
-//the or_moveflags MFL_ONGROUND, MFL_TELEPORTED and MFL_WATERJUMP come from the playerstate
+// structure used to initialize the movement state
+// the or_moveflags MFL_ONGROUND, MFL_TELEPORTED and MFL_WATERJUMP come from the playerstate
 typedef struct bot_initmove_s
 {
     vec3_t origin;              // origin of the bot
@@ -62,7 +62,7 @@ typedef struct bot_initmove_s
     int areanum;
 } bot_initmove_t;
 
-//NOTE: the ideal_viewangles are only valid if MFL_MOVEMENTVIEW is set
+// NOTE: the ideal_viewangles are only valid if MFL_MOVEMENTVIEW is set
 typedef struct bot_moveresult_s
 {
     int failure;                // true if movement failed all together
@@ -128,4 +128,4 @@ void BotShutdownMoveAI(void);
 // initialize avoid reachabilities
 void BotInitAvoidReach(int handle);
 
-#endif
+#endif /* __BE_AI_MOVE_H__ */

@@ -18,7 +18,7 @@
 #define MAX_STRINGFIELD 80
 #endif /* ifndef MAX_STRINGFIELD */
 
-//travel flags
+// travel flags
 #define TFL_INVALID               0x0000001       // traveling temporary not possible
 #define TFL_WALK                  0x0000002       // walking
 #define TFL_CROUCH                0x0000004       // crouching
@@ -52,7 +52,7 @@
 #define TFL_TEAM_FLAGS (TFL_TEAM_AXIS | TFL_TEAM_ALLIES | \
                         TFL_TEAM_AXIS_DISGUISED | TFL_TEAM_ALLIES_DISGUISED)
 
-//default travel flags
+// default travel flags
 #define TFL_DEFAULT (TFL_WALK | TFL_CROUCH | TFL_BARRIERJUMP | \
                      TFL_JUMP | TFL_LADDER | \
                      TFL_WALKOFFLEDGE | TFL_SWIM | TFL_WATERJUMP | \
@@ -68,7 +68,7 @@ typedef enum
     SOLID_BSP         // bsp clip, touch on edge
 } solid_t;
 
-//a trace is returned when a box is swept through the AAS world
+// a trace is returned when a box is swept through the AAS world
 typedef struct aas_trace_s
 {
     qboolean startsolid;  // if true, the initial point was in a solid area
@@ -80,7 +80,7 @@ typedef struct aas_trace_s
     int planenum;         // number of the plane that was hit
 } aas_trace_t;
 
-//entity info
+// entity info
 typedef struct aas_entityinfo_s
 {
     int valid;             // true if updated this frame
@@ -108,7 +108,7 @@ typedef struct aas_entityinfo_s
     int torsoAnim;         // mask off ANIM_TOGGLEBIT
 } aas_entityinfo_t;
 
-//client movement prediction stop events, stop as soon as:
+// client movement prediction stop events, stop as soon as:
 #define SE_NONE            0
 #define SE_HITGROUND       1          // the ground is hit
 #define SE_LEAVEGROUND     2          // there's no ground
@@ -126,7 +126,7 @@ typedef struct aas_entityinfo_s
 
 #ifndef BSPTRACE
 
-//bsp_trace_t hit surface
+// bsp_trace_t hit surface
 typedef struct bsp_surface_s
 {
     char name[16];

@@ -93,4 +93,4 @@ void BotFreeWeaponState(int weaponstate);
 // resets the whole weapon state
 void BotResetWeaponState(int weaponstate);
 
-#endif
+#endif /* __BE_AI_WEAP_H__ */

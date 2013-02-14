@@ -11,28 +11,28 @@
 #ifndef __BE_AI_CHAR_H__
 #define __BE_AI_CHAR_H__
 
-//loads a bot character from a file
+// loads a bot character from a file
 int BotLoadCharacter(char *charfile, int skill);
 
-//frees a bot character
+// frees a bot character
 void BotFreeCharacter(int character);
 
-//float characteristic
+// float characteristic
 float Characteristic_Float(int character, int index);
 
-//bounded float characteristic
+// bounded float characteristic
 float Characteristic_BFloat(int character, int index, float min, float max);
 
-//integer characteristic
+// integer characteristic
 int Characteristic_Integer(int character, int index);
 
-//bounded integer characteristic
+// bounded integer characteristic
 int Characteristic_BInteger(int character, int index, int min, int max);
 
-//string characteristic
+// string characteristic
 void Characteristic_String(int character, int index, char *buf, int size);
 
-//free cached bot characters
+// free cached bot characters
 void BotShutdownCharacters(void);
 
-#endif
+#endif /* __BE_AI_CHAR_H__ */

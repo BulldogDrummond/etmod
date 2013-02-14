@@ -309,4 +309,4 @@ extern vmCvar_t bot_testrchat;
 extern bot_goal_t ctf_redflag;
 extern bot_goal_t ctf_blueflag;
 
-#endif
+#endif /* __AI_DMQ3_H__ */

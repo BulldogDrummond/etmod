@@ -119,4 +119,4 @@ void BotSetChatGender(int chatstate, int gender);
 // store the bot name in the chat state
 void BotSetChatName(int chatstate, char *name);
 
-#endif
+#endif /* __BE_AI_CHAT_H__ */

@@ -707,7 +707,6 @@ extern vmCvar_t bot_findgoal;
 
 typedef enum botgoalFindType_e
 {
-    /* *cough* */
     BFG_FOLLOW_LEADER = 0,
     BFG_CONSTRUCT,
     BFG_TRIGGER,
@@ -725,4 +724,4 @@ typedef enum botgoalFindType_e
 
 extern int botgoalMaxCloser[BFG_NUMBOTGOALTYPES];
 
-#endif
+#endif /* __AI_MAIN_H__ */

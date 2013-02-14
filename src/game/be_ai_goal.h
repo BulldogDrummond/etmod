@@ -131,4 +131,4 @@ int BotSetupGoalAI(qboolean singleplayer);
 // shut down the goal AI
 void BotShutdownGoalAI(void);
 
-#endif
+#endif /* __BE_AI_GOAL_H__ */
