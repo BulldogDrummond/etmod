@@ -149,7 +149,7 @@ extern qhandle_t trap_R_RegisterModel(const char *name);
 static qboolean BG_RAG_ParseAnimFile(int handle, animModelInfo_t *animModelInfo)
 {
     pc_token_t token;
-    qhandle_t mdxFile;
+    qhandle_t  mdxFile;
 
     animation_t *animation;
 
