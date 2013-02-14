@@ -15,8 +15,7 @@
 #ifndef _G_SHRUBBOT_H
 #define _G_SHRUBBOT_H
 
-#define MAX_SHRUBBOT_LEVELS 32
-// tjw: some nutters !setlevel every player in sight
+#define MAX_SHRUBBOT_LEVELS   32
 #define MAX_SHRUBBOT_ADMINS   32768
 #define MAX_SHRUBBOT_BANS     1024
 #define MAX_SHRUBBOT_FLAGS    64
@@ -219,4 +218,5 @@ void G_shrubbot_writeconfig_int(int v, fileHandle_t f);
 void G_shrubbot_writeconfig_float(float v, fileHandle_t f);
 void G_shrubbot_duration(int secs, char *duration, int dursize);
 void G_shrubbot_cleanup();
+
 #endif /* ifndef _G_SHRUBBOT_H */

@@ -17,9 +17,9 @@
 //#define PRE_RELEASE_DEMO
 
 #ifndef PRE_RELEASE_DEMO
-#define    Q3_VERSION "ET 2.60b"
+#define Q3_VERSION "ET 2.60b"
 #else
-#define    Q3_VERSION "ET 2.32"
+#define Q3_VERSION "ET 2.32"
 #endif // PRE_RELEASE_DEMO
 // 2.60c: Mac OSX universal binaries
 // 2.60b: CVE-2006-2082 fix
@@ -41,7 +41,7 @@
 //#define LOCALIZATION_SUPPORT
 
 #define NEW_ANIMS
-#define    MAX_TEAMNAME 32
+#define MAX_TEAMNAME 32
 
 /**********************************************************************
   VM Considerations
@@ -88,7 +88,7 @@
 
 // for windows fastcall option
 
-#define    QDECL
+#define QDECL
 
 //bani
 //======================= GNUC DEFINES ==================================
@@ -103,17 +103,17 @@
 // the mac compiler can't handle >32k of locals, so we
 // just waste space and make big arrays static...
 
-#define    MAC_STATIC
+#define MAC_STATIC
 
 #ifdef __i386__
-#define    CPUSTRING "linux-i386"
+#define CPUSTRING "linux-i386"
 #elif defined __axp__
-#define    CPUSTRING "linux-alpha"
+#define CPUSTRING "linux-alpha"
 #else
-#define    CPUSTRING "linux-other"
+#define CPUSTRING "linux-other"
 #endif
 
-#define    PATH_SEP '/'
+#define PATH_SEP '/'
 
 //=============================================================
 
@@ -126,20 +126,20 @@ typedef int sfxHandle_t;
 typedef int fileHandle_t;
 typedef int clipHandle_t;
 
-//#define    SND_NORMAL            0x000    // (default) Allow sound to be cut off only by the same sound on this channel
-#define        SND_OKTOCUT        0x001        // Allow sound to be cut off by any following sounds on this channel
-#define        SND_REQUESTCUT     0x002       // Allow sound to be cut off by following sounds on this channel only for sounds who request cutoff
-#define        SND_CUTOFF         0x004       // Cut off sounds on this channel that are marked 'SND_REQUESTCUT'
-#define        SND_CUTOFF_ALL     0x008       // Cut off all sounds on this channel
-#define        SND_NOCUT          0x010      // Don't cut off.  Always let finish (overridden by SND_CUTOFF_ALL)
-#define        SND_NO_ATTENUATION 0x020       // don't attenuate (even though the sound is in voice channel, for example)
+//#define SND_NORMAL            0x000    // (default) Allow sound to be cut off only by the same sound on this channel
+#define SND_OKTOCUT        0x001        // Allow sound to be cut off by any following sounds on this channel
+#define SND_REQUESTCUT     0x002       // Allow sound to be cut off by following sounds on this channel only for sounds who request cutoff
+#define SND_CUTOFF         0x004       // Cut off sounds on this channel that are marked 'SND_REQUESTCUT'
+#define SND_CUTOFF_ALL     0x008       // Cut off all sounds on this channel
+#define SND_NOCUT          0x010      // Don't cut off.  Always let finish (overridden by SND_CUTOFF_ALL)
+#define SND_NO_ATTENUATION 0x020       // don't attenuate (even though the sound is in voice channel, for example)
 
 #ifndef NULL
 #define NULL ((void *)0)
 #endif
 
-#define    MAX_QINT 0x7fffffff
-#define    MIN_QINT (-MAX_QINT - 1)
+#define MAX_QINT 0x7fffffff
+#define MIN_QINT (-MAX_QINT - 1)
 
 // TTimo gcc: was missing, added from Q3 source
 #ifndef max
@@ -148,33 +148,33 @@ typedef int clipHandle_t;
 #endif
 
 // angle indexes
-#define    PITCH 0                       // up / down
-#define    YAW   1                         // left / right
-#define    ROLL  2                      // fall over
+#define PITCH 0                       // up / down
+#define YAW   1                         // left / right
+#define ROLL  2                      // fall over
 
 // RF, this is just here so different elements of the engine can be aware of this setting as it changes
-#define    MAX_SP_CLIENTS 64               // increasing this will increase memory usage significantly
+#define MAX_SP_CLIENTS 64               // increasing this will increase memory usage significantly
 
 // the game guarantees that no string from the network will ever
 // exceed MAX_STRING_CHARS
-#define    MAX_STRING_CHARS  1024      // max length of a string passed to Cmd_TokenizeString
-#define    MAX_STRING_TOKENS 256           // max tokens resulting from Cmd_TokenizeString
-#define    MAX_TOKEN_CHARS   1024         // max length of an individual token
+#define MAX_STRING_CHARS  1024      // max length of a string passed to Cmd_TokenizeString
+#define MAX_STRING_TOKENS 256           // max tokens resulting from Cmd_TokenizeString
+#define MAX_TOKEN_CHARS   1024         // max length of an individual token
 
-#define    MAX_INFO_STRING 1024
-#define    MAX_INFO_KEY    1024
-#define    MAX_INFO_VALUE  1024
+#define MAX_INFO_STRING 1024
+#define MAX_INFO_KEY    1024
+#define MAX_INFO_VALUE  1024
 
 #define BIG_INFO_STRING 8192           // used for system info key only
 #define BIG_INFO_KEY    8192
 #define BIG_INFO_VALUE  8192
 
-#define    MAX_QPATH  64                  // max length of a quake game pathname
-#define    MAX_OSPATH 256                   // max length of a filesystem pathname
+#define MAX_QPATH  64                  // max length of a quake game pathname
+#define MAX_OSPATH 256                   // max length of a filesystem pathname
 
 // rain - increased to 36 to match MAX_NETNAME, fixes #13 - UI stuff breaks
 // with very long names
-#define    MAX_NAME_LENGTH 36               // max length of a client name
+#define MAX_NAME_LENGTH 36               // max length of a client name
 
 #define MAX_SAY_TEXT 150
 
@@ -199,7 +199,7 @@ typedef enum
 //
 // these aren't needed by any of the VMs.  put in another header?
 //
-#define    MAX_MAP_AREA_BYTES 32               // bit vector of area visibility
+#define MAX_MAP_AREA_BYTES 32               // bit vector of area visibility
 
 // print levels from renderer (FIXME: set up for game / cgame?)
 typedef enum
@@ -285,11 +285,11 @@ void Snd_Memset(void *dest, const int val, const size_t count);
 void Com_Memset(void *dest, const int val, const size_t count);
 void Com_Memcpy(void *dest, const void *src, const size_t count);
 
-#define CIN_system  1
-#define CIN_loop    2
-#define    CIN_hold 4
-#define CIN_silent  8
-#define CIN_shader  16
+#define CIN_system 1
+#define CIN_loop   2
+#define CIN_hold   4
+#define CIN_silent 8
+#define CIN_shader 16
 
 /*
 ==============================================================
@@ -318,8 +318,8 @@ extern vec3_t bytedirs[NUMVERTEXNORMALS];
 
 // all drawing is done to a 640*480 virtual screen size
 // and will be automatically scaled to the real resolution
-#define    SCREEN_WIDTH  640
-#define    SCREEN_HEIGHT 480
+#define SCREEN_WIDTH  640
+#define SCREEN_HEIGHT 480
 
 //#define TINYCHAR_WIDTH        (SMALLCHAR_WIDTH)
 //#define TINYCHAR_HEIGHT        (SMALLCHAR_HEIGHT)
@@ -335,8 +335,8 @@ extern vec3_t bytedirs[NUMVERTEXNORMALS];
 #define BIGCHAR_WIDTH  16
 #define BIGCHAR_HEIGHT 16
 
-#define    GIANTCHAR_WIDTH  32
-#define    GIANTCHAR_HEIGHT 48
+#define GIANTCHAR_WIDTH  32
+#define GIANTCHAR_HEIGHT 48
 
 extern vec4_t colorBlack;
 extern vec4_t colorRed;
@@ -369,7 +369,7 @@ extern vec4_t clrBrownTextLt2;
 extern vec4_t clrBrownLineFull;
 
 #define GAME_INIT_FRAMES 6
-#define    FRAMETIME     100                           // msec
+#define FRAMETIME        100                        // msec
 
 #define Q_COLOR_ESCAPE '^'
 #define Q_IsColorString(p) (p && *(p) == Q_COLOR_ESCAPE && *((p) + 1) && *((p) + 1) != Q_COLOR_ESCAPE)
@@ -421,8 +421,8 @@ extern vec4_t clrBrownLineFull;
 
 extern vec4_t g_color_table[32];
 
-#define    MAKERGB(v, r, g, b)     v[0] = r; v[1] = g; v[2] = b
-#define    MAKERGBA(v, r, g, b, a) v[0] = r; v[1] = g; v[2] = b; v[3] = a
+#define MAKERGB(v, r, g, b)     v[0] = r; v[1] = g; v[2] = b
+#define MAKERGBA(v, r, g, b, a) v[0] = r; v[1] = g; v[2] = b; v[3] = a
 
 // Hex Color string support
 #define gethex(ch) ((ch) > '9' ? ((ch) >= 'a' ? ((ch) - 'a' + 10) : ((ch) - '7')) : ((ch) - '0'))
@@ -439,9 +439,9 @@ struct cplane_s;
 extern vec3_t vec3_origin;
 extern vec3_t axisDefault[3];
 
-#define    nanmask (255 << 23)
+#define nanmask (255 << 23)
 
-#define    IS_NAN(x) (((*(int *)&x) & nanmask) == nanmask)
+#define IS_NAN(x) (((*(int *)&x) & nanmask) == nanmask)
 
 float Q_fabs(float f);
 float Q_rsqrt(float f);          // reciprocal square root
@@ -452,10 +452,10 @@ float Q_rsqrt(float f);          // reciprocal square root
 #if id386 && !((defined __linux__ || defined __FreeBSD__ || defined __GNUC__) && (defined __i386__))     // rb010123
 long myftol(float f);
 #elif defined(__MACOS__)
-#define    myftol(x) (long)(x)
+#define myftol(x) (long)(x)
 #else
 extern long int lrintf(float x);
-#define    myftol(x) lrintf(x)
+#define myftol(x) lrintf(x)
 #endif
 
 signed char ClampChar(int i);
@@ -471,8 +471,8 @@ void ByteToDir(int b, vec3_t dir);
 #define VectorSubtract(a, b, c) ((c)[0] = (a)[0] - (b)[0], (c)[1] = (a)[1] - (b)[1], (c)[2] = (a)[2] - (b)[2])
 #define VectorAdd(a, b, c)      ((c)[0] = (a)[0] + (b)[0], (c)[1] = (a)[1] + (b)[1], (c)[2] = (a)[2] + (b)[2])
 #define VectorCopy(a, b)        ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2])
-#define    VectorScale(v, s, o) ((o)[0] = (v)[0] * (s), (o)[1] = (v)[1] * (s), (o)[2] = (v)[2] * (s))
-#define    VectorMA(v, s, b, o) ((o)[0] = (v)[0] + (b)[0] * (s), (o)[1] = (v)[1] + (b)[1] * (s), (o)[2] = (v)[2] + (b)[2] * (s))
+#define VectorScale(v, s, o)    ((o)[0] = (v)[0] * (s), (o)[1] = (v)[1] * (s), (o)[2] = (v)[2] * (s))
+#define VectorMA(v, s, b, o)    ((o)[0] = (v)[0] + (b)[0] * (s), (o)[1] = (v)[1] + (b)[1] * (s), (o)[2] = (v)[2] + (b)[2] * (s))
 
 #else
 
@@ -480,8 +480,8 @@ void ByteToDir(int b, vec3_t dir);
 #define VectorSubtract(a, b, c) _VectorSubtract(a, b, c)
 #define VectorAdd(a, b, c)      _VectorAdd(a, b, c)
 #define VectorCopy(a, b)        _VectorCopy(a, b)
-#define    VectorScale(v, s, o) _VectorScale(v, s, o)
-#define    VectorMA(v, s, b, o) _VectorMA(v, s, b, o)
+#define VectorScale(v, s, o)    _VectorScale(v, s, o)
+#define VectorMA(v, s, b, o)    _VectorMA(v, s, b, o)
 
 #endif
 
@@ -505,12 +505,12 @@ typedef struct
 #define Vector2Copy(a, b)        ((b)[0] = (a)[0], (b)[1] = (a)[1])
 #define Vector2Subtract(a, b, c) ((c)[0] = (a)[0] - (b)[0], (c)[1] = (a)[1] - (b)[1])
 
-#define Vector4Set(v, x, y, z, n)     ((v)[0] = (x), (v)[1] = (y), (v)[2] = (z), (v)[3] = (n))
-#define Vector4Copy(a, b)             ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2], (b)[3] = (a)[3])
-#define    Vector4MA(v, s, b, o)      ((o)[0] = (v)[0] + (b)[0] * (s), (o)[1] = (v)[1] + (b)[1] * (s), (o)[2] = (v)[2] + (b)[2] * (s), (o)[3] = (v)[3] + (b)[3] * (s))
-#define    Vector4Average(v, b, s, o) ((o)[0] = ((v)[0] * (1 - (s))) + ((b)[0] * (s)), (o)[1] = ((v)[1] * (1 - (s))) + ((b)[1] * (s)), (o)[2] = ((v)[2] * (1 - (s))) + ((b)[2] * (s)), (o)[3] = ((v)[3] * (1 - (s))) + ((b)[3] * (s)))
+#define Vector4Set(v, x, y, z, n)  ((v)[0] = (x), (v)[1] = (y), (v)[2] = (z), (v)[3] = (n))
+#define Vector4Copy(a, b)          ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2], (b)[3] = (a)[3])
+#define Vector4MA(v, s, b, o)      ((o)[0] = (v)[0] + (b)[0] * (s), (o)[1] = (v)[1] + (b)[1] * (s), (o)[2] = (v)[2] + (b)[2] * (s), (o)[3] = (v)[3] + (b)[3] * (s))
+#define Vector4Average(v, b, s, o) ((o)[0] = ((v)[0] * (1 - (s))) + ((b)[0] * (s)), (o)[1] = ((v)[1] * (1 - (s))) + ((b)[1] * (s)), (o)[2] = ((v)[2] * (1 - (s))) + ((b)[2] * (s)), (o)[3] = ((v)[3] * (1 - (s))) + ((b)[3] * (s)))
 
-#define    SnapVector(v) { v[0] = ((int)(v[0])); v[1] = ((int)(v[1])); v[2] = ((int)(v[2])); }
+#define SnapVector(v) { v[0] = ((int)(v[0])); v[1] = ((int)(v[1])); v[2] = ((int)(v[2])); }
 
 // just in case you do't want to use the macros
 vec_t _DotProduct(const vec3_t v1, const vec3_t v2);
@@ -778,11 +778,11 @@ void QDECL Com_Printf(const char *msg, ...) _attribute((format(printf, 1, 2)));
 ==========================================================
 */
 
-#define    RELOAD_SAVEGAME        0x01
-#define    RELOAD_NEXTMAP         0x02
-#define    RELOAD_NEXTMAP_WAITING 0x04
-#define    RELOAD_FAILED          0x08
-#define    RELOAD_ENDGAME         0x10
+#define RELOAD_SAVEGAME        0x01
+#define RELOAD_NEXTMAP         0x02
+#define RELOAD_NEXTMAP_WAITING 0x04
+#define RELOAD_FAILED          0x08
+#define RELOAD_ENDGAME         0x10
 
 /*
 ==========================================================
@@ -795,28 +795,28 @@ default values.
 ==========================================================
 */
 
-#define    CVAR_ARCHIVE 1           // set to cause it to be saved to vars.rc
+#define CVAR_ARCHIVE 1           // set to cause it to be saved to vars.rc
 // used for system variables, not for player
 // specific configurations
-#define    CVAR_USERINFO   2         // sent to server on connect or change
-#define    CVAR_SERVERINFO 4           // sent in response to front end requests
-#define    CVAR_SYSTEMINFO 8           // these cvars will be duplicated on all clients
-#define    CVAR_INIT       16         // don't allow change from console at all,
+#define CVAR_USERINFO   2         // sent to server on connect or change
+#define CVAR_SERVERINFO 4           // sent in response to front end requests
+#define CVAR_SYSTEMINFO 8           // these cvars will be duplicated on all clients
+#define CVAR_INIT       16         // don't allow change from console at all,
 // but can be set from the command line
-#define    CVAR_LATCH 32               // will only change when C code next does
+#define CVAR_LATCH 32               // will only change when C code next does
 // a Cvar_Get(), so it can't be changed
 // without proper initialization.  modified
 // will be set, even though the value hasn't
 // changed yet
-#define    CVAR_ROM          64      // display only, cannot be set by user at all
-#define    CVAR_USER_CREATED 128       // created by a set command
-#define    CVAR_TEMP         256       // can be set even when cheats are disabled, but is not archived
-#define CVAR_CHEAT           512     // can not be changed if cheats are disabled
-#define CVAR_NORESTART       1024     // do not clear when a cvar_restart is issued
-#define CVAR_WOLFINFO        2048    // DHM - NERVE :: Like userinfo, but for wolf multiplayer info
+#define CVAR_ROM          64      // display only, cannot be set by user at all
+#define CVAR_USER_CREATED 128       // created by a set command
+#define CVAR_TEMP         256       // can be set even when cheats are disabled, but is not archived
+#define CVAR_CHEAT        512        // can not be changed if cheats are disabled
+#define CVAR_NORESTART    1024        // do not clear when a cvar_restart is issued
+#define CVAR_WOLFINFO     2048       // DHM - NERVE :: Like userinfo, but for wolf multiplayer info
 
-#define CVAR_UNSAFE                 4096 // ydnar: unsafe system cvars (renderer, sound settings, anything that might cause a crash)
-#define    CVAR_SERVERINFO_NOUPDATE 8192           // gordon: WONT automatically send this to clients, but server browsers will see it
+#define CVAR_UNSAFE              4096    // ydnar: unsafe system cvars (renderer, sound settings, anything that might cause a crash)
+#define CVAR_SERVERINFO_NOUPDATE 8192           // gordon: WONT automatically send this to clients, but server browsers will see it
 
 // nothing outside the Cvar_*() functions should modify these fields!
 typedef struct cvar_s
@@ -834,7 +834,7 @@ typedef struct cvar_s
     struct cvar_s *hashNext;
 } cvar_t;
 
-#define    MAX_CVAR_VALUE_STRING 256
+#define MAX_CVAR_VALUE_STRING 256
 
 typedef int cvarHandle_t;
 
@@ -861,11 +861,11 @@ COLLISION DETECTION
 
 // plane types are used to speed some tests
 // 0-2 are axial planes
-#define    PLANE_X         0
-#define    PLANE_Y         1
-#define    PLANE_Z         2
-#define    PLANE_NON_AXIAL 3
-#define PLANE_NON_PLANAR   4
+#define PLANE_X          0
+#define PLANE_Y          1
+#define PLANE_Z          2
+#define PLANE_NON_AXIAL  3
+#define PLANE_NON_PLANAR 4
 
 /*
 =================
@@ -922,10 +922,10 @@ typedef struct
 
 // in order from highest priority to lowest
 // if none of the catchers are active, bound key strings will be executed
-#define KEYCATCH_CONSOLE    0x0001
-#define    KEYCATCH_UI      0x0002
-#define    KEYCATCH_MESSAGE 0x0004
-#define    KEYCATCH_CGAME   0x0008
+#define KEYCATCH_CONSOLE 0x0001
+#define KEYCATCH_UI      0x0002
+#define KEYCATCH_MESSAGE 0x0004
+#define KEYCATCH_CGAME   0x0008
 
 // sound channels
 // channel 0 never willingly overrides
@@ -950,22 +950,22 @@ typedef enum
 
 ========================================================================
 */
-#define    ANIM_BITS 10
+#define ANIM_BITS 10
 
-#define    ANGLE2SHORT(x) ((int)((x) * 65536 / 360) & 65535)
-#define    SHORT2ANGLE(x) ((x) * (360.0 / 65536))
+#define ANGLE2SHORT(x) ((int)((x) * 65536 / 360) & 65535)
+#define SHORT2ANGLE(x) ((x) * (360.0 / 65536))
 
-#define    SNAPFLAG_RATE_DELAYED 1
-#define    SNAPFLAG_NOT_ACTIVE   2         // snapshot used during connection and for zombies
-#define SNAPFLAG_SERVERCOUNT     4   // toggled every map_restart so transitions can be detected
+#define SNAPFLAG_RATE_DELAYED 1
+#define SNAPFLAG_NOT_ACTIVE   2         // snapshot used during connection and for zombies
+#define SNAPFLAG_SERVERCOUNT  4      // toggled every map_restart so transitions can be detected
 
 //
 // per-level limits
 //
-#define    MAX_CLIENTS 64            // JPW NERVE back to q3ta default was 128        // absolute limit
+#define MAX_CLIENTS 64            // JPW NERVE back to q3ta default was 128        // absolute limit
 
-#define    GENTITYNUM_BITS 10           // JPW NERVE put q3ta default back for testing    // don't need to send any more
-#define    MAX_GENTITIES   (1 << GENTITYNUM_BITS)
+#define GENTITYNUM_BITS 10           // JPW NERVE put q3ta default back for testing    // don't need to send any more
+#define MAX_GENTITIES   (1 << GENTITYNUM_BITS)
 
 // tjw: used for limiting weapons that my overflow gentities[]
 #define MIN_SPARE_GENTITIES 64
@@ -973,12 +973,12 @@ typedef enum
 // entitynums are communicated with GENTITY_BITS, so any reserved
 // values thatare going to be communcated over the net need to
 // also be in this range
-#define    ENTITYNUM_NONE       (MAX_GENTITIES - 1)
-#define    ENTITYNUM_WORLD      (MAX_GENTITIES - 2)
-#define    ENTITYNUM_MAX_NORMAL (MAX_GENTITIES - 2)
+#define ENTITYNUM_NONE       (MAX_GENTITIES - 1)
+#define ENTITYNUM_WORLD      (MAX_GENTITIES - 2)
+#define ENTITYNUM_MAX_NORMAL (MAX_GENTITIES - 2)
 
-#define    MAX_MODELS 256                   // these are sent over the net as 8 bits (Gordon: upped to 9 bits, erm actually it was already at 9 bits, wtf? NEVAR TRUST GAMECODE COMMENTS, comments are evil :E, lets hope it doesnt horribly break anything....)
-#define    MAX_SOUNDS 256                   // so they cannot be blindly increased
+#define MAX_MODELS    256                // these are sent over the net as 8 bits (Gordon: upped to 9 bits, erm actually it was already at 9 bits, wtf? NEVAR TRUST GAMECODE COMMENTS, comments are evil :E, lets hope it doesnt horribly break anything....)
+#define MAX_SOUNDS    256                // so they cannot be blindly increased
 #define MAX_CS_SKINS  64
 #define MAX_CSSTRINGS 32
 
@@ -988,7 +988,7 @@ typedef enum
 
 #define MAX_MULTI_SPAWNTARGETS 16    // JPW NERVE
 
-#define    MAX_CONFIGSTRINGS 1024
+#define MAX_CONFIGSTRINGS 1024
 
 #define MAX_DLIGHT_CONFIGSTRINGS 16
 #define MAX_SPLINE_CONFIGSTRINGS 8
@@ -998,19 +998,19 @@ typedef enum
 #define PARTICLE_SNOW32  3
 #define PARTICLE_SNOW256 0
 
-#define PARTICLE_BUBBLE8     4
-#define PARTICLE_BUBBLE16    5
-#define    PARTICLE_BUBBLE32 6
-#define PARTICLE_BUBBLE64    7
+#define PARTICLE_BUBBLE8  4
+#define PARTICLE_BUBBLE16 5
+#define PARTICLE_BUBBLE32 6
+#define PARTICLE_BUBBLE64 7
 
 // these are the only configstrings that the system reserves, all the
 // other ones are strictly for servergame to clientgame communication
-#define    CS_SERVERINFO 0               // an info string with all the serverinfo cvars
-#define    CS_SYSTEMINFO 1               // an info string for server system to client system configuration (timescale, etc)
+#define CS_SERVERINFO 0               // an info string with all the serverinfo cvars
+#define CS_SYSTEMINFO 1               // an info string for server system to client system configuration (timescale, etc)
 
-#define    RESERVED_CONFIGSTRINGS 2       // game can't modify below this, only the system can
+#define RESERVED_CONFIGSTRINGS 2       // game can't modify below this, only the system can
 
-#define    MAX_GAMESTATE_CHARS 16000
+#define MAX_GAMESTATE_CHARS 16000
 typedef struct
 {
     int stringOffsets[MAX_CONFIGSTRINGS];
@@ -1029,21 +1029,21 @@ typedef enum
     MAX_AISTATES
 } aistateEnum_t;
 
-#define    REF_FORCE_DLIGHT  (1 << 31)      // RF, passed in through overdraw parameter, force this dlight under all conditions
-#define    REF_JUNIOR_DLIGHT (1 << 30)       // (SA) this dlight does not light surfaces.  it only affects dynamic light grid
-#define REF_DIRECTED_DLIGHT  (1 << 29)      // ydnar: global directional light, origin should be interpreted as a normal vector
+#define REF_FORCE_DLIGHT    (1 << 31)    // RF, passed in through overdraw parameter, force this dlight under all conditions
+#define REF_JUNIOR_DLIGHT   (1 << 30)     // (SA) this dlight does not light surfaces.  it only affects dynamic light grid
+#define REF_DIRECTED_DLIGHT (1 << 29)       // ydnar: global directional light, origin should be interpreted as a normal vector
 
 // bit field limits
-#define    MAX_STATS      16
-#define    MAX_PERSISTANT 16
-#define    MAX_POWERUPS   16
-#define    MAX_WEAPONS    64                // (SA) and yet more!
+#define MAX_STATS      16
+#define MAX_PERSISTANT 16
+#define MAX_POWERUPS   16
+#define MAX_WEAPONS    64                // (SA) and yet more!
 
 // Ridah, increased this
-//#define    MAX_PS_EVENTS            2
+//#define MAX_PS_EVENTS            2
 // ACK: I'd really like to make this 4, but that seems to cause network problems
-#define    MAX_EVENTS 4                   // max events per frame before we drop events
-//#define    MAX_EVENTS                2    // max events per frame before we drop events
+#define MAX_EVENTS 4                   // max events per frame before we drop events
+//#define MAX_EVENTS                2    // max events per frame before we drop events
 
 #define PS_PMOVEFRAMECOUNTBITS 6
 
@@ -1213,11 +1213,11 @@ typedef struct playerState_s
 // usercmd_t->button bits, many of which are generated by the client system,
 // so they aren't game/cgame only definitions
 //
-#define    BUTTON_ATTACK 1
-#define    BUTTON_TALK   2                     // displays talk balloon and disables actions
-//#define    BUTTON_USE_HOLDABLE    4
-#define    BUTTON_GESTURE 8
-#define    BUTTON_WALKING 16                   // walking can't just be infered from MOVE_RUN
+#define BUTTON_ATTACK 1
+#define BUTTON_TALK   2                     // displays talk balloon and disables actions
+//#define BUTTON_USE_HOLDABLE    4
+#define BUTTON_GESTURE 8
+#define BUTTON_WALKING 16                   // walking can't just be infered from MOVE_RUN
 // because a key pressed late in the frame will
 // only generate a small move value for that frame
 // walking will use different animations and
@@ -1227,19 +1227,19 @@ typedef struct playerState_s
 #define BUTTON_ACTIVATE 64
 //----(SA)    end
 
-#define    BUTTON_ANY 128                       // any key whatsoever
+#define BUTTON_ANY 128                       // any key whatsoever
 
 //----(SA) wolf buttons
-#define    WBUTTON_ATTACK2   1
-#define    WBUTTON_ZOOM      2
-#define    WBUTTON_RELOAD    8
-#define    WBUTTON_LEANLEFT  16
-#define    WBUTTON_LEANRIGHT 32
-#define    WBUTTON_DROP      64   // JPW NERVE
-#define WBUTTON_PRONE        128 // Arnout: wbutton now
+#define WBUTTON_ATTACK2   1
+#define WBUTTON_ZOOM      2
+#define WBUTTON_RELOAD    8
+#define WBUTTON_LEANLEFT  16
+#define WBUTTON_LEANRIGHT 32
+#define WBUTTON_DROP      64   // JPW NERVE
+#define WBUTTON_PRONE     128    // Arnout: wbutton now
 //----(SA) end
 
-#define    MOVE_RUN 120                       // if forwardmove or rightmove are >= MOVE_RUN,
+#define MOVE_RUN 120                       // if forwardmove or rightmove are >= MOVE_RUN,
 // then BUTTON_WALKING should be set
 
 // Arnout: doubleTap buttons - DT_NUM can be max 8
@@ -1277,7 +1277,7 @@ typedef struct usercmd_s
 //===================================================================
 
 // if entityState->solid == SOLID_BMODEL, modelindex is an inline model number
-#define    SOLID_BMODEL 0xffffff
+#define SOLID_BMODEL 0xffffff
 
 typedef enum
 {
@@ -1568,8 +1568,8 @@ typedef enum _flag_status
     FLAG_DROPPED
 } flagStatus_t;
 
-#define    MAX_GLOBAL_SERVERS    4096
-#define    MAX_OTHER_SERVERS     128
+#define MAX_GLOBAL_SERVERS       4096
+#define MAX_OTHER_SERVERS        128
 #define MAX_PINGREQUESTS         16
 #define MAX_SERVERSTATUSREQUESTS 16
 

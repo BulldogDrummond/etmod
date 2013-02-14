@@ -11,21 +11,21 @@
 #ifndef __G_PUBLIC_H__
 #define __G_PUBLIC_H__
 
-#define    GAME_API_VERSION 8
+#define GAME_API_VERSION 8
 
 // entity->svFlags
 // the server does not know how to interpret most of the values
 // in entityStates (level eType), so the game must explicitly flag
 // special server behaviors
-#define    SVF_NOCLIENT 0x00000001               // don't send entity to clients, even if it has effects
-#define SVF_VISDUMMY    0x00000004            // this ent is a "visibility dummy" and needs it's master to be sent to clients that can see it even if they can't see the master ent
-#define SVF_BOT         0x00000008
-#define SVF_POW         0x00000010               // Gordon: stole SVF_CASTAI as it's no longer used
+#define SVF_NOCLIENT 0x00000001               // don't send entity to clients, even if it has effects
+#define SVF_VISDUMMY 0x00000004               // this ent is a "visibility dummy" and needs it's master to be sent to clients that can see it even if they can't see the master ent
+#define SVF_BOT      0x00000008
+#define SVF_POW      0x00000010                  // Gordon: stole SVF_CASTAI as it's no longer used
 
-#define    SVF_BROADCAST   0x00000020             // send to all connected clients
-#define    SVF_PORTAL      0x00000040              // merge a second pvs at origin2 into snapshots
-#define    SVF_BLANK       0x00000080             // Gordon: removed SVF_USE_CURRENT_ORIGIN as it plain doesnt do anything
-#define    SVF_NOFOOTSTEPS 0x00000100
+#define SVF_BROADCAST   0x00000020             // send to all connected clients
+#define SVF_PORTAL      0x00000040              // merge a second pvs at origin2 into snapshots
+#define SVF_BLANK       0x00000080             // Gordon: removed SVF_USE_CURRENT_ORIGIN as it plain doesnt do anything
+#define SVF_NOFOOTSTEPS 0x00000100
 
 // MrE:
 #define SVF_CAPSULE 0x00000200                   // use capsule for collision detection

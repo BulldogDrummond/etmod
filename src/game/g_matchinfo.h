@@ -1,3 +1,13 @@
+/*********************************************************
+ * Project : ETMod
+ *
+ * File    : g_matchinfo.h
+ * Desc    : Match information declarations.
+ *
+ * Status  : Pending
+ *
+ *********************************************************/
+
 #ifndef _G_MATCAHINFO_H
 #define _G_MATCHINFO_H
 

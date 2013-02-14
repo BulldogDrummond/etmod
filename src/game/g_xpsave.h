@@ -96,4 +96,5 @@ void G_AddSpreeRecord();
 void G_ShowSpreeRecord(qboolean command);
 // pheno
 void G_xpsave_writexp();
+
 #endif /* ifndef _G_XPSAVE_H */

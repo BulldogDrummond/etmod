@@ -698,20 +698,24 @@ qboolean G_xpsave_add(gentity_t *ent, qboolean disconnect)
     {
         if (ent->client->sess.sessionTeam == TEAM_ALLIES)
         {
-            clientTeam = TEAM_ALLIES;
+            clientTeam     = TEAM_ALLIES;
             clientTeamName = "Allies";
             clientRankName = rankNames_Allies[ent->client->sess.rank];
-        } else {
-            clientTeam = TEAM_AXIS;
+        }
+        else
+        {
+            clientTeam     = TEAM_AXIS;
             clientTeamName = "Axis";
             clientRankName = rankNames_Axis[ent->client->sess.rank];
         }
-    } else {
-        clientTeam = TEAM_SPECTATOR;
+    }
+    else
+    {
+        clientTeam     = TEAM_SPECTATOR;
         clientTeamName = "Spectator";
         clientRankName = "N/A";
     }
-    
+
     if (!guid[0] || strlen(guid) != 32)
     {
         return qfalse;

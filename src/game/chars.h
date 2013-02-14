@@ -60,7 +60,7 @@
 #define CHARACTERISTIC_AIM_SKILL_GRENADELAUNCHER 18       //float [0, 1]
 #define CHARACTERISTIC_AIM_SKILL_SP5             19       //float [0, 1]
 //#define CHARACTERISTIC_AIM_SKILL_BFG10K                20    //float [0, 1]
-#define    CHARACTERISTIC_AIM_SKILL_SNIPERRIFLE 20
+#define CHARACTERISTIC_AIM_SKILL_SNIPERRIFLE 20
 //========================================================
 //chat
 //========================================================

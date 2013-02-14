@@ -172,7 +172,7 @@ void G_DB_XPSave(char *guid, char *xpname, int xptime, float skill0, float skill
                  float skill2, float skill3, float skill4, float skill5,
                  float skill6, float kill_rating, float kill_variance,
                  float rating, float rating_variance, int mutetime, int hits,
-                 int team_hits, int player_team, const char *teamName, 
+                 int team_hits, int player_team, const char *teamName,
                  int player_rank, const char *rankName)
 {
     char *dbhost;
