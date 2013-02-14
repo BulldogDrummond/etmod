@@ -1744,11 +1744,11 @@ obResult ChangeTeam(int _client, int _newteam, const MessageHelper *_data)
 
     if (_newteam == ET_TEAM_AXIS)
     {
-        teamName = "axis"; // TODO: Generates compiler warning
+        sprintf(teamName, "axis");
     }
     else
     {
-        teamName = "allies"; // TODO: Generates compiler warning
+        sprintf(teamName, "allies");
     }
 
     Msg_PlayerChooseEquipment *pMsg = 0;
@@ -4144,7 +4144,8 @@ obResult InterfaceSendMessage(const MessageHelper &_data, const GameEntity _ent)
         OB_GETMSG(Msg_GotoWaypoint);
         if (pMsg && pMsg->m_Origin && g_cheats.integer)
         {
-            char *cmd = va("setviewpos %f %f %f %f", pMsg->m_Origin[0], pMsg->m_Origin[1], pMsg->m_Origin[2], 0.f); // TODO: Generates compiler warning
+            char cmd[512];
+            sprintf(cmd, "setviewpos %f %f %f %f", pMsg->m_Origin[0], pMsg->m_Origin[1], pMsg->m_Origin[2], 0.f);
             trap_SendConsoleCommand(EXEC_NOW, cmd);
             return Success;
         }
@@ -4697,7 +4698,9 @@ obResult InterfaceSendMessage(const MessageHelper &_data, const GameEntity _ent)
         if (pEnt && pEnt->client)
         {
             OB_GETMSG(ET_FireTeamApply);
-            trap_EA_Command(pEnt - g_entities, va("fireteam apply %i", pMsg->m_FireTeamNum)); // TODO: Generates compiler warning
+            char t_buf[3];
+            sprintf(t_buf, "fireteam apply %i", pMsg->m_FireTeamNum);
+            trap_EA_Command(pEnt - g_entities, t_buf);
         }
         break;
     }
@@ -4709,7 +4712,9 @@ obResult InterfaceSendMessage(const MessageHelper &_data, const GameEntity _ent)
             gentity_t *targ = EntityFromHandle(pMsg->m_Target);
             if (targ)
             {
-                trap_EA_Command(pEnt - g_entities, va("fireteam invite %i", (targ - g_entities) + 1)); // TODO: Generates compiler warning
+                char t_buf[3];
+                sprintf(t_buf, "fireteam invite %i", (targ - g_entities) + 1);
+                trap_EA_Command(pEnt - g_entities, t_buf);
             }
         }
         break;
@@ -4722,7 +4727,9 @@ obResult InterfaceSendMessage(const MessageHelper &_data, const GameEntity _ent)
             gentity_t *targ = EntityFromHandle(pMsg->m_Target);
             if (targ)
             {
-                trap_EA_Command(pEnt - g_entities, va("fireteam warn %i", (targ - g_entities) + 1)); // TODO: Generates compiler warning
+                char t_buf[3];
+                sprintf(t_buf, "fireteam warn %i", (targ - g_entities) + 1);
+                trap_EA_Command(pEnt - g_entities, t_buf);
             }
         }
         break;
@@ -4735,7 +4742,9 @@ obResult InterfaceSendMessage(const MessageHelper &_data, const GameEntity _ent)
             gentity_t *targ = EntityFromHandle(pMsg->m_Target);
             if (targ)
             {
-                trap_EA_Command(pEnt - g_entities, va("fireteam kick %i", (targ - g_entities) + 1)); // TODO: Generates compiler warning
+                char t_buf[3];
+                sprintf(t_buf, "fireteam kick %i", (targ - g_entities) + 1);
+                trap_EA_Command(pEnt - g_entities, t_buf);
             }
         }
         break;
@@ -4748,7 +4757,9 @@ obResult InterfaceSendMessage(const MessageHelper &_data, const GameEntity _ent)
             gentity_t *targ = EntityFromHandle(pMsg->m_Target);
             if (targ)
             {
-                trap_EA_Command(pEnt - g_entities, va("fireteam propose %i", (targ - g_entities) + 1)); // TODO: Generates compiler warning
+                char t_buf[3];
+                sprintf(t_buf, "fireteam propose %i", (targ - g_entities) + 1);
+                trap_EA_Command(pEnt - g_entities, t_buf);
             }
         }
         break;
@@ -5219,7 +5230,9 @@ void Bot_Interface_Update()
             if (g_OmniBotPlaying.integer != iNumBots)
             {
                 g_OmniBotPlaying.integer = iNumBots;
-                trap_Cvar_Set("omnibot_playing", va("%i", iNumBots)); // TODO: Generates compiler warning
+                char nb_buf[3];
+                sprintf(nb_buf, "%i", iNumBots);
+                trap_Cvar_Set("omnibot_playing", nb_buf);
             }
         }
         else
