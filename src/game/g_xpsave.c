@@ -660,6 +660,10 @@ qboolean G_xpsave_add(gentity_t *ent, qboolean disconnect)
     qboolean   found = qfalse;
     g_xpsave_t *x    = g_xpsaves[0];
     time_t     t;
+    int        clientRank;
+    int        clientTeam;
+    const char *clientTeamName;
+    const char *clientRankName;
 
     if (!(g_XPSave.integer & XPSF_ENABLE))
     {
@@ -685,10 +689,29 @@ qboolean G_xpsave_add(gentity_t *ent, qboolean disconnect)
 
     clientNum = ent - g_entities;
     // tjw: some want raw name
-    //SanitizeString(ent->client->pers.netname, name, qtrue);
     Q_strncpyz(name, ent->client->pers.netname, sizeof(name));
     Q_strncpyz(guid, ent->client->sess.guid, sizeof(guid));
 
+    // Extras for database
+    clientRank = ent->client->sess.rank;
+    if (ent->client->sess.sessionTeam != TEAM_SPECTATOR)
+    {
+        if (ent->client->sess.sessionTeam == TEAM_ALLIES)
+        {
+            clientTeam = TEAM_ALLIES;
+            clientTeamName = "Allies";
+            clientRankName = rankNames_Allies[ent->client->sess.rank];
+        } else {
+            clientTeam = TEAM_AXIS;
+            clientTeamName = "Axis";
+            clientRankName = rankNames_Axis[ent->client->sess.rank];
+        }
+    } else {
+        clientTeam = TEAM_SPECTATOR;
+        clientTeamName = "Spectator";
+        clientRankName = "N/A";
+    }
+    
     if (!guid[0] || strlen(guid) != 32)
     {
         return qfalse;
@@ -783,7 +806,8 @@ qboolean G_xpsave_add(gentity_t *ent, qboolean disconnect)
     G_DB_XPSave(x->guid, x->name, x->time, x->skill[0], x->skill[1], x->skill[2],
                 x->skill[3], x->skill[4], x->skill[5], x->skill[6],
                 x->kill_rating, x->kill_variance, x->rating,
-                x->rating_variance, x->mutetime, x->hits, x->team_hits);
+                x->rating_variance, x->mutetime, x->hits, x->team_hits, clientTeam,
+                clientTeamName, clientRank, clientRankName);
 
     return qtrue;
 }

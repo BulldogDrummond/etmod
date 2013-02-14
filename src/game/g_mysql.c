@@ -172,7 +172,8 @@ void G_DB_XPSave(char *guid, char *xpname, int xptime, float skill0, float skill
                  float skill2, float skill3, float skill4, float skill5,
                  float skill6, float kill_rating, float kill_variance,
                  float rating, float rating_variance, int mutetime, int hits,
-                 int team_hits)
+                 int team_hits, int player_team, const char *teamName, 
+                 int player_rank, const char *rankName)
 {
     char *dbhost;
     char *dbname;
@@ -191,18 +192,18 @@ void G_DB_XPSave(char *guid, char *xpname, int xptime, float skill0, float skill
     char query[1024];
     sprintf(query, "INSERT INTO player_xp (guid, name, time, skill0, skill1, skill2, skill3, \
         skill4, skill5, skill6, kill_rating, kill_variance, rating, \
-        rating_variance, mutetime, hits, team_hits) VALUES \
-        (\"%s\",\"%s\",%i,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%i,%i,%i) \
+        rating_variance, mutetime, hits, team_hits, team, teamName, rank, rankName) VALUES \
+        (\"%s\",\"%s\",%i,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%i,%i,%i,%i,\"%s\",%i,\"%s\") \
         ON DUPLICATE KEY UPDATE guid=\"%s\", name=\"%s\", time=%i, skill0=%f, \
         skill1=%f, skill2=%f, skill3=%f, skill4=%f, skill5=%f, skill6=%f, \
         kill_rating=%f, kill_variance=%f, rating=%f, rating_variance=%f, mutetime=%i, \
-        hits=%i, team_hits=%i",
+        hits=%i, team_hits=%i, team=%i, teamName=\"%s\", rank=%i, rankName=\"%s\"",
             guid, xpname, xptime, skill0, skill1, skill2, skill3, skill4, skill5,
             skill6, kill_rating, kill_variance, rating, rating_variance, mutetime,
-            hits, team_hits,
+            hits, team_hits, player_team, teamName, player_rank, rankName,
             guid, xpname, xptime, skill0, skill1, skill2, skill3, skill4, skill5,
             skill6, kill_rating, kill_variance, rating, rating_variance, mutetime,
-            hits, team_hits);
+            hits, team_hits, player_team, teamName, player_rank, rankName);
 
     conn = mysql_init(NULL);
 
