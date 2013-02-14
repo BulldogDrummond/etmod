@@ -6,17 +6,17 @@ Remove map vote code (needs client)
 CODE WARNINGS:
 ============================================================================================================
 
-[ 85%] Building CXX object CMakeFiles/qagame.mp.i386.dir/src/game/g_etbot_interface.cpp.o
+[ 68%] Building CXX object CMakeFiles/qagame.mp.i386.dir/src/game/g_etbot_interface.cpp.o
 /opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual obResult ETInterface::ChangeTeam(int, int, const MessageHelper*)’:
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:1671: warning: deprecated conversion from string constant to ‘char*’
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:1673: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:1747: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:1751: warning: deprecated conversion from string constant to ‘char*’
 /opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In member function ‘virtual obResult ETInterface::InterfaceSendMessage(const MessageHelper&, GameEntity)’:
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4057: warning: deprecated conversion from string constant to ‘char*’
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4574: warning: deprecated conversion from string constant to ‘char*’
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4586: warning: deprecated conversion from string constant to ‘char*’
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4599: warning: deprecated conversion from string constant to ‘char*’
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4612: warning: deprecated conversion from string constant to ‘char*’
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4625: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4147: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4700: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4712: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4725: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4738: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:4751: warning: deprecated conversion from string constant to ‘char*’
 /opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp: In function ‘void Bot_Interface_Update()’:
-/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5119: warning: deprecated conversion from string constant to ‘char*’
+/opt/wolfet/src/etmod/src/game/g_etbot_interface.cpp:5222: warning: deprecated conversion from string constant to ‘char*’
 
