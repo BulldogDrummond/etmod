@@ -1777,12 +1777,6 @@ qboolean G_ScriptAction_Trigger(gentity_t *ent, char *params)
                     terminate = qtrue;
                 }
             }
-            else
-            {
-#ifndef NO_BOT_SUPPORT
-                Bot_ScriptEvent(trent->s.number, "trigger", trigger);
-#endif
-            }
         }
         //
         if (terminate)
@@ -1808,12 +1802,6 @@ qboolean G_ScriptAction_Trigger(gentity_t *ent, char *params)
     }
     else if (!Q_stricmp(name, "activator"))
     {
-#ifndef NO_BOT_SUPPORT
-        if (ent->activator && ent->activator->client && (ent->activator->r.svFlags & SVF_BOT) && ent->inuse && ent->activator->client->ps.stats[STAT_HEALTH] > 0)
-        {
-            Bot_ScriptEvent(ent->activator - g_entities, "trigger", trigger);
-        }
-#endif
         return qtrue;    // always true, as players aren't always there
     }
     else
@@ -1834,12 +1822,6 @@ qboolean G_ScriptAction_Trigger(gentity_t *ent, char *params)
                 {
                     terminate = qtrue;
                 }
-            }
-            else
-            {
-#ifndef NO_BOT_SUPPORT
-                Bot_ScriptEvent(trent->s.number, "trigger", trigger);
-#endif
             }
         }
         //

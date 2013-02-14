@@ -3888,12 +3888,6 @@ void G_VoiceTo(gentity_t *ent, gentity_t *other, int mode, const char *id, qbool
         cmd   = "vchat";
     }
 
-    // RF, record this chat so bots can parse them
-    // bots respond with voiceonly, so we check for this so they dont keep responding to responses
-#ifndef NO_BOT_SUPPORT
-    BotRecordVoiceChat(ent->s.number, other->s.number, id, mode, voiceonly == 2);
-#endif
-
     // Omni-bot Send this voice macro to the bot as an event.
     Bot_Event_VoiceMacro(other - g_entities, ent, mode, id);
 

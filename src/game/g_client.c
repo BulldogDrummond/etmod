@@ -820,19 +820,6 @@ void reinforce(gentity_t *ent)
     int       p, team; // numDeployable=0, finished=0; // TTimo unused
     char      *classname;
     gclient_t *rclient;
-#ifndef NO_BOT_SUPPORT
-    char userinfo[MAX_INFO_STRING], *respawnStr;
-
-    if (ent->r.svFlags & SVF_BOT)
-    {
-        trap_GetUserinfo(ent->s.number, userinfo, sizeof(userinfo));
-        respawnStr = Info_ValueForKey(userinfo, "respawn");
-        if (!Q_stricmp(respawnStr, "no") || !Q_stricmp(respawnStr, "off"))
-        {
-            return;    // no respawns
-        }
-    }
-#endif
 
     if (!(ent->client->ps.pm_flags & PMF_LIMBO))
     {
@@ -2613,42 +2600,6 @@ void ClientUserinfoChanged(int clientNum)
 
     // send over a subset of the userinfo keys so other clients can
     // print scoreboards, display models, and play custom sounds
-#ifndef NO_BOT_SUPPORT
-    if (ent->r.svFlags & SVF_BOT)
-    {
-        // n: netname
-        // t: sessionTeam
-        // c1: color
-        // hc: maxHealth
-        // skill: skill
-        // c: playerType (class?)
-        // r: rank
-        // f: fireteam
-        // nwp: noWeapon
-        // m: medals
-        // ch: character
-
-        s = va("n\\%s\\t\\%i\\skill\\%s\\c\\%i\\r\\%i\\m\\%s\\s\\%s%s\\dn\\%s\\dr\\%i\\w\\%i\\lw\\%i\\sw\\%i\\mu\\%i\\uci\\%u", //mcwf GeoIP
-               client->pers.netname,
-               client->sess.sessionTeam,
-               Info_ValueForKey(userinfo, "skill"),
-               client->sess.playerType,
-               client->sess.rank,
-               medalStr,
-               skillStr,
-               characterIndex >= 0 ? va("\\ch\\%i", characterIndex) : "",
-               client->disguiseNetname,
-               client->disguiseRank,
-               client->sess.playerWeapon,
-               client->sess.latchPlayerWeapon,
-               client->sess.latchPlayerWeapon2,
-               (client->sess.auto_unmute_time != 0) ? 1 : 0,
-               client->sess.uci //mcwf GeoIP
-               );
-    }
-    else
-    {
-#endif
     // mcwf GeoIP
     // quad: added support for latched classes
     // quad: added support for ettv & shoutcaster
@@ -2671,9 +2622,6 @@ void ClientUserinfoChanged(int clientNum)
            client->sess.ettv,
            client->sess.shoutcaster
            );
-#ifndef NO_BOT_SUPPORT
-}
-#endif
 
     trap_GetConfigstring(CS_PLAYERS + clientNum, oldname, sizeof(oldname));
 
@@ -3819,15 +3767,8 @@ void ClientSpawn(
     ent->client            = &level.clients[index];
     ent->takedamage        = qtrue;
     ent->inuse             = qtrue;
-#ifndef NO_BOT_SUPPORT
-    if (ent->r.svFlags & SVF_BOT)
-    {
-        ent->classname = "bot";
-    }
-    else
-#endif
-    ent->classname  = "player";
-    ent->r.contents = CONTENTS_BODY;
+    ent->classname         = "player";
+    ent->r.contents        = CONTENTS_BODY;
 
     ent->clipmask = MASK_PLAYERSOLID;
 
@@ -4074,18 +4015,6 @@ void ClientSpawn(
         SetClientViewAngle(ent, newangle);
     }
 
-#ifndef NO_BOT_SUPPORT
-    if (ent->r.svFlags & SVF_BOT)
-    {
-        // xkan, 10/11/2002 - the ideal view angle is defaulted to 0,0,0, but the
-        // spawn_angles is the desired angle for the bots to face.
-        BotSetIdealViewAngles(index, spawn_angles);
-
-        // TAT 1/14/2003 - now that we have our position in the world, init our autonomy positions
-        BotInitMovementAutonomyPos(ent);
-    }
-#endif
-
     if (ent->client->sess.sessionTeam != TEAM_SPECTATOR)
     {
         //G_KillBox(ent);
@@ -4145,12 +4074,6 @@ void ClientSpawn(
         // RF, call entity scripting event
         G_Script_ScriptEvent(ent, "playerstart", "");
     }
-#ifndef NO_BOT_SUPPORT
-    else if (revived && (ent->r.svFlags & SVF_BOT))
-    {
-        Bot_ScriptEvent(ent->s.number, "revived", "");
-    }
-#endif
 }
 
 /*
