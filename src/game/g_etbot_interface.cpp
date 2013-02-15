@@ -21,6 +21,8 @@ qboolean G_IsOnFireteam(int entityNum, fireteamData_t **teamNum);
 #include "ET_Config.h"
 #include "ET_Messages.h"
 
+#pragma GCC diagnostic ignored "-Wwrite-strings"
+
 #define OMNIBOT_MIN_ENG 2
 #define OMNIBOT_MIN_MED 2
 #define OMNIBOT_MIN_FOP 2
