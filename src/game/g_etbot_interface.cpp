@@ -1742,13 +1742,14 @@ obResult ChangeTeam(int _client, int _newteam, const MessageHelper *_data)
         }
     }
 
+    // TODO: This causes compiler warings, but seems to work correctly.
     if (_newteam == ET_TEAM_AXIS)
     {
-        sprintf(teamName, "axis");
+        teamName = "axis";
     }
     else
     {
-        sprintf(teamName, "allies");
+        teamName = "allies";
     }
 
     Msg_PlayerChooseEquipment *pMsg = 0;
