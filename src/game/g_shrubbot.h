@@ -21,11 +21,10 @@
 #define MAX_SHRUBBOT_FLAGS    64
 #define MAX_SHRUBBOT_COMMANDS 64
 #define MAX_SHRUBBOT_WARNINGS 1024
-
-#define MAX_SHRUBBOT_CMD_LEN 17
+#define MAX_SHRUBBOT_CMD_LEN  17
 
 /*
- * flags by redeye
+ * flags
  * spree, tspree E
  *
  * 1 - cannot be vote kicked, vote muted, dropped
@@ -60,10 +59,10 @@
 #define SBF_INCOGNITO       '@'
 #define SBF_ADMINTEST_OTHER '$'
 #define SBF_ADMINCHAT       '~'
-// pheno: can rename himself regardless of g_maxNameChanges limit
+// can rename himself regardless of g_maxNameChanges limit
 #define SBF_NO_RENAME_LIMIT '&'
 
-// tjw: used by g_shrubbot_cmd.cmdFlags
+// used by g_shrubbot_cmd.cmdFlags
 #define SCMDF_TYRANNY 1
 
 // expires field seems to be offset by (30 years - 54 hours)...  go figure
@@ -77,8 +76,8 @@ struct g_shrubbot_cmd
     const char *keyword;
     qboolean(*const handler) (gentity_t * ent, int skiparg);
     char flag;
-    int cmdFlags; // see SCMDF_ defines
-    const char *function;        // used for !help
+    int cmdFlags;              // see SCMDF_ defines
+    const char *function;      // used for !help
     const char *syntax;        // used for !help
 };
 
@@ -189,14 +188,9 @@ qboolean G_shrubbot_userinfo(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_stats(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_dewarn(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_spreerecord(gentity_t *ent, int skiparg);
-
-//qboolean G_shrubbot_sk(gentity_t *ent, int skiparg);
-//qboolean G_shrubbot_smoke(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_spree(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_tspree(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_bye(gentity_t *ent, int skiparg);
-
-// pheno
 qboolean G_shrubbot_freeze(gentity_t *ent, int skiparg);
 qboolean G_shrubbot_unfreeze(gentity_t *ent, int skiparg);
 
