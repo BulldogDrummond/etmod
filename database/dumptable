@@ -1,0 +1,60 @@
+#!/bin/sh
+
+#
+# dumptable
+# Development clean database table dump utility.
+#
+
+# Version
+DBVER="1.0"
+
+if [ $# -lt 4 ]; then
+  echo "usage: $0 DBUSER DBPASS DATABASE_NAME TABLE_NAME"
+  exit 1
+fi
+
+# Get db credentials
+DBUSER=${1}
+DBPASS=${2}
+
+# Get db name
+DBNAME=${3}
+
+# Get table name
+TABLENAME=${4}
+
+echo "Saving $TABLENAME"
+rm $DBNAME/$TABLENAME.sql
+mysqldump --skip-extended-insert -c -u $DBUSER -p$DBPASS $DBNAME $TABLENAME > /tmp/$TABLENAME.sql
+# Clean up sql
+SQLLINES=`wc -l /tmp/$TABLENAME.sql | awk '{print $1}'`
+SQLHEAD=6
+SQLTAIL=2
+SQLBODY1=`expr $SQLLINES - $SQLTAIL`
+SQLBODY2=`expr $SQLBODY1 - $SQLHEAD`
+echo "-- -------------------------------------------------------------------" > $DBNAME/$TABLENAME.sql
+echo "-- ET Database" >> $DBNAME/$TABLENAME.sql
+echo "-- -------------------------------------------------------------------" >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql 
+echo "-- Table      : $TABLENAME" >> $DBNAME/$TABLENAME.sql
+echo "-- Filename   : $DBNAME/$TABLENAME.sql" >> $DBNAME/$TABLENAME.sql
+echo "-- DB Version : $DBVER" >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql
+echo "-- This  file is  free software;  as a  special exception  the  author" >> $DBNAME/$TABLENAME.sql
+echo "-- gives  unlimited permission  to copy and/or distribute it,  with or" >> $DBNAME/$TABLENAME.sql
+echo "-- without modification, as long as this notice is preserved." >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql
+echo "-- This program is distributed in the hope that it will be useful, but" >> $DBNAME/$TABLENAME.sql
+echo "-- WITHOUT ANY WARRANTY,  to the extent permitted by law; without even" >> $DBNAME/$TABLENAME.sql
+echo "-- the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR" >> $DBNAME/$TABLENAME.sql
+echo "-- PURPOSE." >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql
+echo "-- -------------------------------------------------------------------" >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql
+head -$SQLBODY1 /tmp/$TABLENAME.sql | tail -n $SQLBODY2 >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql
+echo "-- End-Of-File: $TABLENAME.sql" >> $DBNAME/$TABLENAME.sql
+echo "" >> $DBNAME/$TABLENAME.sql
+rm /tmp/$TABLENAME.sql
+
+# EOF

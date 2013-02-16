@@ -1,0 +1,31 @@
+#!/bin/sh
+
+#
+# dumptables
+# Development full-database dump utility.
+#
+
+if [ $# -lt 3 ]; then
+  echo "usage: $0 DBUSER DBPASS DATABASE_NAME"
+  exit 1
+fi
+
+# Get db credentials
+DBUSER=${1}
+DBPASS=${2}
+
+# Get db name
+DBNAME=${3}
+
+echo "Database: $DBNAME"
+
+DBNAMELIST=`echo $DBNAME`list.txt
+
+echo "List    : $DBNAMELIST"
+
+rm -f tmp/*.sql
+
+for TABLENAME in `cat $DBNAME/$DBNAMELIST`
+do
+  ./dumptable $DBUSER $DBPASS $DBNAME $TABLENAME
+done

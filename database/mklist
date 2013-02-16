@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#
+# listtables
+# Development database table list utility.
+#
+
+if [ $# -lt 3 ]; then
+  echo "usage: $0 DBUSER DBPASS DATABASE_NAME"
+  exit 1
+fi
+
+# Get db credentials
+DBUSER=${1}
+DBPASS=${2}
+DBNAME=${3}
+
+mysqlshow -u $DBUSER -p$DBPASS $DBNAME | grep -v "+" | grep -v "Tables" | grep -v ":" | tr -d "|" | cut -c 2- 
+
+# EOF
