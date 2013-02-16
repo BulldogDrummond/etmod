@@ -35,7 +35,6 @@ struct _matchinfo_t
 
 typedef struct _matchinfo_t g_matchinfo_t;
 
-void G_matchinfo_add(g_matchinfo_t *matchinfo);
 g_matchinfo_t *G_matchinfo_pop();
 // This only delete that ONE match info. It does NOT deallocate the list
 void G_matchinfo_delete(g_matchinfo_t *matchinfo);

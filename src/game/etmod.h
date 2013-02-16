@@ -12,6 +12,6 @@
 #define _ETMOD_H
 
 // This will be modified by cmake at build time
-#define ETMOD_VERSION "1.0.95"
+#define ETMOD_VERSION "1.0.96"
 
 #endif /* ifndef _ETMOD_H */

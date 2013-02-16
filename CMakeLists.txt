@@ -127,7 +127,6 @@ FILE(GLOB QAGAME_SRC
 	"src/game/g_xpsave.c"
 	"src/game/g_crash.c"
 	"src/game/g_etbot_interface.cpp"
-	"src/game/g_http_client.c"
 	"src/game/g_matchinfo.c"
 	"src/game/g_censor.c"
 	"src/game/g_player_rating.c"

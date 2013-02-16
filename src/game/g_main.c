@@ -10,7 +10,6 @@
 
 #include "g_local.h"
 #include "etpro_mdx.h"
-#include "g_http_client.h"
 #include "g_mysql.h"
 #include "menudef.h" // Dens: needed for the ref level
 
@@ -77,7 +76,6 @@ vmCvar_t g_debugMove;
 vmCvar_t g_debugDamage;
 vmCvar_t g_debugAlloc;
 vmCvar_t g_debugBullets;       //----(SA)    added
-vmCvar_t g_debugHttpPost;
 vmCvar_t g_motd;
 #ifdef ALLOW_GSYNC
 vmCvar_t g_synchronousClients;
@@ -343,11 +341,7 @@ vmCvar_t g_censorPenalty;
 vmCvar_t g_censorMuteTime;
 vmCvar_t g_censorNeil;
 vmCvar_t g_censorNamesNeil;
-vmCvar_t g_httpPostURL_chat;
-vmCvar_t g_httpPostURL_ratings;
-vmCvar_t g_httpPostURL_log;
-vmCvar_t g_etmod_stats_id;
-vmCvar_t g_etmod_stats_master_url;
+vmCvar_t g_server_uid;
 vmCvar_t g_killRating;
 vmCvar_t g_trackBehavior;
 vmCvar_t g_playerRating;
@@ -676,7 +670,6 @@ cvarTable_t gameCvarTable[] =
     { &g_debugAlloc,                    "g_debugAlloc",                    "0",                                                      0,                                                        0, qfalse},
 //    { &g_debugBullets, "g_debugBullets", "0", CVAR_CHEAT, 0, qfalse},    //----(SA)    added
     { &g_debugBullets,                  "g_debugBullets",                  "0",                                                      0,                                                        0, qfalse},
-    { &g_debugHttpPost,                 "g_debugHttpPost",                 "0",                                                      0,                                                        0, qfalse},
     { &g_motd,                          "g_motd",                          "",                                                       CVAR_ARCHIVE,                                             0, qfalse},
 
     { &g_podiumDist,                    "g_podiumDist",                    "80",                                                     0,                                                        0, qfalse},
@@ -907,11 +900,7 @@ cvarTable_t gameCvarTable[] =
     // Josh
     { &g_tactics,                       "g_tactics",                       "0",                                                      0 },
     { &g_logOptions,                    "g_logOptions",                    "0",                                                      0 },
-    { &g_httpPostURL_chat,              "g_httpPostURL_chat",              "",                                                       0 },
-    { &g_httpPostURL_ratings,           "g_httpPostURL_ratings",           "",                                                       0 },
-    { &g_httpPostURL_log,               "g_httpPostURL_log",               "",                                                       0 },
-    { &g_etmod_stats_id,                "g_etmod_stats_id",                "-1",                                                     0 },
-    { &g_etmod_stats_master_url,        "g_etmod_stats_master_url",        "http://stats.example.lan/submit_game.php",               0 },
+    { &g_server_uid,                    "g_server_uid",                    "-1",                                                     0 },
     { &g_censor,                        "g_censor",                        "",                                                       0 },
     { &g_censorNames,                   "g_censorNames",                   "",                                                       0 },
     { &g_censorPenalty,                 "g_censorPenalty",                 "0",                                                      0 },

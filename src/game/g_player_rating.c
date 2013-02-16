@@ -170,7 +170,7 @@ float G_GetWinProbability(team_t team, gentity_t *ent, qboolean updateWeights)
 
     if (updateWeights)
     {
-        if (g_etmod_stats_id.integer != -1)
+        if (g_server_uid.integer != -1)
         {
             matchinfo               = (g_matchinfo_t *)malloc(sizeof(g_matchinfo_t));
             matchinfo->length       = timepassed;
@@ -181,7 +181,7 @@ float G_GetWinProbability(team_t team, gentity_t *ent, qboolean updateWeights)
         }
         if (team == TEAM_AXIS)
         {
-            if (g_etmod_stats_id.integer != -1)
+            if (g_server_uid.integer != -1)
             {
                 matchinfo->winner = TEAM_AXIS;
             }
@@ -199,7 +199,7 @@ float G_GetWinProbability(team_t team, gentity_t *ent, qboolean updateWeights)
         }
         else
         {
-            if (g_etmod_stats_id.integer != -1)
+            if (g_server_uid.integer != -1)
             {
                 matchinfo->winner = TEAM_ALLIES;
             }
@@ -258,9 +258,9 @@ float G_GetWinProbability(team_t team, gentity_t *ent, qboolean updateWeights)
 
         if (updateWeights && (g_playerRating.integer &
                               PLAYER_RATING_DATASET ||
-                              g_etmod_stats_id.integer != -1))
+                              g_server_uid.integer != -1))
         {
-            if (g_etmod_stats_id.integer != -1)
+            if (g_server_uid.integer != -1)
             {
                 playermatchinfo = &matchinfo->players[matchinfo->num_players];
                 Q_strncpyz(playermatchinfo->name, cl->pers.netname, sizeof(playermatchinfo->name));
@@ -292,9 +292,9 @@ float G_GetWinProbability(team_t team, gentity_t *ent, qboolean updateWeights)
             map_total_player_time_allies += disconnect->allies_time;
             if (updateWeights && (g_playerRating.integer
                                   & PLAYER_RATING_DATASET ||
-                                  g_etmod_stats_id.integer != -1))
+                                  g_server_uid.integer != -1))
             {
-                if (g_etmod_stats_id.integer != -1)
+                if (g_server_uid.integer != -1)
                 {
                     playermatchinfo = &matchinfo->players[matchinfo->num_players];
                     Q_strncpyz(playermatchinfo->name, disconnect->xpsave->name, sizeof(playermatchinfo->name));
@@ -318,11 +318,6 @@ float G_GetWinProbability(team_t team, gentity_t *ent, qboolean updateWeights)
                             );
             }
         }
-    }
-
-    if (updateWeights && g_etmod_stats_id.integer != -1)
-    {
-        G_matchinfo_add(matchinfo);
     }
 
     if (!updateWeights)

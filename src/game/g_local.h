@@ -1491,23 +1491,6 @@ typedef struct
     int num_nulled_words;
 } wordDictionary;
 
-// josh: http message struct for thread
-typedef struct
-{
-    char url[MAX_CVAR_VALUE_STRING];
-    // 1024 since that's the max G_LogPrintf length
-    char message[1024];
-} g_httpinfo_t;
-
-// josh: for posting match info to global stats
-typedef struct
-{
-    char url[MAX_CVAR_VALUE_STRING];
-    char **info_lines; //(MAX_SAY_TEXT+MAX_NETNAME+4) * 65 lines
-    int *info_lines_lengths;
-    int num_lines;
-} g_http_matchinfo_t;
-
 void G_PrivateMessage(gentity_t *ent);
 void G_AdminChat(gentity_t *ent);
 void G_PlayDead(gentity_t *ent);
@@ -2318,17 +2301,8 @@ extern vmCvar_t g_killRating;
 extern vmCvar_t g_playerRating;
 extern vmCvar_t g_trackBehavior;
 
-// Unique ID to identify server with stats.etmod.org
-// this ID should be part of all stats.etmod.org posts
-extern vmCvar_t g_etmod_stats_id;
-// URL of the stats master. Defaults to http://stats.etmod.org/submit_game.php
-extern vmCvar_t g_etmod_stats_master_url;
-// Post chats to this URL
-extern vmCvar_t g_httpPostURL_chat;
-// Post end of round kill rating and player rating to this URL
-extern vmCvar_t g_httpPostURL_ratings;
-// Post every log message to this URL
-extern vmCvar_t g_httpPostURL_log;
+// Unique ID to identify server
+extern vmCvar_t g_server_uid;
 // Amount of wins to add to each side to stabilize mean early on
 extern vmCvar_t g_playerRating_mapPad;
 // minimum # of players to count the map towards rating
