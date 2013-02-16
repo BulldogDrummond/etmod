@@ -1,0 +1,4 @@
+Most of this code is distributed under the GPL3 license.
+
+This product includes GeoLite data created by MaxMind.
+
