@@ -28,7 +28,7 @@ char *GeoIP_addr_clean(const char *addr)
 }
 
 // Return GeoIP database-friendly IP integer
-unsigned long GeoIP_addr_to_int(const char *addr)
+unsigned long GeoIP_addr_int(const char *addr)
 {
     unsigned long ip_int = 0;
     unsigned int c1,c2,c3,c4;
@@ -48,9 +48,8 @@ unsigned long GeoIP_addr_to_num(const char *addr)
     unsigned long ipnum = 0;
     char          c     = 0;
 
-    G_Printf("GeoIP Addr Clean   : %s\n", GeoIP_addr_clean(addr));
-    G_Printf("GeoIP Addr Int     : %lu\n", GeoIP_addr_to_int(GeoIP_addr_clean(addr)));
-    G_Printf("GeoIP Addr Int Test: %lu\n", GeoIP_addr_to_int("50.141.207.233"));
+    G_Printf("GeoIP Address  : %s\n", GeoIP_addr_clean(addr));
+    G_Printf("GeoIP Int Addr : %lu\n", GeoIP_addr_int(GeoIP_addr_clean(addr)));
 
     for (i = 0; i < 4; i++)
     {
