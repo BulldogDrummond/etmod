@@ -324,4 +324,53 @@ void G_DB_MapStatSave(char *mapname, float rating, float rating_variance, int sp
     return;
 }
 
+char *G_DB_GeoIPCountry(long unsigned ip_int)
+{
+    char *dbhost;
+    char *dbname;
+    char *dbuser;
+    char *dbpass;
+
+    dbhost = g_dbHostname.string;
+    dbname = g_dbDatabase.string;
+    dbuser = g_dbUsername.string;
+    dbpass = g_dbPassword.string;
+
+    MYSQL     *conn;
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+
+    char* buf = (char*)malloc(4);
+
+    char query[200];
+    sprintf(query, "SELECT country_code FROM server_geoip WHERE %lu BETWEEN start_integer AND end_integer LIMIT 1", ip_int);
+
+    conn = mysql_init(NULL);
+    if (!mysql_real_connect(conn, dbhost, dbuser, dbpass, dbname, 0, NULL, 0))
+    {
+        G_Printf("Database Error: %s\n", mysql_error(conn));
+    }
+    else
+    {
+        if (mysql_query(conn, query))
+        {
+            G_Printf("Database Status: %s\n", mysql_error(conn));
+            Q_strncpyz(buf,"ERR",sizeof(buf));
+            mysql_close(conn);
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {
+                Q_strncpyz(buf,row[0],sizeof(buf));
+            }
+            mysql_free_result(res);
+            mysql_close(conn);
+        }
+    }
+
+    return buf;
+}
+
 #endif /* FEATURE_MYSQL */

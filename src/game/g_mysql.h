@@ -26,6 +26,8 @@ void G_DB_InitGameTest();
 void G_DB_SetMap(char *server);
 void G_DB_ResetMap();
 
+char *G_DB_GeoIPCountry(unsigned long ip_int);
+
 void G_DB_ServerStatSave(float s_rating, float s_rating_variance,
                          float s_distance_rating, float s_distance_variance);
 

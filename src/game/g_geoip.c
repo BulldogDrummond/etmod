@@ -9,6 +9,7 @@
  *********************************************************/
 
 #include "g_local.h"
+#include "g_mysql.h"
 
 GeoIP *gidb = NULL;
 
@@ -50,6 +51,7 @@ unsigned long GeoIP_addr_to_num(const char *addr)
 
     G_Printf("GeoIP Address  : %s\n", GeoIP_addr_clean(addr));
     G_Printf("GeoIP Int Addr : %lu\n", GeoIP_addr_int(GeoIP_addr_clean(addr)));
+    G_Printf("GeoIP Country  : %s\n", G_DB_GeoIPCountry(GeoIP_addr_int(GeoIP_addr_clean(addr))));
 
     for (i = 0; i < 4; i++)
     {
