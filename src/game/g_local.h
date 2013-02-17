@@ -701,7 +701,7 @@ typedef struct
     char guid[PB_GUID_LENGTH + 1];
     // Dens: added to prevent spoofing
     char ip[22];
-    unsigned int uci; //mcwf GeoIP
+    char geo[4]; // GeoIP
 
     char mac[18]; //harald
 
@@ -2528,7 +2528,7 @@ extern vmCvar_t g_damageBonusOpts;
 extern vmCvar_t g_damageBonusNearMedics;
 extern vmCvar_t g_damageBonusTotalMedics;
 
-extern vmCvar_t g_countryFlags; //mcwf GeoIP
+extern vmCvar_t g_country; // GeoIP
 
 // Mysql
 extern vmCvar_t g_dbEnable;
@@ -3427,21 +3427,10 @@ void DisableCoreDumps();
 void EnableStackTrace();
 void DisableStackTrace();
 
-//mcwf GeoIP
-typedef struct GeoIPTag
-{
-    fileHandle_t GeoIPDatabase;
-    unsigned char *cache;
-    unsigned int memsize;
-} GeoIP;
-
-unsigned long GeoIP_addr_to_num(const char *addr);
-unsigned int GeoIP_seek_record(GeoIP *gi, unsigned long ipnum);
-void GeoIP_open(void);
-void GeoIP_close(void);
-
-extern GeoIP *gidb;
-//mcwf GeoIP
+// GeoIP
+char *GeoIP_addr_clean(const char *addr);
+unsigned long GeoIP_addr_int(const char *addr);
+char *GeoIP_country(const char *addr);
 
 // yada
 void ConsolizeString(char *in, char *out);

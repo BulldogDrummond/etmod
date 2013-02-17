@@ -568,7 +568,7 @@ vmCvar_t g_mg42;
 vmCvar_t g_clientVersion;
 vmCvar_t g_panzerLevelUp;
 
-vmCvar_t g_countryFlags; //mcwf GeoIP
+vmCvar_t g_country; // GeoIP
 
 // Mysql
 vmCvar_t g_dbEnable;
@@ -1098,7 +1098,7 @@ cvarTable_t gameCvarTable[] =
     { &g_damageBonusNearMedics,         "g_damageBonusNearMedics",         "0",                                                      0 },
     { &g_damageBonusTotalMedics,        "g_damageBonusTotalMedics",        "0",                                                      0 },
 
-    { &g_countryFlags,                  "g_countryFlags",                  "1",                                                      0 },                                                      //mcwf GeoIP
+    { &g_country,                       "g_country",                       "UNK",                                                    0 },                                                      // GeoIP
 
     { &g_dbEnable,                      "db_enable",                       "0",                                                      0,                                                        0, qfalse}, // Mysql
     { &g_dbHostname,                    "db_hostname",                     "",                                                       0,                                                        0, qfalse},
@@ -3453,10 +3453,6 @@ void G_InitGame(int levelTime, int randomSeed, int restart)
         }
     }
 
-    //mcwf GeoIP
-    GeoIP_open();     //open/update
-    //mcwf GeoIP
-
     /*Dens: Removed the warning
     // forty - fixed physics
     if(g_fixedphysics.integer) {
@@ -3508,9 +3504,6 @@ void G_ShutdownGame(int restart)
 
     // write all the client session data so we can get it back
     G_WriteSessionData(restart);
-
-    // redeye/mcwf - release allocated GeoIP stuff
-    GeoIP_close();
 
     // zinx - realistic hitboxes
     mdx_cleanup();

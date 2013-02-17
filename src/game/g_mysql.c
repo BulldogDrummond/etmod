@@ -340,7 +340,7 @@ char *G_DB_GeoIPCountry(long unsigned ip_int)
     MYSQL_RES *res;
     MYSQL_ROW row;
 
-    char* buf = (char*)malloc(4);
+    char *buf = (char *)malloc(4);
 
     char query[200];
     sprintf(query, "SELECT country_code FROM server_geoip WHERE %lu BETWEEN start_integer AND end_integer LIMIT 1", ip_int);
@@ -355,7 +355,7 @@ char *G_DB_GeoIPCountry(long unsigned ip_int)
         if (mysql_query(conn, query))
         {
             G_Printf("Database Status: %s\n", mysql_error(conn));
-            Q_strncpyz(buf,"ERR",sizeof(buf));
+            Q_strncpyz(buf, "ERR", sizeof(buf));
             mysql_close(conn);
         }
         else
@@ -363,7 +363,7 @@ char *G_DB_GeoIPCountry(long unsigned ip_int)
             res = mysql_use_result(conn);
             while ((row = mysql_fetch_row(res)) != NULL)
             {
-                Q_strncpyz(buf,row[0],sizeof(buf));
+                Q_strncpyz(buf, row[0], sizeof(buf));
             }
             mysql_free_result(res);
             mysql_close(conn);

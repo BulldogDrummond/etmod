@@ -39,7 +39,8 @@ void G_WriteClientSessionData(gclient_t *client, qboolean restart)
     //if(level.fResetStats) G_deleteStats(client - level.clients);
     G_deleteStats(client - level.clients);
 
-    s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %f %f %f %f %i %i %i %i %i %i %i %i %i %i %i %i %i %s %s %s %u %d %i %i",
+//    s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %f %f %f %f %i %i %i %i %i %i %i %i %i %i %i %i %i %s %s %s %u %d %i %i",
+    s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %f %f %f %f %i %i %i %i %i %i %i %i %i %i %i %i %i %s %s %s %s %d %i %i",
            client->sess.sessionTeam,
            client->sess.spectatorTime,
            client->sess.spectatorState,
@@ -90,7 +91,7 @@ void G_WriteClientSessionData(gclient_t *client, qboolean restart)
            client->sess.mac &&
            (!client->sess.mac || !Q_stricmp(client->sess.mac, "")) ?
            "NOMAC" : client->sess.mac,
-           client->sess.uci, //mcwf GeoIP
+           client->sess.geo, // GeoIP
            client->sess.need_greeting,
            // quad: shoutcaster and ettv
            client->sess.shoutcaster,
@@ -232,7 +233,7 @@ void G_ReadSessionData(gclient_t *client)
 
     trap_Cvar_VariableStringBuffer(va("session%i", client - level.clients), s, sizeof(s));
 
-    sscanf(s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %f %f %f %f %i %i %i %i %i %i %i %i %i %i %i %i %i %s %s %s %u %d %i %i",  //mcwf GeoIP
+    sscanf(s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %f %f %f %f %i %i %i %i %i %i %i %i %i %i %i %i %i %s %s %s %s %d %i %i",
            (int *)&client->sess.sessionTeam,
            &client->sess.spectatorTime,
            (int *)&client->sess.spectatorState,
@@ -275,7 +276,7 @@ void G_ReadSessionData(gclient_t *client)
            client->sess.guid,
            client->sess.ip,
            client->sess.mac,
-           &client->sess.uci, //mcwf GeoIP
+           client->sess.geo, // GeoIP
            &need_greeting,
            // quad: shoutcaster and ettv
            &client->sess.shoutcaster,
@@ -452,7 +453,7 @@ void G_InitSessionData(gclient_t *client, char *userinfo)
     sess->rating          = 0.0;
     sess->rating_variance = SIGMA2_THETA;
 
-    sess->uci           = 0; //mcwf GeoIP
+    Q_strncpyz(sess->geo, "UNK", sizeof(sess->geo)); // GeoIP
     sess->need_greeting = qtrue; // redeye - moved greeting message to ClientBegin
 
     // quad - shoutcaster & ettv

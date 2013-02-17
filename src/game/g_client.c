@@ -2600,10 +2600,7 @@ void ClientUserinfoChanged(int clientNum)
 
     // send over a subset of the userinfo keys so other clients can
     // print scoreboards, display models, and play custom sounds
-    // mcwf GeoIP
-    // quad: added support for latched classes
-    // quad: added support for ettv & shoutcaster
-    s = va("n\\%s\\t\\%i\\c\\%i\\r\\%i\\m\\%s\\s\\%s\\dn\\%s\\dr\\%i\\w\\%i\\lw\\%i\\sw\\%i\\mu\\%i\\ref\\%i\\geo\\%u\\lc\\%i\\tv\\%i\\sc\\%i",
+    s = va("n\\%s\\t\\%i\\c\\%i\\r\\%i\\m\\%s\\s\\%s\\dn\\%s\\dr\\%i\\w\\%i\\lw\\%i\\sw\\%i\\mu\\%i\\ref\\%i\\geo\\%s\\lc\\%i\\tv\\%i\\sc\\%i",
            client->pers.netname,
            client->sess.sessionTeam,
            client->sess.playerType,
@@ -2617,7 +2614,7 @@ void ClientUserinfoChanged(int clientNum)
            client->sess.latchPlayerWeapon2,
            (client->sess.auto_unmute_time != 0) ? 1 : 0,
            client->sess.referee,
-           client->sess.uci,  //mcwf GeoIP
+           client->sess.geo, // GeoIP
            client->sess.latchPlayerType,
            client->sess.ettv,
            client->sess.shoutcaster
@@ -2958,61 +2955,16 @@ char *ClientConnect(int clientNum, qboolean firstTime, qboolean isBot)
     }
     //}
 
-    //mcwf GeoIP
-
-    //10.0.0.0/8            [RFC1918]
-    //172.16.0.0/12            [RFC1918]
-    //192.168.0.0/16        [RFC1918]
-    //169.254.0.0/16        [RFC3330] we need this ?
-
-    //query performance about ~2.6 Sec for 1 million requests p4 2.0 Ghz
-
-    if (gidb != NULL)
+    // GeoIP
+    value = Info_ValueForKey(userinfo, "ip");
+    if (!strcmp(value, "localhost"))
     {
-
-        value = Info_ValueForKey(userinfo, "ip");
-        if (!strcmp(value, "localhost"))
-        {
-
-            client->sess.uci = 0;
-
-        }
-        else
-        {
-
-            unsigned long ip = GeoIP_addr_to_num(value);
-
-            if (((ip & 0xFF000000) == 0x0A000000) ||
-                ((ip & 0xFFF00000) == 0xAC100000) ||
-                ((ip & 0xFFFF0000) == 0xC0A80000) ||
-                (ip == 0x7F000001))
-            {
-
-                client->sess.uci = 246;
-
-            }
-            else
-            {
-
-                unsigned int ret = GeoIP_seek_record(gidb, ip);
-
-                if (ret > 0)
-                {
-                    client->sess.uci = ret;
-                }
-                else
-                {
-                    client->sess.uci = 246;
-                    G_LogPrintf("GeoIP: This IP:%s cannot be located\n", value);
-                }
-            }
-        }
+        Q_strncpyz(client->sess.geo, "LOC", sizeof(client->sess.geo));
     }
     else
     {
-        client->sess.uci = 255; //Don't draw anything if DB error
+        Q_strncpyz(client->sess.geo, GeoIP_country(client->sess.ip), sizeof(client->sess.geo));
     }
-    //mcwf GeoIP
 
     // tjw: this should not be necessary, but there seems to be
     //      certain cases that allow new players to assume the

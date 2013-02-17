@@ -1,5 +1,4 @@
 Check if lib will strip and how to do it in cmake.
 
-Remove GeoIP code (needs client to be useful)
 Remove map vote code (needs client)
 
