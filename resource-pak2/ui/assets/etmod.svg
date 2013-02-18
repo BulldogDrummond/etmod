@@ -12,9 +12,9 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.43"
-   sodipodi:docname="etpub.svg"
-   sodipodi:docbase="/home/tjw/etpublogo"
-   inkscape:export-filename="/home/tjw/etpublogo/etpub.png"
+   sodipodi:docname="etmod.svg"
+   sodipodi:docbase="/opt/wolfet/src/etmod/etmodlogo"
+   inkscape:export-filename="/opt/wolfet/etmod/etmodlogo/etmod.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <metadata
@@ -164,5 +164,5 @@
        sodipodi:role="line"
        id="tspan1363"
        x="6.7198629"
-       y="258.00577">etpub</tspan></text>
+       y="258.00577">etmod</tspan></text>
 </svg>
