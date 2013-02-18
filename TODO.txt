@@ -1,4 +1,4 @@
 Check if lib will strip and how to do it in cmake.
 
-Remove map vote code (needs client)
+Finish clean-up in pak2 resources.
 
