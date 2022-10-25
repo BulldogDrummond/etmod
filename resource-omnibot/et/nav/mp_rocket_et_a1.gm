@@ -283,7 +283,7 @@ global Map =
 
 global OnMapLoad = function()
 {
-	Util.SetGoalPosition( -1084, 374, -286, "PLANT_Tunnel_Blockade" );
+	Util.SetGoalPosition( -1170, 374, -286, "PLANT_Tunnel_Blockade" );
 	
 	if ( TestMapOn )
 		{ Util.AutoTestMap(); }
